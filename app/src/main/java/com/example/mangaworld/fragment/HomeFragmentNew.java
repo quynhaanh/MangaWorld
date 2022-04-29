@@ -360,6 +360,7 @@ public class HomeFragmentNew extends Fragment {
             }
         });
 
+        //tắt shimmer
         shimmerTopManga.stopShimmer();
         shimmerTopManga.setVisibility(View.GONE);
     }
