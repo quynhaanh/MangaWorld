@@ -26,22 +26,22 @@ public class MainActivity extends AppCompatActivity {
             String str = "";
             switch (menuItem.getItemId()) {
                 case R.id.navigation_home:
-                    toolbar.setTitle(R.string.app_name);
+                    toolbar.setTitle(R.string.home);
                     MainActivity.this.openFragment(HomeFragmentNew.newInstance(str, str, MainActivity.this));
                     return true;
 
                 case R.id.navigation_map:
-                    toolbar.setTitle("Genre");
+                    toolbar.setTitle(R.string.genres);
                     MainActivity.this.openFragment(GenreFragment.newInstance(str, str));
                     return true;
 
                 case R.id.navigation_world:
-                    toolbar.setTitle("Search");
+                    toolbar.setTitle(R.string.search);
                     MainActivity.this.openFragment(LibraryFragment.newInstance(str, str));
                     return true;
 
                 case R.id.navigation_walk:
-                    toolbar.setTitle("Account");
+                    toolbar.setTitle(R.string.account);
                     MainActivity.this.openFragment(AccountFragment.newInstance(str, str));
                     return true;
 
