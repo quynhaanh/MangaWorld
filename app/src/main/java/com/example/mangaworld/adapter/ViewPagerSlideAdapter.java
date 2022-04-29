@@ -1,7 +1,6 @@
 package com.example.mangaworld.adapter;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mangaworld.R;
-import com.example.mangaworld.model.Slide;
+import com.example.mangaworld.model.Manga;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,9 +21,9 @@ import java.util.ArrayList;
 public class ViewPagerSlideAdapter extends RecyclerView.Adapter<ViewPagerSlideAdapter.PhotoViewHoder>{
 
     private ItemClickInterface itemClickInterface;
-    private ArrayList<Slide> slideArrayList;
+    private ArrayList<Manga> slideArrayList;
 
-    public ViewPagerSlideAdapter(ArrayList<Slide> slideArrayList) {
+    public ViewPagerSlideAdapter(ArrayList<Manga> slideArrayList) {
         this.slideArrayList = slideArrayList;
     }
 
@@ -37,7 +36,7 @@ public class ViewPagerSlideAdapter extends RecyclerView.Adapter<ViewPagerSlideAd
 
     @Override
     public void onBindViewHolder(@NonNull PhotoViewHoder holder, @SuppressLint("RecyclerView") int position) {
-        Slide slide = slideArrayList.get(position);
+        Manga slide = slideArrayList.get(position);
         Picasso.get()
                 .load(slideArrayList.get(position).getLink())
                 .resize(100, 100)

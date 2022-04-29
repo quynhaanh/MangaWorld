@@ -22,8 +22,10 @@
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable-v24/tab_selection.xml" value="0.12604166666666666" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable-v24/templace_backround.xml" value="0.18703703703703703" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.19479166666666667" />
+        <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.12604166666666666" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/ic_launcher_background.xml" value="0.18703703703703703" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/slide.xml" value="0.7214285714285714" />
+        <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_all_manga.xml" value="0.1431159420289855" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_load.xml" value="0.11639492753623189" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_main.xml" value="0.11639492753623189" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_genre.xml" value="0.14855072463768115" />
@@ -31,13 +33,14 @@
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_home_new.xml" value="0.16891284815813118" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_library.xml" value="0.14855072463768115" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_mine.xml" value="0.1" />
-        <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/item_manga.xml" value="0.14855072463768115" />
+        <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/item_manga.xml" value="0.4318181818181818" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/item_slide.xml" value="0.14855072463768115" />
+        <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/item_top.xml" value="0.25" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_genre.xml" value="0.1" />
-        <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_manhua_home.xml" value="0.10916919959473151" />
+        <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_manhua_home.xml" value="0.25" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_manhwa_home.xml" value="0.14855072463768115" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_mine.xml" value="0.14855072463768115" />
-        <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_popular_home.xml" value="0.10916919959473151" />
+        <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_popular_home.xml" value="3.0" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/templace_item_commended.xml" value="0.14855072463768115" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/templace_item_gener.xml" value="0.14855072463768115" />
         <entry key="..\:/Users/nhatquan/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/templace_item_manga.xml" value="0.14855072463768115" />
