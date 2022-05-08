@@ -13,10 +13,8 @@ import android.widget.Toast;
 
 import com.example.mangaworld.R;
 
-import com.example.mangaworld.adapter.ChapterRecyclerViewAdapter;
 import com.example.mangaworld.adapter.ContentChapRecyclerviewAdapter;
 
-import com.example.mangaworld.adapter.ItemClickInterface;
 import com.example.mangaworld.model.Chapter;
 
 
@@ -30,6 +28,7 @@ public class ChapterActivity extends AppCompatActivity {
     private int idManga;
     private int idChapter;
     private LinearLayoutManager layoutManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,27 +45,33 @@ public class ChapterActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        id_cur = idChapter;
         scrollToItem(idChapter);
         tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(idChapter<chapterArrayList.size()){ ;
-                    scrollToItem(idChapter+1);
+                if(id_cur<chapterArrayList.size()){
+                    scrollToItem(id_cur+1);
+                    id_cur++;
                 }
+
             }
         });
 
         tvPositive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(idChapter!=0){ ;
-                    scrollToItem(idChapter-1);
+                if(id_cur>0){
+                    scrollToItem(id_cur-1);
+                    id_cur--;
                 }
             }
         });
     }
 
+    public int id_cur;
     private void LoadContentChapter(int idManga, int idChapter) {
+        id_cur = idChapter;
         recycleViewContentChapter = findViewById(R.id.recycleViewContentChap);
         tvBack = findViewById(R.id.textView9);
         tvNext = findViewById(R.id.txtGiam);
@@ -75,17 +80,20 @@ public class ChapterActivity extends AppCompatActivity {
         tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(idChapter<chapterArrayList.size()){ ;
-                    scrollToItem(idChapter+1);
+                if(id_cur<chapterArrayList.size()){
+                    scrollToItem(id_cur+1);
+                    id_cur++;
                 }
+
             }
         });
 
         tvPositive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(idChapter>0){ ;
-                    scrollToItem(idChapter-1);
+                if(id_cur>0){
+                    scrollToItem(id_cur-1);
+                    id_cur--;
                 }
             }
         });
