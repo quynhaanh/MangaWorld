@@ -57,6 +57,7 @@ public class AllMangaActivity extends AppCompatActivity {
             LoadTopManga();
         }
     }
+
     private void LoadPopularManga() {
         recycleViewAllManga = findViewById(R.id.recycleViewAllManga);
         btnSearch = findViewById(R.id.btnSearch);

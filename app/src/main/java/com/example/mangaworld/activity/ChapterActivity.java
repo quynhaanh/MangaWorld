@@ -73,7 +73,6 @@ public class ChapterActivity extends AppCompatActivity {
     private void LoadContentChapter(int idManga, int idChapter) {
         id_cur = idChapter;
         recycleViewContentChapter = findViewById(R.id.recycleViewContentChap);
-        tvBack = findViewById(R.id.textView9);
         tvNext = findViewById(R.id.txtGiam);
         tvPositive = findViewById(R.id.txtTang);
         scrollToItem(idChapter);

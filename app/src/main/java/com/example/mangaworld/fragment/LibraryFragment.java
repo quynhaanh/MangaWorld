@@ -1,49 +1,47 @@
 package com.example.mangaworld.fragment;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.mangaworld.R;
+import com.example.mangaworld.activity.AllMangaActivity;
+import com.example.mangaworld.activity.DetailMangaActivity;
+import com.example.mangaworld.adapter.AllMangaRecyclerViewAdapter;
+import com.example.mangaworld.adapter.ItemClickInterface;
+import com.example.mangaworld.model.Manga;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LibraryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+
 public class LibraryFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private RecyclerView recycleViewAllManga;
+    private ShimmerFrameLayout shimmerAllManga;
+    private TextView btnBack;
+    private SearchView btnSearch;
+    private ArrayList<Manga> mangaArrayList;
+    private  ArrayList<Manga> tmpArray;
+    private AllMangaRecyclerViewAdapter allMangaRecyclerViewAdapter;
+    private String checkManga;
     public LibraryFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LibraryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static LibraryFragment newInstance(String param1, String param2) {
         LibraryFragment fragment = new LibraryFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,8 +50,6 @@ public class LibraryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -61,6 +57,62 @@ public class LibraryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_library, container, false);
+        View view = inflater.inflate(R.layout.fragment_library, container, false);
+        LoadSearchManga(view);
+        return view;
+    }
+    private void LoadSearchManga(View view) {
+        recycleViewAllManga = view.findViewById(R.id.recycleViewAllManga);
+        btnSearch = view.findViewById(R.id.btnSearch);
+        shimmerAllManga = view.findViewById(R.id.shimmerAllManga);
+        shimmerAllManga.startShimmer();
+        shimmerAllManga.setVisibility(View.VISIBLE);
+        mangaArrayList = new ArrayList<>();
+        tmpArray = new ArrayList<>();
+
+        //lấy dữ liệu tất cả truyện
+        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
+        mangaArrayList.add(slide);
+        tmpArray.add(slide);
+
+        allMangaRecyclerViewAdapter = new AllMangaRecyclerViewAdapter(mangaArrayList);
+        //click vào từng nút +
+        allMangaRecyclerViewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
+                intent.putExtra("idManga", mangaArrayList.get(position).getIdManga());
+                startActivity(intent);            }
+        });
+        recycleViewAllManga.setAdapter(allMangaRecyclerViewAdapter);
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recycleViewAllManga.setLayoutManager(layoutManager);
+
+        btnSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                queryData(newText);
+                return true;
+            }
+        });
+
+        //tắt shimmer
+        shimmerAllManga.stopShimmer();
+        shimmerAllManga.setVisibility(View.GONE);
+    }
+    public void queryData(String query) {
+        ArrayList<Manga> tmp = new ArrayList<>();
+        for(Manga manga:tmpArray){
+            if(manga.getTitle().contains(query))
+                tmp.add(manga);
+        }
+        allMangaRecyclerViewAdapter.updateChange(tmp);
     }
 }
