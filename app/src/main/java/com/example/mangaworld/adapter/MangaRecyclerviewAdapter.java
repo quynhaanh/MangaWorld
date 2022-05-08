@@ -5,6 +5,7 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,6 +51,7 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
 
     public class MangaRecyclerViewHoder extends RecyclerView.ViewHolder{
         public TextView tvName, tvPrice, tvGenge, tvBuy;
+        public FrameLayout bg_item_manga;
         public ImageView imageView;
         public MangaRecyclerViewHoder(@NonNull View view) {
             super(view);
@@ -58,6 +60,7 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
             this.tvGenge = (TextView) view.findViewById(R.id.tvGenre);
             this.tvPrice = (TextView) view.findViewById(R.id.txtPrice);
             this.tvBuy = (TextView) view.findViewById(R.id.tvBuy);
+            this.bg_item_manga = (FrameLayout) view.findViewById(R.id.bg_item_manga);
             this.setIsRecyclable(false);
         }
     }
@@ -74,6 +77,12 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
         viewHolder.tvPrice.setText(String.valueOf(manga.getPrice())+" view");
         viewHolder.tvGenge.setText(manga.getGenre());
         viewHolder.tvBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClickInterface.onClick(v, i);
+            }
+        });
+        viewHolder.bg_item_manga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 itemClickInterface.onClick(v, i);

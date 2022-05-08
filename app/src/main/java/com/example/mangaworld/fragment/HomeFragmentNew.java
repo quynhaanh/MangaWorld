@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.mangaworld.R;
 import com.example.mangaworld.activity.AllMangaActivity;
+import com.example.mangaworld.activity.ChapterActivity;
+import com.example.mangaworld.activity.DetailMangaActivity;
 import com.example.mangaworld.activity.LoadActivity;
 import com.example.mangaworld.activity.MainActivity;
 import com.example.mangaworld.adapter.ItemClickInterface;
@@ -168,8 +170,9 @@ public class HomeFragmentNew extends Fragment {
         viewPagerSlideAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(getContext(),slideArrayList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
-            }
+                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
+                intent.putExtra("idManga", slideArrayList.get(position).getIdManga());
+                startActivity(intent);            }
         });
         viewPager2.setAdapter(viewPagerSlideAdapter);
         indicator3.setViewPager(viewPager2);
@@ -196,10 +199,10 @@ public class HomeFragmentNew extends Fragment {
         shimmerPopular.setVisibility(View.VISIBLE);
         popularMangaArrayList = new ArrayList<>();
 
-        Manga slide = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
-        Manga slide1 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp", 50000, "Hài hước");
-        Manga slide2 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè", 80000, "Viễn tưởng, Siêu nhiên");
-        Manga slide3 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2", 10000, "Bá đạo");
+        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
+        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp", 50000, "Hài hước");
+        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè", 80000, "Viễn tưởng, Siêu nhiên");
+        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2", 10000, "Bá đạo");
         popularMangaArrayList.add(slide);
         popularMangaArrayList.add(slide1);
         popularMangaArrayList.add(slide2);
@@ -210,8 +213,9 @@ public class HomeFragmentNew extends Fragment {
         mangaRecyclerviewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(getContext(),String.valueOf(popularMangaArrayList.get(position).getPrice()), Toast.LENGTH_SHORT).show();
-            }
+                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
+                intent.putExtra("idManga", popularMangaArrayList.get(position).getIdManga());
+                startActivity(intent);            }
         });
         recycleViewPopulation.setAdapter(mangaRecyclerviewAdapter);
         LinearLayoutManager layoutManager
@@ -221,9 +225,10 @@ public class HomeFragmentNew extends Fragment {
         tvSeeAllPopular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //truyền qua cho nó 1 chữ số để nhận biết dữ liệu khi dùng chung màn hình
+                //truyền qua cho nó key để nhận biết dữ liệu khi dùng chung màn hình
                 //vd số 1 là see all popular, số 2 là see all manhhua, số 3 là see all manhwa
                 Intent intent = new Intent(getContext(), AllMangaActivity.class);
+                intent.putExtra("checkManga", "popular");
                 startActivity(intent);
             }
         });
@@ -240,10 +245,10 @@ public class HomeFragmentNew extends Fragment {
         shimmerManhua.setVisibility(View.VISIBLE);
         manhuaMangaArrayList = new ArrayList<>();
 
-        Manga slide = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
-        Manga slide1 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp", 50000, "Hài hước");
-        Manga slide2 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè", 80000, "Viễn tưởng, Siêu nhiên");
-        Manga slide3 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2", 10000, "Bá đạo");
+        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
+        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp", 50000, "Hài hước");
+        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè", 80000, "Viễn tưởng, Siêu nhiên");
+        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2", 10000, "Bá đạo");
         manhuaMangaArrayList.add(slide);
         manhuaMangaArrayList.add(slide1);
         manhuaMangaArrayList.add(slide2);
@@ -254,8 +259,9 @@ public class HomeFragmentNew extends Fragment {
         manhuaRecyclerviewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(getContext(),String.valueOf(manhuaMangaArrayList.get(position).getPrice()), Toast.LENGTH_SHORT).show();
-            }
+                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
+                intent.putExtra("idManga", manhuaMangaArrayList.get(position).getIdManga());
+                startActivity(intent);            }
         });
         recycleViewManhua.setAdapter(manhuaRecyclerviewAdapter);
         LinearLayoutManager layoutManager
@@ -268,6 +274,7 @@ public class HomeFragmentNew extends Fragment {
                 //truyền qua cho nó 1 chữ số để nhận biết dữ liệu khi dùng chung màn hình
                 //vd số 1 là see all popular, số 2 là see all manhhua, số 3 là see all manhwa
                 Intent intent = new Intent(getContext(), AllMangaActivity.class);
+                intent.putExtra("checkManga", "manhua");
                 startActivity(intent);
             }
         });
@@ -284,10 +291,10 @@ public class HomeFragmentNew extends Fragment {
         shimmerManhwa.setVisibility(View.VISIBLE);
         manhwaMangaArrayList = new ArrayList<>();
 
-        Manga slide = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
-        Manga slide1 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp", 50000, "Hài hước");
-        Manga slide2 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè", 80000, "Viễn tưởng, Siêu nhiên");
-        Manga slide3 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2", 10000, "Bá đạo");
+        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
+        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp", 50000, "Hài hước");
+        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè", 80000, "Viễn tưởng, Siêu nhiên");
+        Manga slide3 = new Manga(4,"https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2", 10000, "Bá đạo");
         manhwaMangaArrayList.add(slide);
         manhwaMangaArrayList.add(slide1);
         manhwaMangaArrayList.add(slide2);
@@ -298,8 +305,9 @@ public class HomeFragmentNew extends Fragment {
         manhwaRecyclerviewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(getContext(),String.valueOf(manhwaMangaArrayList.get(position).getPrice()), Toast.LENGTH_SHORT).show();
-            }
+                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
+                intent.putExtra("idManga", manhwaMangaArrayList.get(position).getIdManga());
+                startActivity(intent);            }
         });
         recycleViewManhwa.setAdapter(manhwaRecyclerviewAdapter);
         LinearLayoutManager layoutManager
@@ -312,6 +320,7 @@ public class HomeFragmentNew extends Fragment {
                 //truyền qua cho nó 1 chữ số để nhận biết dữ liệu khi dùng chung màn hình
                 //vd số 1 là see all popular, số 2 là see all manhhua, số 3 là see all manhwa
                 Intent intent = new Intent(getContext(), AllMangaActivity.class);
+                intent.putExtra("checkManga", "manhwa");
                 startActivity(intent);
             }
         });
@@ -328,10 +337,10 @@ public class HomeFragmentNew extends Fragment {
         shimmerTopManga.setVisibility(View.VISIBLE);
         topMangaArrayList = new ArrayList<>();
 
-        Manga slide = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
-        Manga slide1 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp", 50000, "Hài hước");
-        Manga slide2 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè", 80000, "Viễn tưởng, Siêu nhiên");
-        Manga slide3 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2", 10000, "Bá đạo");
+        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
+        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp", 50000, "Hài hước");
+        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè", 80000, "Viễn tưởng, Siêu nhiên");
+        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2", 10000, "Bá đạo");
         topMangaArrayList.add(slide);
         topMangaArrayList.add(slide1);
         topMangaArrayList.add(slide2);
@@ -342,7 +351,9 @@ public class HomeFragmentNew extends Fragment {
         topMangaRecyclerviewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(getContext(),String.valueOf(manhwaMangaArrayList.get(position).getPrice()), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
+                intent.putExtra("idManga", topMangaArrayList.get(position).getIdManga());
+                startActivity(intent);
             }
         });
         recycleViewTopManga.setAdapter(topMangaRecyclerviewAdapter);
@@ -356,6 +367,7 @@ public class HomeFragmentNew extends Fragment {
                 //truyền qua cho nó 1 chữ số để nhận biết dữ liệu khi dùng chung màn hình
                 //vd số 1 là see all popular, số 2 là see all manhhua, số 3 là see all manhwa
                 Intent intent = new Intent(getContext(), AllMangaActivity.class);
+                intent.putExtra("checkManga", "top");
                 startActivity(intent);
             }
         });

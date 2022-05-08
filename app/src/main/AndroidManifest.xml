@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MangaWorld">
         <activity
+            android:name=".activity.DetailMangaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChapterActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.AllMangaActivity"
             android:exported="false" />
         <activity
