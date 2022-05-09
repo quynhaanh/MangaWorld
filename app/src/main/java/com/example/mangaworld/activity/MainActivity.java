@@ -1,5 +1,6 @@
 package com.example.mangaworld.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -9,7 +10,15 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.mangaworld.R;
 import com.example.mangaworld.fragment.GenreFragment;
 import com.example.mangaworld.fragment.HomeFragmentNew;
@@ -17,9 +26,14 @@ import com.example.mangaworld.fragment.LibraryFragment;
 import com.example.mangaworld.fragment.AccountFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigation;
     private Toolbar toolbar;
+
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -82,6 +96,38 @@ public class MainActivity extends AppCompatActivity {
         beginTransaction.replace(R.id.nav_host_fragment, fragment);
         beginTransaction.addToBackStack(null);
         beginTransaction.commit();
+    }
+
+    public int sendOTPCode(String email) {
+        Random random = new Random();
+        int code = random.nextInt(8999) + 1000;
+
+        String url = "http://192.168.1.6/api/send_mail.php";
+
+        RequestQueue request = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                params.put("code", code + "");
+                return params;
+            }
+        };
+        request.add(stringRequest);
+
+        return code;
     }
 
     @Override

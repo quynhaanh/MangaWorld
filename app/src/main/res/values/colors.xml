@@ -10,7 +10,8 @@
     <color name="background_color_white">#fff</color>
     <color name="green_color">#53B175</color>
     <color name="line_color">#9BB5C1</color>
-    <color name="colorSkyBlue">#F44336</color>
+    <color name="colorLightRed">#F44336</color>
+    <color name="colorSkyBlue">#00124C</color>
     <color name="text_color_white">#fff</color>
 
 </resources>
