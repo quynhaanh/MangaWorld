@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mangaworld.R;
+import com.example.mangaworld.fragment.AccountInfoFragment;
 import com.example.mangaworld.fragment.GenreFragment;
 import com.example.mangaworld.fragment.HomeFragmentNew;
 import com.example.mangaworld.fragment.LibraryFragment;
@@ -33,6 +34,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigation;
     private Toolbar toolbar;
+    private String userRole;
 
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -56,7 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.navigation_walk:
                     toolbar.setTitle(R.string.account);
-                    MainActivity.this.openFragment(AccountFragment.newInstance(str, str));
+                    if (userRole != null) {
+                        MainActivity.this.openFragment(AccountInfoFragment.newInstance(str, str, userRole));
+                    } else {
+                        MainActivity.this.openFragment(AccountFragment.newInstance(str, str));
+                    }
                     return true;
 
                 default:
@@ -71,18 +77,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.toolbar = initToolbar();
+        userRole = null;
 
         initBottomNavigation();
     }
 
-    private void initBottomNavigation(){
+    private void initBottomNavigation() {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.nav_view);
         this.bottomNavigation = bottomNavigationView;
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
         bottomNavigationView.setOnNavigationItemSelectedListener(this.navigationItemSelectedListener);
         //để chọn cho chắc cái icon home, mở luon cái home, toolbar set luôn chữ home
         String str2 = "";
-        openFragment(HomeFragmentNew.newInstance(str2 ,str2, MainActivity.this));
+        openFragment(HomeFragmentNew.newInstance(str2, str2, MainActivity.this));
     }
 
     private Toolbar initToolbar() {
@@ -96,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
         beginTransaction.replace(R.id.nav_host_fragment, fragment);
         beginTransaction.addToBackStack(null);
         beginTransaction.commit();
+    }
+
+    public void setUserRole(String role) {
+        this.userRole = role;
     }
 
     public int sendOTPCode(String email) {

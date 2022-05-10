@@ -87,7 +87,12 @@ public class SignInFragment extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).openFragment(AccountInfoFragment.newInstance("", "", "1"));
+                String userID = txtID.getText().toString();
+                if (userID.equals("admin")) {
+                    ((MainActivity) getActivity()).openFragment(AccountInfoFragment.newInstance("", "", "1"));
+                } else if (userID.equals("user")) {
+                    ((MainActivity) getActivity()).openFragment(AccountInfoFragment.newInstance("", "", "2"));
+                }
             }
         });
     }

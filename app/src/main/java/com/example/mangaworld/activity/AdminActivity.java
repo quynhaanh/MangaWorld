@@ -17,15 +17,25 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void gotoUser(View view) {
+
         startActivity(new Intent(this, CRUDUser.class));
     }
 
-    public void gotoAuthor(View view) { startActivity(new Intent(this, CRUDAuthorActivity.class)); }
+    public void gotoAuthor(View view) {
+        startActivity(new Intent(this, CRUDAuthorActivity.class));
+    }
 
     public void gotoType(View view) {
+
         startActivity(new Intent(this, CRUDBookTypes.class));
     }
+
     public void gotoChapter(View view) {
+
         startActivity(new Intent(this, CRUDChapter.class));
+    }
+
+    public void closeActivity(View view) {
+        finish();
     }
 }

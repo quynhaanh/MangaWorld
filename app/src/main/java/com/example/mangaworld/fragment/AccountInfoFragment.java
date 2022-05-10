@@ -1,5 +1,6 @@
 package com.example.mangaworld.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mangaworld.R;
+import com.example.mangaworld.activity.AdminActivity;
+import com.example.mangaworld.activity.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +33,7 @@ public class AccountInfoFragment extends Fragment {
     String role;
     TextView txtName;
     TextView txtEmail;
-    Button btnNav;
+    Button btnNav, btnLogOut;
 
     public AccountInfoFragment() {
         // Required empty public constructor
@@ -57,7 +60,8 @@ public class AccountInfoFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public static AccountInfoFragment newInstance(String param1, String param2, String role){
+
+    public static AccountInfoFragment newInstance(String param1, String param2, String role) {
         AccountInfoFragment fragment = new AccountInfoFragment(role);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -65,6 +69,7 @@ public class AccountInfoFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,17 +83,17 @@ public class AccountInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_account_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_account_info, container, false);
 
         setControl(view);
         setEvent();
 
-        if(role.equals("1")){
-            btnNav.setText("Sách của bạn");
-        }
-        else if(role.equals("2"))
-        {
+        logIn(role);
+
+        if (role.equals("1")) {
             btnNav.setText("Quản trị");
+        } else if (role.equals("2")) {
+            btnNav.setText("Sách của bạn");
             // user here
         }
         return view;
@@ -98,22 +103,38 @@ public class AccountInfoFragment extends Fragment {
         btnNav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(role.equals("1")){
-                    // admin here
+                if (role.equals("1")) {
+                    Intent intent = new Intent(getActivity(), AdminActivity.class);
+                    startActivity(intent);
+                } else if (role.equals("2")) {
+                    // user here - Chuyển hướng sang ACtivity của Long ở đây
+
+                    //=======================
                 }
-                else if(role.equals("2"))
-                {
-                    // user here
-                }
+            }
+        });
+
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Thêm Dialog hỏi người dùng có muốn logout hay không tại đây
+
+                logIn(null); // null = logout
+                ((MainActivity) getActivity()).openFragment(AccountFragment.newInstance("", ""));
             }
         });
     }
 
-    private void setControl(View view){
+    private void setControl(View view) {
         txtName = view.findViewById(R.id.txtName);
         txtEmail = view.findViewById(R.id.txtEmail);
 
         btnNav = view.findViewById(R.id.btnNav);
+        btnLogOut = view.findViewById(R.id.btnLogOut);
     }
 
+    private void logIn(String role) {
+        this.role = role;
+        ((MainActivity) getActivity()).setUserRole(role);
+    }
 }
