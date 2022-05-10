@@ -189,12 +189,15 @@ public class OTPFragment extends Fragment {
                         btnConfirm.setVisibility(View.VISIBLE);
                         if (String.valueOf(verifyCode).equals(code)) {
                             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+
+                            ((MainActivity) getActivity()).openFragment(AccountInfoFragment.newInstance("", "", "1"));
                         } else {
                             Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, 2000);
 
+                ((MainActivity) getActivity()).openFragment(SignInFragment.newInstance("", ""));
             }
         });
 

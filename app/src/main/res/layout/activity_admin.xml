@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.AdminActivity">
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Quản lý người dùng"
+        android:onClick="gotoUser"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Quản lý truyện"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Quản lý tập truyện"
+        android:onClick="gotoChapter"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:onClick="gotoAuthor"
+        android:text="Quản lý tác giả"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:onClick="gotoType"
+        android:text="Quản lý thể loại"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Thống kê"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp" />
+</LinearLayout>

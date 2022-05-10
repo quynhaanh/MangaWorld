@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.CRUDChapter"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp">
+    <TextView
+        style="@style/tv_normal"
+        android:layout_marginTop="5dp"
+        android:text="Book" />
+    <Spinner
+        android:id="@+id/spinnerBooks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog" />
+    <TextView
+        style="@style/tv_normal"
+        android:layout_marginTop="5dp"
+        android:text="ID" />
+
+    <EditText
+        android:id="@+id/edChapterID"
+        style="@style/ed_normal"/>
+
+    <TextView
+        style="@style/tv_normal"
+        android:layout_marginTop="5dp"
+        android:text="Name" />
+
+    <EditText
+        android:id="@+id/edChapterName"
+        style="@style/ed_normal"/>
+
+    <TextView
+        style="@style/ed_normal"
+        android:textSize="15dp"
+        android:text="Content" />
+
+    <EditText
+        android:id="@+id/edChapterContent"
+        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCommitChapter"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="10dp"
+            android:text="Ghi" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchChapter"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/lvChapter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="10dp" />
+</LinearLayout>

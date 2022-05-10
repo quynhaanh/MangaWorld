@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.CRUDUser"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp">
+    <TextView
+        style="@style/tv_normal"
+        android:layout_marginTop="5dp"
+        android:text="ID" />
+
+    <EditText
+        android:id="@+id/edUserID"
+        style="@style/ed_normal"/>
+
+    <TextView
+        style="@style/tv_normal"
+        android:layout_marginTop="5dp"
+        android:text="Name" />
+
+    <EditText
+        android:id="@+id/edUserName"
+        style="@style/ed_normal"/>
+
+    <TextView
+        style="@style/tv_normal"
+        android:layout_marginTop="5dp"
+        android:text="Email" />
+
+    <EditText
+        android:id="@+id/edUserEmail"
+        style="@style/ed_normal"/>
+
+    <TextView
+        style="@style/tv_normal"
+        android:layout_marginTop="5dp"
+        android:text="Password" />
+
+    <EditText
+        android:id="@+id/edUserPass"
+        style="@style/ed_normal" />
+    <TextView
+        style="@style/tv_normal"
+        android:layout_marginTop="5dp"
+        android:text="Role" />
+
+    <Spinner
+        android:id="@+id/spinnerUserRole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCommitUser"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="10dp"
+            android:text="Ghi" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchUser"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/lvUser"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="10dp" />
+</LinearLayout>
