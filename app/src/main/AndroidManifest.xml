@@ -28,6 +28,19 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".activity.CRUDGenreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CRUDAuthorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CRUDChapter"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CRUDUser"
+            android:exported="false" />
         <activity
             android:name=".activity.LoadActivity"
             android:exported="true"

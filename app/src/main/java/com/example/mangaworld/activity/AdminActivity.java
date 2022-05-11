@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.mangaworld.R;
 
@@ -25,9 +26,9 @@ public class AdminActivity extends AppCompatActivity {
         startActivity(new Intent(this, CRUDAuthorActivity.class));
     }
 
-    public void gotoType(View view) {
+    public void gotoGenre(View view) {
 
-        startActivity(new Intent(this, CRUDBookTypes.class));
+        startActivity(new Intent(AdminActivity.this, CRUDGenreActivity.class));
     }
 
     public void gotoChapter(View view) {

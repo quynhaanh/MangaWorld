@@ -20,6 +20,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mangaworld.R;
+import com.example.mangaworld.controller.GenreController;
+import com.example.mangaworld.controller.IVolleyCallback;
 import com.example.mangaworld.fragment.AccountInfoFragment;
 import com.example.mangaworld.fragment.GenreFragment;
 import com.example.mangaworld.fragment.HomeFragmentNew;
@@ -113,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         Random random = new Random();
         int code = random.nextInt(8999) + 1000;
 
-        String url = "http://192.168.1.6/api/send_mail.php";
+        String url = "http://192.168.1.6/api/truyenchu/send_mail.php";
 
         RequestQueue request = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

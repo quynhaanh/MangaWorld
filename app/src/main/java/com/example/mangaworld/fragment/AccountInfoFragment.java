@@ -90,12 +90,16 @@ public class AccountInfoFragment extends Fragment {
 
         logIn(role);
 
-        if (role.equals("1")) {
-            btnNav.setText("Quản trị");
-        } else if (role.equals("2")) {
-            btnNav.setText("Sách của bạn");
-            // user here
+        if(role!=null)
+        {
+            if (role.equals("1")) {
+                btnNav.setText("Quản trị");
+            } else if (role.equals("2")) {
+                btnNav.setText("Sách của bạn");
+                // user here
+            }
         }
+
         return view;
     }
 

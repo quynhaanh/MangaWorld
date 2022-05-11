@@ -8,56 +8,56 @@
     tools:context=".activity.AdminActivity">
 
     <Button
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="Quản lý người dùng"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:onClick="gotoUser"
-        android:textSize="20dp"
-        android:layout_marginBottom="20dp" />
+        android:text="Quản lý người dùng"
+        android:textSize="20dp" />
 
     <Button
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="Quản lý truyện"
-        android:textSize="20dp"
-        android:layout_marginBottom="20dp" />
+        android:textSize="20dp" />
 
     <Button
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="Quản lý tập truyện"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:onClick="gotoChapter"
-        android:textSize="20dp"
-        android:layout_marginBottom="20dp" />
+        android:text="Quản lý tập truyện"
+        android:textSize="20dp" />
 
     <Button
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:onClick="gotoAuthor"
         android:text="Quản lý tác giả"
-        android:textSize="20dp"
-        android:layout_marginBottom="20dp" />
+        android:textSize="20dp" />
 
     <Button
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:onClick="gotoType"
-        android:text="Quản lý thể loại"
-        android:textSize="20dp"
-        android:layout_marginBottom="20dp" />
-
-    <Button
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="Thống kê"
-        android:textSize="20dp"
-        android:layout_marginBottom="20dp" />
-
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="Thoát"
-        android:textSize="20dp"
         android:layout_marginBottom="20dp"
-        android:onClick="closeActivity"/>
+        android:onClick="gotoGenre"
+        android:text="Quản lý thể loại"
+        android:textSize="20dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Thống kê"
+        android:textSize="20dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:onClick="closeActivity"
+        android:text="Thoát"
+        android:textSize="20dp" />
 </LinearLayout>
