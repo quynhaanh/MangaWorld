@@ -28,7 +28,7 @@ public class CRUDGenreActivity extends AppCompatActivity {
     ArrayList<GenreModel> genreData = new ArrayList<>();
     GenreItemAdapter genreItemAdapter;
 
-    String url = "http://192.168.1.6";
+    String url = "http://192.168.1.5";
     boolean updateFlag = false;
 
     @Override
