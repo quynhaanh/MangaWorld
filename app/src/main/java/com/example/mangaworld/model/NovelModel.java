@@ -3,31 +3,31 @@ package com.example.mangaworld.model;
 import java.util.Date;
 
 public class NovelModel {
-    private int id;
+    private int ID;
     private String title;
-    private int AuthorID;
+    private int IDAuthor;
     private String cover;
-    private Date datePost;
-    private String UserID;
+    private String datePost;
+    private String IDUser;
 
     public NovelModel() {
     }
 
-    public NovelModel(int id, String title, int authorID, String cover, Date datePost, String userID) {
-        this.id = id;
+    public NovelModel(int ID, String title, int IDAuthor, String cover, String datePost, String IDUser) {
+        this.ID = ID;
         this.title = title;
-        AuthorID = authorID;
+        this.IDAuthor = IDAuthor;
         this.cover = cover;
         this.datePost = datePost;
-        UserID = userID;
+        this.IDUser = IDUser;
     }
 
-    public int getId() {
-        return id;
+    public int getID() {
+        return ID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getTitle() {
@@ -38,12 +38,12 @@ public class NovelModel {
         this.title = title;
     }
 
-    public int getAuthorID() {
-        return AuthorID;
+    public int getIDAuthor() {
+        return IDAuthor;
     }
 
-    public void setAuthorID(int authorID) {
-        AuthorID = authorID;
+    public void setIDAuthor(int IDAuthor) {
+        this.IDAuthor = IDAuthor;
     }
 
     public String getCover() {
@@ -54,19 +54,19 @@ public class NovelModel {
         this.cover = cover;
     }
 
-    public Date getDatePost() {
+    public String getDatePost() {
         return datePost;
     }
 
-    public void setDatePost(Date datePost) {
+    public void setDatePost(String datePost) {
         this.datePost = datePost;
     }
 
-    public String getUserID() {
-        return UserID;
+    public String getIDUser() {
+        return IDUser;
     }
 
-    public void setUserID(String userID) {
-        UserID = userID;
+    public void setIDUser(String IDUser) {
+        this.IDUser = IDUser;
     }
 }

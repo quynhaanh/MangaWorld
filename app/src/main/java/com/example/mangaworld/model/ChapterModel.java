@@ -6,13 +6,13 @@ public class ChapterModel {
     private int id;
     private String title;
     private String Content;
-    private Date datePost;
+    private String datePost;
     private int NovelID;
 
     public ChapterModel() {
     }
 
-    public ChapterModel(int id, String title, String content, Date datePost, int novelID) {
+    public ChapterModel(int id, String title, String content, String datePost, int novelID) {
         this.id = id;
         this.title = title;
         Content = content;
@@ -44,11 +44,11 @@ public class ChapterModel {
         Content = content;
     }
 
-    public Date getDatePost() {
+    public String getDatePost() {
         return datePost;
     }
 
-    public void setDatePost(Date datePost) {
+    public void setDatePost(String datePost) {
         this.datePost = datePost;
     }
 
