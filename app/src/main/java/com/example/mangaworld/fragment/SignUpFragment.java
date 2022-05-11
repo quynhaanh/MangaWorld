@@ -120,36 +120,4 @@ public class SignUpFragment extends Fragment {
         txtPassword = view.findViewById(R.id.txtPassword);
         txtConfirmPassword = view.findViewById(R.id.txtConfirmPassword);
     }
-
-    public int sendOTPCode(String email) {
-        Random random = new Random();
-        int code = random.nextInt(8999) + 1000;
-
-        String url = "http://192.168.1.5/api/send_mail.php";
-
-        RequestQueue request = Volley.newRequestQueue(getActivity().getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                params.put("code", code + "");
-                return params;
-            }
-        };
-        request.add(stringRequest);
-
-        return code;
-    }
 }

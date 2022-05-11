@@ -88,11 +88,14 @@ public class SignInFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String userID = txtID.getText().toString();
+                String pass = txtPassword.getText().toString();
+
                 if (userID.equals("admin")) {
                     ((MainActivity) getActivity()).openFragment(AccountInfoFragment.newInstance("", "", "1"));
                 } else if (userID.equals("user")) {
                     ((MainActivity) getActivity()).openFragment(AccountInfoFragment.newInstance("", "", "2"));
                 }
+
             }
         });
     }

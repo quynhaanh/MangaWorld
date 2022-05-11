@@ -22,11 +22,13 @@ import com.android.volley.toolbox.Volley;
 import com.example.mangaworld.R;
 import com.example.mangaworld.controller.GenreController;
 import com.example.mangaworld.controller.IVolleyCallback;
+import com.example.mangaworld.controller.UserController;
 import com.example.mangaworld.fragment.AccountInfoFragment;
 import com.example.mangaworld.fragment.GenreFragment;
 import com.example.mangaworld.fragment.HomeFragmentNew;
 import com.example.mangaworld.fragment.LibraryFragment;
 import com.example.mangaworld.fragment.AccountFragment;
+import com.example.mangaworld.model.UserModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.HashMap;
@@ -37,6 +39,15 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigation;
     private Toolbar toolbar;
     private String userRole;
+    private String url = "http://192.168.1.6";
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -115,10 +126,10 @@ public class MainActivity extends AppCompatActivity {
         Random random = new Random();
         int code = random.nextInt(8999) + 1000;
 
-        String url = "http://192.168.1.6/api/truyenchu/send_mail.php";
+        String urlAPI = url + "/api/truyenchu/send_mail.php";
 
         RequestQueue request = Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlAPI, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
@@ -141,6 +152,12 @@ public class MainActivity extends AppCompatActivity {
         request.add(stringRequest);
 
         return code;
+    }
+
+    public void login(UserModel user)
+    {
+        String urlAPI = url+"/api/truyenchu/send_mail.php";
+//        UserController controller = new UserController(this);
     }
 
     @Override
