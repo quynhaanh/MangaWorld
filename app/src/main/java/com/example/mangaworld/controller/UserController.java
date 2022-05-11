@@ -1,6 +1,7 @@
 package com.example.mangaworld.controller;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -52,11 +53,11 @@ public class UserController {
         APICallPost("insert", user, callback);
     }
 
-    public void updateUser(UserModel user,IVolleyCallback callback) {
+    public void updateUser(UserModel user, IVolleyCallback callback) {
         APICallPost("update", user, callback);
     }
 
-    public void deleteUser(UserModel user,IVolleyCallback callback) {
+    public void deleteUser(UserModel user, IVolleyCallback callback) {
         APICallPost("delete", user, callback);
     }
 
@@ -80,11 +81,9 @@ public class UserController {
             public void onResponse(String response) {
                 if (response.contains("Success")) {
                     callback.onSuccess(response);
-                    Toast.makeText(activity.getApplicationContext(),
-                            reportState + "thành công '" + user.getName() + "'", Toast.LENGTH_SHORT).show();
+                    Log.d("user",reportState + "thành công '" + user.getName() + "'");
                 } else {
-                    Toast.makeText(activity.getApplicationContext(),
-                            reportState + "không thành công '" + user.getName() + "'", Toast.LENGTH_SHORT).show();
+                    Log.d("user", reportState + "không thành công '" + user.getName());
                 }
             }
         }, new Response.ErrorListener() {
@@ -98,8 +97,11 @@ public class UserController {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("Type", type);
-                params.put("ID", String.valueOf(user.getId()));
+                params.put("ID", user.getId());
                 params.put("Name", user.getName());
+                params.put("Pass", user.getPass());
+                params.put("Email", user.getEmail());
+                params.put("IDRole", user.getIdRole() + "");
                 return params;
             }
         };
@@ -126,18 +128,16 @@ public class UserController {
         queue.add(request);
     }
 
-    public void Login(UserModel user, IVolleyCallback callback) {
+    public void login(UserModel user, IVolleyCallback callback) {
         String urlGet = url + "/api/truyenchu/get_user.php";
-        StringRequest request = new StringRequest(Request.Method.GET, urlGet, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, urlGet, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(response.contains("Error"))
-                {
+                if (response.contains("Error")) {
                     Toast.makeText(activity.getApplicationContext(), "Tài khoản hoặc mật khẩu không đúng!", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                } else {
                     callback.onSuccess(response);
+                    Toast.makeText(activity.getApplicationContext(), "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -145,7 +145,17 @@ public class UserController {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(activity.getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
-        });
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("ID", user.getId());
+                params.put("Pass", user.getPass());
+
+                return params;
+            }
+        };
 
         RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
         queue.add(request);

@@ -38,16 +38,9 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigation;
     private Toolbar toolbar;
-    private String userRole;
-    private String url = "http://192.168.1.6";
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
+    private UserModel loggedUser;
+    private String url = LoadActivity.url;
 
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.navigation_walk:
                     toolbar.setTitle(R.string.account);
-                    if (userRole != null) {
-                        MainActivity.this.openFragment(AccountInfoFragment.newInstance(str, str, userRole));
+                    if (loggedUser != null) {
+                        MainActivity.this.openFragment(AccountInfoFragment.newInstance(str, str, loggedUser));
                     } else {
                         MainActivity.this.openFragment(AccountFragment.newInstance(str, str));
                     }
@@ -90,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.toolbar = initToolbar();
-        userRole = null;
+        loggedUser =null;
 
         initBottomNavigation();
     }
@@ -118,8 +111,8 @@ public class MainActivity extends AppCompatActivity {
         beginTransaction.commit();
     }
 
-    public void setUserRole(String role) {
-        this.userRole = role;
+    public void setLoggedUser(UserModel user) {
+        loggedUser = user;
     }
 
     public int sendOTPCode(String email) {
@@ -132,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, urlAPI, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -152,12 +145,6 @@ public class MainActivity extends AppCompatActivity {
         request.add(stringRequest);
 
         return code;
-    }
-
-    public void login(UserModel user)
-    {
-        String urlAPI = url+"/api/truyenchu/send_mail.php";
-//        UserController controller = new UserController(this);
     }
 
     @Override

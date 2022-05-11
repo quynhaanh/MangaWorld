@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mangaworld.R;
 import com.example.mangaworld.activity.MainActivity;
+import com.example.mangaworld.model.UserModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -101,10 +102,17 @@ public class SignUpFragment extends Fragment {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = txtEmail.getText().toString();
-                if (!email.isEmpty()) {
-                    int code = ((MainActivity) getActivity()).sendOTPCode(email);
-                    ((MainActivity) getActivity()).openFragment(OTPFragment.newInstance("", "", code, email));
+                UserModel newUser = new UserModel();
+                newUser.setId(txtID.getText().toString());
+                newUser.setName(txtName.getText().toString());
+                newUser.setPass(txtPassword.getText().toString());
+                newUser.setEmail(txtEmail.getText().toString());
+                newUser.setIdRole(2);
+
+                if (!newUser.getEmail().isEmpty()) {
+                    int code = ((MainActivity) getActivity()).sendOTPCode(newUser.getEmail());
+                    ((MainActivity) getActivity()).openFragment(
+                            OTPFragment.newInstance("", "", code, newUser));
                 }
             }
         });
