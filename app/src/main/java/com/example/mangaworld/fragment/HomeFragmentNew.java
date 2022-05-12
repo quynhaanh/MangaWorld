@@ -156,7 +156,8 @@ public class HomeFragmentNew extends Fragment {
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         slideArrayList = new ArrayList<>();
 
-        Manga slide = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào");
+//        Manga slide = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào");
+        Manga slide = new Manga(LoadActivity.url + "/api/truyenchu/Upload/81HBvFY7sjL.jpg","Tiệc tùng thôi nào");
         Manga slide1 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp");
         Manga slide2 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè");
         Manga slide3 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2");
