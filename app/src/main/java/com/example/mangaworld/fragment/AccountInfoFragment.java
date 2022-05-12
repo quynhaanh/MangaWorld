@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.mangaworld.R;
 import com.example.mangaworld.activity.AdminActivity;
 import com.example.mangaworld.activity.MainActivity;
+import com.example.mangaworld.model.UserModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,17 +31,19 @@ public class AccountInfoFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    String role;
+
     TextView txtName;
     TextView txtEmail;
     Button btnNav, btnLogOut;
+
+    UserModel user;
 
     public AccountInfoFragment() {
         // Required empty public constructor
     }
 
-    public AccountInfoFragment(String role) {
-        this.role = role;
+    public AccountInfoFragment(UserModel user) {
+        this.user = user;
     }
 
     /**
@@ -61,8 +64,8 @@ public class AccountInfoFragment extends Fragment {
         return fragment;
     }
 
-    public static AccountInfoFragment newInstance(String param1, String param2, String role) {
-        AccountInfoFragment fragment = new AccountInfoFragment(role);
+    public static AccountInfoFragment newInstance(String param1, String param2, UserModel user) {
+        AccountInfoFragment fragment = new AccountInfoFragment(user);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -88,16 +91,11 @@ public class AccountInfoFragment extends Fragment {
         setControl(view);
         setEvent();
 
-        logIn(role);
-
-        if(role!=null)
-        {
-            if (role.equals("1")) {
-                btnNav.setText("Quản trị");
-            } else if (role.equals("2")) {
-                btnNav.setText("Sách của bạn");
-                // user here
-            }
+        if (user.getIdRole() == 1) {
+            btnNav.setText("Quản trị");
+        } else if (user.getIdRole() == 2) {
+            btnNav.setText("Sách của bạn");
+            // user here
         }
 
         return view;
@@ -107,10 +105,10 @@ public class AccountInfoFragment extends Fragment {
         btnNav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (role.equals("1")) {
+                if (user.getIdRole() == 1) {
                     Intent intent = new Intent(getActivity(), AdminActivity.class);
                     startActivity(intent);
-                } else if (role.equals("2")) {
+                } else if (user.getIdRole() == 2) {
                     // user here - Chuyển hướng sang ACtivity của Long ở đây
 
                     //=======================
@@ -123,8 +121,7 @@ public class AccountInfoFragment extends Fragment {
             public void onClick(View view) {
                 // Thêm Dialog hỏi người dùng có muốn logout hay không tại đây
 
-                logIn(null); // null = logout
-                ((MainActivity) getActivity()).openFragment(AccountFragment.newInstance("", ""));
+                logOut();
             }
         });
     }
@@ -137,8 +134,8 @@ public class AccountInfoFragment extends Fragment {
         btnLogOut = view.findViewById(R.id.btnLogOut);
     }
 
-    private void logIn(String role) {
-        this.role = role;
-        ((MainActivity) getActivity()).setUserRole(role);
+    private void logOut() {
+        ((MainActivity) getActivity()).setLoggedUser(null);
+        ((MainActivity) getActivity()).openFragment(AccountFragment.newInstance("", ""));
     }
 }

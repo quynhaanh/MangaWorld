@@ -29,4 +29,6 @@
     <string name="log_out">Log out</string>
     <string name="payment_text">By placing an order you agree to our \n
         <font color="#000">Terms</font> And <font color="#000"> Conditions </font> </string>
+
+    <string name="added_your_book">Truyện đã đăng</string>
 </resources>

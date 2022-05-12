@@ -18,7 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mangaworld.R;
+import com.example.mangaworld.activity.LoadActivity;
 import com.example.mangaworld.activity.MainActivity;
+import com.example.mangaworld.controller.IVolleyCallback;
+import com.example.mangaworld.controller.UserController;
+import com.example.mangaworld.model.UserModel;
 
 
 /**
@@ -44,15 +48,15 @@ public class OTPFragment extends Fragment {
     ProgressBar progressBar;
 
     int verifyCode;
-    String email;
+    UserModel newUser;
 
     public OTPFragment() {
         // Required empty public constructor
     }
 
-    public OTPFragment(int verifyCode, String email) {
+    public OTPFragment(int verifyCode, UserModel user) {
         this.verifyCode = verifyCode;
-        this.email = email;
+        this.newUser = user;
     }
 
     /**
@@ -73,8 +77,8 @@ public class OTPFragment extends Fragment {
         return fragment;
     }
 
-    public static OTPFragment newInstance(String param1, String param2, int verifyCode, String email) {
-        OTPFragment fragment = new OTPFragment(verifyCode, email);
+    public static OTPFragment newInstance(String param1, String param2, int verifyCode, UserModel newUser) {
+        OTPFragment fragment = new OTPFragment(verifyCode, newUser);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -100,7 +104,7 @@ public class OTPFragment extends Fragment {
         setControl(view);
         setEvent();
 
-        tvMailToSend.setText("Mã xác nhận đã được gửi tới\n" + email);
+        tvMailToSend.setText("Mã xác nhận đã được gửi tới\n" + newUser.getEmail());
 
         return view;
     }
@@ -185,26 +189,34 @@ public class OTPFragment extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        progressBar.setVisibility(View.GONE);
-                        btnConfirm.setVisibility(View.VISIBLE);
-                        if (String.valueOf(verifyCode).equals(code)) {
-                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        if(String.valueOf(verifyCode).equals(code))
+                        {
+                            UserController controller = new UserController(LoadActivity.url, getActivity());
+                            controller.insertUser(newUser, new IVolleyCallback() {
+                                @Override
+                                public void onSuccess(String result) {
+                                    progressBar.setVisibility(View.GONE);
+                                    btnConfirm.setVisibility(View.VISIBLE);
 
-                            ((MainActivity) getActivity()).openFragment(AccountInfoFragment.newInstance("", "", "1"));
-                        } else {
-                            Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
+                                    ((MainActivity) getActivity()).openFragment(SignInFragment.newInstance("", ""));
+                                }
+                            });
+                        }
+                        else{
+                            progressBar.setVisibility(View.GONE);
+                            btnConfirm.setVisibility(View.VISIBLE);
+                            Toast.makeText(getActivity(), "Sai mã OTP", Toast.LENGTH_SHORT).show();
                         }
                     }
-                }, 2000);
-
-                ((MainActivity) getActivity()).openFragment(SignInFragment.newInstance("", ""));
+                }, 500);
             }
         });
 
         tvResend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                verifyCode = ((MainActivity) getActivity()).sendOTPCode(email);
+                verifyCode = ((MainActivity) getActivity()).sendOTPCode(newUser.getEmail());
             }
         });
     }

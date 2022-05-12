@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mangaworld.R;
 import com.example.mangaworld.activity.MainActivity;
+import com.example.mangaworld.model.UserModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -101,10 +102,17 @@ public class SignUpFragment extends Fragment {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = txtEmail.getText().toString();
-                if (!email.isEmpty()) {
-                    int code = ((MainActivity) getActivity()).sendOTPCode(email);
-                    ((MainActivity) getActivity()).openFragment(OTPFragment.newInstance("", "", code, email));
+                UserModel newUser = new UserModel();
+                newUser.setId(txtID.getText().toString());
+                newUser.setName(txtName.getText().toString());
+                newUser.setPass(txtPassword.getText().toString());
+                newUser.setEmail(txtEmail.getText().toString());
+                newUser.setIdRole(2);
+
+                if (!newUser.getEmail().isEmpty()) {
+                    int code = ((MainActivity) getActivity()).sendOTPCode(newUser.getEmail());
+                    ((MainActivity) getActivity()).openFragment(
+                            OTPFragment.newInstance("", "", code, newUser));
                 }
             }
         });
@@ -119,37 +127,5 @@ public class SignUpFragment extends Fragment {
         txtEmail = view.findViewById(R.id.txtEmail);
         txtPassword = view.findViewById(R.id.txtPassword);
         txtConfirmPassword = view.findViewById(R.id.txtConfirmPassword);
-    }
-
-    public int sendOTPCode(String email) {
-        Random random = new Random();
-        int code = random.nextInt(8999) + 1000;
-
-        String url = "http://192.168.1.5/api/send_mail.php";
-
-        RequestQueue request = Volley.newRequestQueue(getActivity().getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                params.put("code", code + "");
-                return params;
-            }
-        };
-        request.add(stringRequest);
-
-        return code;
     }
 }

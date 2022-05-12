@@ -12,7 +12,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.mangaworld.R;
+import com.example.mangaworld.activity.LoadActivity;
 import com.example.mangaworld.activity.MainActivity;
+import com.example.mangaworld.controller.IVolleyCallback;
+import com.example.mangaworld.controller.UserController;
+import com.example.mangaworld.model.UserModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,11 +92,13 @@ public class SignInFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String userID = txtID.getText().toString();
-                if (userID.equals("admin")) {
-                    ((MainActivity) getActivity()).openFragment(AccountInfoFragment.newInstance("", "", "1"));
-                } else if (userID.equals("user")) {
-                    ((MainActivity) getActivity()).openFragment(AccountInfoFragment.newInstance("", "", "2"));
-                }
+                String pass = txtPassword.getText().toString();
+
+                UserModel user = new UserModel();
+                user.setId(userID);
+                user.setPass(pass);
+
+                login(user);
             }
         });
     }
@@ -104,4 +110,20 @@ public class SignInFragment extends Fragment {
         txtID = view.findViewById(R.id.txtSignInID);
         txtPassword = view.findViewById(R.id.txtSignInPassword);
     }
+
+    private void login(UserModel user)
+    {
+        String urlAPI = LoadActivity.url+"/api/truyenchu/login.php";
+        UserController controller = new UserController(urlAPI,getActivity());
+        controller.login(user, new IVolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                UserModel userModel = controller.convertJSONUser(result);
+                ((MainActivity)getActivity()).setLoggedUser(userModel);
+                ((MainActivity) getActivity()).openFragment(
+                        AccountInfoFragment.newInstance("", "", userModel));
+            }
+        });
+    }
+
 }
