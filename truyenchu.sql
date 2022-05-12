@@ -26,7 +26,7 @@ CREATE TABLE `author` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Author_Name` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,6 +35,7 @@ CREATE TABLE `author` (
 
 LOCK TABLES `author` WRITE;
 /*!40000 ALTER TABLE `author` DISABLE KEYS */;
+INSERT INTO `author` VALUES (1,'Người lạ');
 /*!40000 ALTER TABLE `author` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,7 +50,7 @@ CREATE TABLE `chapter` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Title` varchar(100) NOT NULL,
   `Content` text NOT NULL,
-  `Date_Post` date NOT NULL,
+  `Date_Post` datetime NOT NULL,
   `ID_Novel` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `ID_Novel` (`ID_Novel`),
@@ -77,7 +78,7 @@ CREATE TABLE `genre` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Genre_Name` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,7 +87,7 @@ CREATE TABLE `genre` (
 
 LOCK TABLES `genre` WRITE;
 /*!40000 ALTER TABLE `genre` DISABLE KEYS */;
-INSERT INTO `genre` VALUES (1,'Hài hước'),(2,'Lãng mạn');
+INSERT INTO `genre` VALUES (1,'Hài hước'),(2,'Lãng mạn'),(7,'Kinh dị');
 /*!40000 ALTER TABLE `genre` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,15 +102,16 @@ CREATE TABLE `novel` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Title` varchar(256) NOT NULL,
   `ID_Author` int(11) NOT NULL,
-  `Cover` varchar(256) NOT NULL,
-  `Date_Post` date NOT NULL,
+  `Description` varchar(256) NOT NULL,
+  `Cover` varchar(65) NOT NULL,
+  `Date_Post` datetime NOT NULL,
   `ID_User` varchar(65) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `ID_User` (`ID_User`),
   KEY `ID_Author` (`ID_Author`),
   CONSTRAINT `novel_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `user` (`ID`) ON UPDATE CASCADE,
   CONSTRAINT `novel_ibfk_2` FOREIGN KEY (`ID_Author`) REFERENCES `author` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,6 +120,7 @@ CREATE TABLE `novel` (
 
 LOCK TABLES `novel` WRITE;
 /*!40000 ALTER TABLE `novel` DISABLE KEYS */;
+INSERT INTO `novel` VALUES (6,'test',1,'Test Upload Cover','test','2022-05-12 00:00:00','sa');
 /*!40000 ALTER TABLE `novel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +159,7 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `ID` varchar(65) NOT NULL,
-  `Name` text NOT NULL,
+  `Name` varchar(100) NOT NULL,
   `Email` varchar(65) NOT NULL,
   `Pass` varchar(65) NOT NULL,
   `ID_Role` int(11) NOT NULL,
@@ -173,6 +176,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('sa','Admin Dang','nguyenhaidang240800@gmail.com','123',1),('test','User Dang','goingmyway243@gmail.com','123',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,7 +191,7 @@ CREATE TABLE `user_role` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Role_Name` varchar(20) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,6 +200,7 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
+INSERT INTO `user_role` VALUES (1,'Quản trị viên'),(2,'Người dùng');
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -208,4 +213,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-11 15:28:25
+-- Dump completed on 2022-05-12 20:48:04

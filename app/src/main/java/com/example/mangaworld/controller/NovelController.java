@@ -92,7 +92,7 @@ public class NovelController {
                 else
                 {
                     Toast.makeText(activity.getApplicationContext(),
-                            reportState + " Thành công '" + novel.getTitle() + "'",
+                            reportState + " Thất bại '" + novel.getTitle() + "'",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -108,12 +108,14 @@ public class NovelController {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("Type", type);
-                params.put("ID", String.valueOf(novel.getID()));
+                params.put("ID", String.valueOf(novel.getId()));
                 params.put("Title", novel.getTitle());
-                params.put("IDAuthor", String.valueOf(novel.getIDAuthor()));
+                params.put("IDAuthor", String.valueOf(novel.getIdAuthor()));
+                params.put("Desc", novel.getDescription());
                 params.put("Cover", novel.getCover());
-                params.put("DatePost", String.valueOf(novel.getDatePost()));
-                params.put("IDUser", String.valueOf(novel.getIDUser()));
+                params.put("DatePost", novel.getDatePost());
+                params.put("IDUser", novel.getIdUser());
+                params.put("ImageBytes", novel.getCoverImageData());
                 return params;
             }
         };
@@ -154,12 +156,12 @@ public class NovelController {
                 JSONObject object = jsonArray.getJSONObject(i);
 
                 NovelModel novel = new NovelModel();
-                novel.setID(object.getInt("ID"));
+                novel.setId(object.getInt("ID"));
                 novel.setTitle(object.getString("Title"));
-                novel.setIDAuthor(object.getInt("ID_Author"));
+                novel.setIdAuthor(object.getInt("ID_Author"));
                 novel.setCover(object.getString("Cover"));
                 novel.setDatePost(object.getString("Date_Post"));
-                novel.setIDUser(object.getString("ID_User"));
+                novel.setIdUser(object.getString("ID_User"));
 
                 data.add(novel);
             }
