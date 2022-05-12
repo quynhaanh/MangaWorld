@@ -36,10 +36,12 @@ import java.util.Map;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+    public static UserModel loggedUser;
+
     private BottomNavigationView bottomNavigation;
     private Toolbar toolbar;
 
-    private UserModel loggedUser;
+
     private String url = LoadActivity.url;
 
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
@@ -109,10 +111,6 @@ public class MainActivity extends AppCompatActivity {
         beginTransaction.replace(R.id.nav_host_fragment, fragment);
         beginTransaction.addToBackStack(null);
         beginTransaction.commit();
-    }
-
-    public void setLoggedUser(UserModel user) {
-        loggedUser = user;
     }
 
     public int sendOTPCode(String email) {
