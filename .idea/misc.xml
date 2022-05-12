@@ -103,6 +103,9 @@
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_cruduser.xml" value="0.1911231884057971" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_detail_chapter.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_account_info.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_item_author.xml" value="0.1" />
+        <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_item_genre.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layuout_item_author.xml" value="0.22760416666666666" />
       </map>
     </option>
   </component>
