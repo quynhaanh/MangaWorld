@@ -1,33 +1,36 @@
 package com.example.mangaworld.model;
 
-import java.util.Date;
-
 public class NovelModel {
-    private int ID;
+    private int id;
     private String title;
-    private int IDAuthor;
+    private int idAuthor;
+    private String description;
     private String cover;
     private String datePost;
-    private String IDUser;
+    private String idUser;
+    private String coverImageData;
 
     public NovelModel() {
     }
 
-    public NovelModel(int ID, String title, int IDAuthor, String cover, String datePost, String IDUser) {
-        this.ID = ID;
+    public NovelModel(int id, String title, int idAuthor, String description, String cover,
+                      String datePost, String idUser, String coverImageData) {
+        this.id = id;
         this.title = title;
-        this.IDAuthor = IDAuthor;
+        this.idAuthor = idAuthor;
+        this.description = description;
         this.cover = cover;
         this.datePost = datePost;
-        this.IDUser = IDUser;
+        this.idUser = idUser;
+        this.coverImageData = coverImageData;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -38,12 +41,20 @@ public class NovelModel {
         this.title = title;
     }
 
-    public int getIDAuthor() {
-        return IDAuthor;
+    public int getIdAuthor() {
+        return idAuthor;
     }
 
-    public void setIDAuthor(int IDAuthor) {
-        this.IDAuthor = IDAuthor;
+    public void setIdAuthor(int idAuthor) {
+        this.idAuthor = idAuthor;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCover() {
@@ -62,11 +73,19 @@ public class NovelModel {
         this.datePost = datePost;
     }
 
-    public String getIDUser() {
-        return IDUser;
+    public String getIdUser() {
+        return idUser;
     }
 
-    public void setIDUser(String IDUser) {
-        this.IDUser = IDUser;
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getCoverImageData() {
+        return coverImageData;
+    }
+
+    public void setCoverImageData(String coverImageData) {
+        this.coverImageData = coverImageData;
     }
 }

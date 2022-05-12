@@ -111,15 +111,14 @@ public class SignInFragment extends Fragment {
         txtPassword = view.findViewById(R.id.txtSignInPassword);
     }
 
-    private void login(UserModel user)
-    {
-        String urlAPI = LoadActivity.url+"/api/truyenchu/login.php";
-        UserController controller = new UserController(urlAPI,getActivity());
+    private void login(UserModel user) {
+        String urlAPI = LoadActivity.url + "/api/truyenchu/login.php";
+        UserController controller = new UserController(urlAPI, getActivity());
         controller.login(user, new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 UserModel userModel = controller.convertJSONUser(result);
-                ((MainActivity)getActivity()).setLoggedUser(userModel);
+                MainActivity.loggedUser = userModel;
                 ((MainActivity) getActivity()).openFragment(
                         AccountInfoFragment.newInstance("", "", userModel));
             }

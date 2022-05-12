@@ -135,7 +135,7 @@ public class AccountInfoFragment extends Fragment {
     }
 
     private void logOut() {
-        ((MainActivity) getActivity()).setLoggedUser(null);
+        MainActivity.loggedUser = null;
         ((MainActivity) getActivity()).openFragment(AccountFragment.newInstance("", ""));
     }
 }

@@ -18,7 +18,6 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void gotoUser(View view) {
-
         startActivity(new Intent(this, CRUDUser.class));
     }
 
@@ -28,12 +27,16 @@ public class AdminActivity extends AppCompatActivity {
 
     public void gotoGenre(View view) {
 
-        startActivity(new Intent(AdminActivity.this, CRUDGenreActivity.class));
+        startActivity(new Intent(this, CRUDGenreActivity.class));
     }
 
     public void gotoChapter(View view) {
 
         startActivity(new Intent(this, CRUDChapter.class));
+    }
+
+    public void gotoChart(View view) {
+        startActivity(new Intent(this, ChartActivity.class));
     }
 
     public void closeActivity(View view) {
