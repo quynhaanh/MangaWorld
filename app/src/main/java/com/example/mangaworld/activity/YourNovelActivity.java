@@ -7,11 +7,17 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.mangaworld.R;
+import com.example.mangaworld.controller.IVolleyCallback;
+import com.example.mangaworld.controller.NovelController;
 
 public class YourNovelActivity extends AppCompatActivity {
 
     Button btnYourNovelToAdding;
     ListView lvYourNovel;
+
+    NovelController novelController;
+
+    String url = LoadActivity.url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,5 +33,18 @@ public class YourNovelActivity extends AppCompatActivity {
     private void setControl() {
         btnYourNovelToAdding = findViewById(R.id.btnYourNovelToAdding);
         lvYourNovel = findViewById(R.id.lvYourNovel);
+
+        novelController = new NovelController(url, this);
+
+    }
+
+    public void refreshListYourNovel()
+    {
+        novelController.getNovel(new IVolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+        });
     }
 }

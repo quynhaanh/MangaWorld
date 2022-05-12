@@ -2,20 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/ivYourNovelCover"
-        android:layout_width="70dp"
-        android:layout_height="match_parent"/>
-
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:padding="5dp"
+        android:layout_marginRight="5dp"
+        />
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="10"
-        android:layout_gravity="center"
-        android:paddingVertical="5dp">
+        android:layout_weight="1"
+        android:orientation="vertical">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,14 +25,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ID:"/>
+                style="@style/tv_normal_with_color"
+                android:text="ID: " />
 
             <TextView
                 android:id="@+id/tvYourNovelID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                style="@style/tv_normal" />
         </LinearLayout>
 
         <LinearLayout
@@ -39,31 +39,38 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Title:"/>
+                style="@style/tv_normal_with_color"
+                android:text="Title: " />
 
             <TextView
+                android:lines="3"
+                android:minLines="1"
+                android:maxLines="3"
                 android:id="@+id/tvYourNovelTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                style="@style/tv_normal" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:gravity="right"
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btnYourNovelAdd"
             style="@style/btn_list_item"
-            android:id="@+id/btnYourNovelEdit"/>
+            android:text="Update" />
 
         <Button
+            android:id="@+id/btnYourNovelDel"
             style="@style/btn_list_item"
-            android:id="@+id/btnYourNovelDel"/>
+            android:text="Delete" />
+        <Button
+            android:id="@+id/btnYourNovelDetail"
+            style="@style/btn_list_item"
+            android:text="Details" />
     </LinearLayout>
 
 </LinearLayout>
