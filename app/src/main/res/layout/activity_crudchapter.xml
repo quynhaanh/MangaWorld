@@ -7,6 +7,12 @@
     tools:context=".activity.CRUDChapterActivity"
     android:orientation="vertical"
     android:paddingHorizontal="10dp">
+    <ImageButton
+        android:onClick="closeActivity"
+        android:id="@+id/imageButton"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
     <TextView
         style="@style/tv_normal"
         android:layout_marginTop="5dp"
