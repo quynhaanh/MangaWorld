@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -158,6 +159,7 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
 //                popUp.setView(DetailPopUp);
 //                Dialog dialog = popUp.create();
 //                dialog.show();
+                Intent intent = new Intent();
             }
         });
 

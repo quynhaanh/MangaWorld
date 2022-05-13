@@ -53,7 +53,8 @@ public class YourNovelActivity extends AppCompatActivity {
         lvYourNovel = findViewById(R.id.lvYourNovel);
 
         novelController = new NovelController(url, this);
-        novelItemAdapter = new NovelItemAdapter(YourNovelActivity.this, R.layout.layout_item_novel, novelData, url);
+        novelItemAdapter = new NovelItemAdapter(YourNovelActivity.this,
+                R.layout.layout_item_novel, novelData, url);
     }
 
     public void refreshListYourNovel()
