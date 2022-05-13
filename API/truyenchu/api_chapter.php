@@ -6,11 +6,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['ID'];
     $title = $_POST['Title'];
     $content = $_POST['Content'];
-    $date_post = $_POST['DatePost'];
+    $date_post = date("Y-m-d H:i:s");
     $id_novel = $_POST['IDNovel'];
 
     if ($type == "insert") {
-        $query = "INSERT INTO chapter VALUES (null,'$title','$content','$date_post','$id_novel')";
+        $query = "INSERT INTO chapter VALUES ($id,'$title','$content','$date_post','$id_novel')";
     }
     if ($type == "delete") {
         $query = "DELETE FROM chapter WHERE ID = '$id'";

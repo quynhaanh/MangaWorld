@@ -113,7 +113,6 @@ public class NovelController {
                 params.put("IDAuthor", String.valueOf(novel.getIdAuthor()));
                 params.put("Desc", novel.getDescription());
                 params.put("Cover", novel.getCover());
-                params.put("DatePost", novel.getDatePost());
                 params.put("IDUser", novel.getIdUser());
                 params.put("ImageBytes", novel.getCoverImageData());
                 return params;
@@ -144,6 +143,35 @@ public class NovelController {
         queue.add(request);
     }
 
+    public void getNovelByIDUser(String idUser, IVolleyCallback callback)
+    {
+        String urlPost = url + "/api/truyenchu/get_novel_by_iduser.php";
+        StringRequest request = new StringRequest(Request.Method.POST, urlPost, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(),
+                        error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("IDUser", idUser);
+
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
     public ArrayList<NovelModel> convertJSONData(String json)
     {
         ArrayList<NovelModel> data = new ArrayList<>();
@@ -159,6 +187,7 @@ public class NovelController {
                 novel.setId(object.getInt("ID"));
                 novel.setTitle(object.getString("Title"));
                 novel.setIdAuthor(object.getInt("ID_Author"));
+                novel.setDescription(object.getString("Description"));
                 novel.setCover(object.getString("Cover"));
                 novel.setDatePost(object.getString("Date_Post"));
                 novel.setIdUser(object.getString("ID_User"));
@@ -169,5 +198,27 @@ public class NovelController {
             e.printStackTrace();
         }
         return  data;
+    }
+
+    public NovelModel convertJSONNovel(String json)
+    {
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            NovelModel novel = new NovelModel();
+            novel.setId(jsonObject.getInt("ID"));
+            novel.setTitle(jsonObject.getString("Title"));
+            novel.setIdAuthor(jsonObject.getInt("ID_Author"));
+            novel.setDescription(jsonObject.getString("Description"));
+            novel.setCover(jsonObject.getString("Cover"));
+            novel.setDatePost(jsonObject.getString("Date_Post"));
+            novel.setIdUser(jsonObject.getString("ID_User"));
+
+            return novel;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return  null;
     }
 }
