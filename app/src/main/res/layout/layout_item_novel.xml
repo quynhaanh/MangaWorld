@@ -6,7 +6,7 @@
     android:padding="5dp">
 
     <ImageView
-        android:id="@+id/ivYourNovelCover"
+        android:id="@+id/ivNovelCover"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:padding="5dp"
@@ -29,7 +29,7 @@
                 android:text="ID: " />
 
             <TextView
-                android:id="@+id/tvYourNovelID"
+                android:id="@+id/tvNovelID"
                 style="@style/tv_normal" />
         </LinearLayout>
 
@@ -46,7 +46,7 @@
                 android:lines="3"
                 android:minLines="1"
                 android:maxLines="3"
-                android:id="@+id/tvYourNovelTitle"
+                android:id="@+id/tvNovelTitle"
                 style="@style/tv_normal" />
         </LinearLayout>
     </LinearLayout>
@@ -59,16 +59,16 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btnYourNovelAdd"
+            android:id="@+id/btnNovelAdd"
             style="@style/btn_list_item"
             android:text="Update" />
 
         <Button
-            android:id="@+id/btnYourNovelDel"
+            android:id="@+id/btnNovelDel"
             style="@style/btn_list_item"
             android:text="Delete" />
         <Button
-            android:id="@+id/btnYourNovelDetail"
+            android:id="@+id/btnNovelDetail"
             style="@style/btn_list_item"
             android:text="Details" />
     </LinearLayout>
