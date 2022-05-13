@@ -56,9 +56,14 @@ public class AllMangaActivity extends AppCompatActivity {
             //call api get list manga on top
             LoadTopManga();
         }
+        else if(checkManga.equalsIgnoreCase("1")){
+            //call api get list manga by genre
+            LoadMangaByGenre();
+        }
     }
 
-    private void LoadPopularManga() {
+    private void LoadMangaByGenre() {
+        //lấy all manga theo thể loại nào đó
         recycleViewAllManga = findViewById(R.id.recycleViewAllManga);
         btnSearch = findViewById(R.id.btnSearch);
         shimmerAllManga = findViewById(R.id.shimmerAllManga);
@@ -79,6 +84,54 @@ public class AllMangaActivity extends AppCompatActivity {
                 Intent intent = new Intent(AllMangaActivity.this, DetailMangaActivity.class);
                 intent.putExtra("idManga", mangaArrayList.get(position).getIdManga());
                 startActivity(intent);            }
+        });
+        recycleViewAllManga.setAdapter(allMangaRecyclerViewAdapter);
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        recycleViewAllManga.setLayoutManager(layoutManager);
+
+        btnSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                queryData(newText);
+                return true;
+            }
+        });
+
+        //tắt shimmer
+        shimmerAllManga.stopShimmer();
+        shimmerAllManga.setVisibility(View.GONE);
+    }
+
+    private void LoadPopularManga() {
+        recycleViewAllManga = findViewById(R.id.recycleViewAllManga);
+        btnSearch = findViewById(R.id.btnSearch);
+        shimmerAllManga = findViewById(R.id.shimmerAllManga);
+        shimmerAllManga.startShimmer();
+        shimmerAllManga.setVisibility(View.VISIBLE);
+        mangaArrayList = new ArrayList<>();
+        tmpArray = new ArrayList<>();
+
+        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
+        mangaArrayList.add(slide);
+        tmpArray.add(slide);
+
+        allMangaRecyclerViewAdapter = new AllMangaRecyclerViewAdapter(mangaArrayList);
+        //click vào từng nút +
+        allMangaRecyclerViewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
+            @Override
+            public void onClick(View view, int position) {
+                Manga manga = allMangaRecyclerViewAdapter.getAtPosition(position);
+                Intent intent = new Intent(AllMangaActivity.this, DetailMangaActivity.class);
+                intent.putExtra("idManga", manga.getIdManga());
+                startActivity(intent);
+            }
         });
         recycleViewAllManga.setAdapter(allMangaRecyclerViewAdapter);
         LinearLayoutManager layoutManager
