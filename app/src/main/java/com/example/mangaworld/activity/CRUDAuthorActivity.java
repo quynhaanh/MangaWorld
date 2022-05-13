@@ -16,6 +16,13 @@ import androidx.appcompat.widget.SearchView;
 //import com.example.crudappdoctruyen.R;
 
 import com.example.mangaworld.R;
+import com.example.mangaworld.adapter.AuthorItemAdapter;
+import com.example.mangaworld.adapter.GenreItemAdapter;
+import com.example.mangaworld.controller.AuthorController;
+import com.example.mangaworld.controller.GenreController;
+import com.example.mangaworld.controller.IVolleyCallback;
+import com.example.mangaworld.model.AuthorModel;
+import com.example.mangaworld.model.GenreModel;
 
 import java.util.ArrayList;
 
@@ -25,11 +32,12 @@ public class CRUDAuthorActivity extends AppCompatActivity {
     ListView listView;
     SearchView searchView;
 
-//    boolean updateFlag = false;
-//    AuthorModel author = new AuthorModel();
-//    AuthorDAO authorDAO = new AuthorDAO();
-//    ArrayList<AuthorModel> authorData = new ArrayList<AuthorModel>();
-//    AuthorAdapter authorAdapter;
+    AuthorController authorController;
+    ArrayList<AuthorModel> authordata = new ArrayList<>();
+    AuthorItemAdapter authorItemAdapter;
+
+    String url = LoadActivity.url;
+    boolean updateFlag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,47 +55,65 @@ public class CRUDAuthorActivity extends AppCompatActivity {
         searchView =findViewById(R.id.searchAuthor);
         btnCommit = findViewById(R.id.btnCommitAuthor);
         listView = findViewById(R.id.lvAuthor);
+
+        authorController = new AuthorController(url, this);
+        authorItemAdapter = new AuthorItemAdapter(CRUDAuthorActivity.this, R.layout.layout_item_author, authordata, url);
     }
     private void setEvents() {
-//        listView.setAdapter(authorAdapter);
-//        btnCommit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                author.setId(edID.getText().toString());
-//                author.setAuthorName(edName.getText().toString());
-//
-//                for (AuthorModel authorModel : authorData) {
-//                    if (authorModel.getId().equalsIgnoreCase(author.getId())) {
-//                        updateFlag = true;
-//                        break;
-//                    }
-//                }
-//                if (updateFlag == true) {
-//                    authorDAO.updateAuthor(author);
-//                    Toast.makeText(CRUDAuthor.this, "Update success" + author.getAuthorName(), Toast.LENGTH_SHORT).show();
-//                } else {
-//                    if (authorDAO.addAuthor(author) == 1) {
-//                        Toast.makeText(CRUDAuthor.this, "Add success" + author.getAuthorName(), Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(CRUDAuthor.this, "Add Fail", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//                updateFlag = false;
-//                refreshListView();
-//
-//            }
-//        });
+
+        listView.setAdapter(authorItemAdapter);
+
+        btnCommit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AuthorModel author = new AuthorModel();
+                author.setId(Integer.parseInt(edID.getText().toString()));
+                author.setName(edName.getText().toString());
+
+                for (AuthorModel authorModel : authordata) {
+                    if (authorModel.getId()==author.getId()) {
+                        updateFlag = true;
+                        break;
+                    }
+                }
+                if (updateFlag == true) {
+                    authorController.updateAuthor(author, new IVolleyCallback() {
+                        @Override
+                        public void onSuccess(String result) {
+                            refreshListView();
+                        }
+                    });
+                } else {
+                    authorController.insertAuthor(author, new IVolleyCallback() {
+                        @Override
+                        public void onSuccess(String result) {
+                            refreshListView();
+                        }
+                    });
+                }
+
+                updateFlag = false;
+
+
+            }
+        });
+    }
+    public void loadData(AuthorModel author) {
+        edID.setText(author.getId());
+        edName.setText(author.getName());
 
     }
-//    public void loadData(AuthorModel author) {
-//        edID.setText(author.getId());
-//        edName.setText(author.getAuthorName());
-//
-//    }
     public void refreshListView()
     {
-//        authorData.clear();
-//        authorData.addAll(authorDAO.getAllAuthor());
-//        authorAdapter.notifyDataSetChanged();
+        authorController.getAuthors(new IVolleyCallback() {
+        @Override
+        public void onSuccess(String result) {
+            authordata.clear();
+            authordata.addAll(authorController.convertJSONData(result));
+            authorItemAdapter.notifyDataSetChanged();
+        }
+    });
     }
+
+
 }

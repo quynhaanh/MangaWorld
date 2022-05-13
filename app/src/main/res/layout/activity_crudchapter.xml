@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.CRUDChapter"
+    tools:context=".activity.CRUDChapterActivity"
     android:orientation="vertical"
     android:paddingHorizontal="10dp">
     <TextView
@@ -12,7 +12,7 @@
         android:layout_marginTop="5dp"
         android:text="Book" />
     <Spinner
-        android:id="@+id/spinnerBooks"
+        android:id="@+id/spinnerChapterNovel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:spinnerMode="dialog" />

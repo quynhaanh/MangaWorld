@@ -134,6 +134,8 @@ public class AccountInfoFragment extends Fragment {
 
         btnNav = view.findViewById(R.id.btnNav);
         btnLogOut = view.findViewById(R.id.btnLogOut);
+
+
     }
 
     private void logOut() {

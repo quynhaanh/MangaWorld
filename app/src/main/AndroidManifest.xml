@@ -42,7 +42,7 @@
             android:name=".activity.CRUDAuthorActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.CRUDChapter"
+            android:name=".activity.CRUDChapterActivity"
             android:exported="false" />
         <activity
             android:name=".activity.CRUDUser"
