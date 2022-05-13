@@ -69,7 +69,7 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
         Picasso.get().load(LoadActivity.url + "/api/truyenchu/images/" +
                 novel.getCover() + ".jpg").resize(100,100).into(ivNovelCover);
 
-        tvNovelID.setText(novel.getId());
+        tvNovelID.setText(String.valueOf(novel.getId()));
         tvNovelTitle.setText(novel.getTitle());
 
         btnNovelAdd.setOnClickListener(new View.OnClickListener() {
