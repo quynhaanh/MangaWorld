@@ -103,7 +103,6 @@ public class ChapterController {
                 params.put("ID", String.valueOf(chapter.getId()));
                 params.put("Title", chapter.getTitle());
                 params.put("Content", chapter.getContent());
-                params.put("DatePost", chapter.getDatePost());
                 params.put("IDNovel", String.valueOf(chapter.getNovelID()));
 
                 return params;

@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['Name'];
 
     if ($type == "insert") {
-        $query = "INSERT INTO author VALUES (null,'$name')";
+        $query = "INSERT INTO author VALUES ($id,'$name')";
     }
     if ($type == "delete") {
         $query = "DELETE FROM author WHERE ID = '$id'";

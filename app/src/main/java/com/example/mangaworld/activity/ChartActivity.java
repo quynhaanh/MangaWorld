@@ -49,6 +49,14 @@ public class ChartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 selectImage();
+
+                NovelController controller = new NovelController(LoadActivity.url,ChartActivity.this);
+                controller.getNovelByIDUser(MainActivity.loggedUser.getId(), new IVolleyCallback() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Log.d("test", controller.convertJSONData(result).get(0).getDescription());
+                    }
+                });
             }
         });
 
@@ -77,15 +85,13 @@ public class ChartActivity extends AppCompatActivity {
     private void uploadImage() {
         NovelModel model = new NovelModel();
         model.setId(1);
-        model.setTitle("test");
+        model.setTitle("Test");
         model.setIdAuthor(1);
         model.setCover(edName.getText().toString());
         model.setDescription("Test Upload Cover");
-        model.setDatePost(getDateString());
+//        model.setDatePost(getDateString()); Không cần thiết
         model.setIdUser(MainActivity.loggedUser.getId());
         model.setCoverImageData(imageToString(bitmap));
-
-        Log.d("test",model.getDatePost());
 
         NovelController controller = new NovelController(LoadActivity.url, this);
         controller.insertNovel(model, new IVolleyCallback() {

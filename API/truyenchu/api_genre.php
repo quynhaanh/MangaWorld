@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['Name'];
 
     if ($type == "insert") {
-        $query = "INSERT INTO genre VALUES (null,'$name')";
+        $query = "INSERT INTO genre VALUES ($id,'$name')";
     }
     if ($type == "delete") {
         $query = "DELETE FROM genre WHERE ID = '$id'";
