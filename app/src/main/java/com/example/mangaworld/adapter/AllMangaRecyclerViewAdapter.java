@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mangaworld.R;
+import com.example.mangaworld.model.GenreModel;
 import com.example.mangaworld.model.Manga;
 import com.squareup.picasso.Picasso;
 
@@ -24,6 +25,9 @@ public class AllMangaRecyclerViewAdapter extends RecyclerView.Adapter <AllMangaR
         this.mangaArrayList = mangaArrayList;
     }
 
+    public Manga getAtPosition(int position){
+        return (Manga) mangaArrayList.get(position);
+    }
     @NonNull
     @Override
     public AllMangaRecyclerViewHoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
