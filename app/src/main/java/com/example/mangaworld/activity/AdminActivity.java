@@ -20,6 +20,10 @@ public class AdminActivity extends AppCompatActivity {
         startActivity(new Intent(this, CRUDUser.class));
     }
 
+    public void gotoNovel(View view){
+        startActivity(new Intent(this, CRUDNovelActivity.class));
+    }
+
     public void gotoAuthor(View view) {
         startActivity(new Intent(this, CRUDAuthorActivity.class));
     }

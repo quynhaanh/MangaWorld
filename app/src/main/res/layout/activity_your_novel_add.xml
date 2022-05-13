@@ -21,7 +21,7 @@
 
         <TextView
             style="@style/tv_normal"
-            android:text="Title:"/>
+            android:text="Tiêu đề:"/>
         <EditText
             android:id="@+id/txtYourNovelTitle"
             style="@style/ed_normal"
@@ -29,7 +29,7 @@
 
         <TextView
             style="@style/tv_normal"
-            android:text="Author:"/>
+            android:text="Tác giả:"/>
         <EditText
             android:id="@+id/txtYourNovelAuthor"
             style="@style/ed_normal"
@@ -37,7 +37,7 @@
 
         <TextView
             style="@style/tv_normal"
-            android:text="Book Cover:"/>
+            android:text="Ảnh bìa:"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             android:layout_marginBottom="3dp">
 
             <ImageButton
-                android:id="@+id/btnYourNovelImgPicker"
+                android:id="@+id/ibtnYourNovelImgPicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_collections_24"/>
@@ -54,7 +54,7 @@
 
         <TextView
             style="@style/tv_normal"
-            android:text="Description:"/>
+            android:text="Mô tả:"/>
         <EditText
             android:id="@+id/txtYourNovelDesc"
             style="@style/ed_normal"

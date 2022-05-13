@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.mangaworld.R;
 import com.example.mangaworld.activity.AdminActivity;
 import com.example.mangaworld.activity.MainActivity;
+import com.example.mangaworld.activity.YourNovelActivity;
 import com.example.mangaworld.model.UserModel;
 
 /**
@@ -110,7 +111,8 @@ public class AccountInfoFragment extends Fragment {
                     startActivity(intent);
                 } else if (user.getIdRole() == 2) {
                     // user here - Chuyển hướng sang ACtivity của Long ở đây
-
+                    Intent intent = new Intent(getActivity(), YourNovelActivity.class);
+                    startActivity(intent);
                     //=======================
                 }
             }
