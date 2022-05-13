@@ -35,7 +35,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
     public void loadNovelData(NovelModel novel)
     {
         txtYourNovelTitle.setText(novel.getTitle());
-        txtYourNovelAuthor.setText(novel.getIDAuthor());
+        txtYourNovelAuthor.setText(novel.getIdAuthor());
 //        txtYourNovelDesc.setText();
     }
 }
