@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mangaworld.R;
 import com.example.mangaworld.activity.AllMangaActivity;
@@ -72,16 +73,22 @@ public class LibraryFragment extends Fragment {
 
         //lấy dữ liệu tất cả truyện
         Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
+        Manga slide2 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào 2", 30000, "Siêu nhiên");
+
         mangaArrayList.add(slide);
         tmpArray.add(slide);
+        mangaArrayList.add(slide2);
+        tmpArray.add(slide2);
 
         allMangaRecyclerViewAdapter = new AllMangaRecyclerViewAdapter(mangaArrayList);
         //click vào từng nút +
         allMangaRecyclerViewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
+                Manga manga = allMangaRecyclerViewAdapter.getAtPosition(position);
+                Toast.makeText(getContext(), manga.getTitle(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), DetailMangaActivity.class);
-                intent.putExtra("idManga", mangaArrayList.get(position).getIdManga());
+                intent.putExtra("idManga", manga.getIdManga());
                 startActivity(intent);            }
         });
         recycleViewAllManga.setAdapter(allMangaRecyclerViewAdapter);
