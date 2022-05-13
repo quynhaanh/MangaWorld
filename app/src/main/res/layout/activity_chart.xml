@@ -8,30 +8,10 @@
     tools:context=".activity.ChartActivity"
     android:padding="10dp">
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:id="@+id/ivUploadImage"
-        android:visibility="gone"/>
-
-    <EditText
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edImageName"
-        android:layout_marginVertical="20dp"
-        android:visibility="gone"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Chọn ảnh"
-        android:id="@+id/btnChooseImage"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Upload ảnh"
-        android:id="@+id/btnUploadImage"/>
+        android:layout_height="500dp"
+        android:layout_gravity="center" />
 
 </LinearLayout>
