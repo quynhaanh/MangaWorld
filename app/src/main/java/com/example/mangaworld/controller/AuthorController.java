@@ -12,7 +12,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.mangaworld.model.ChapterModel;
+import com.example.mangaworld.model.AuthorModel;
+import com.example.mangaworld.model.GenreModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,15 +23,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChapterController {
+public class AuthorController {
     private String url;
     private Activity activity;
     private String reportState = "";
-
-    public ChapterController(String url, Activity activity) {
-        this.url = url;
-        this.activity = activity;
-    }
 
     public String getUrl() {
         return url;
@@ -48,24 +44,29 @@ public class ChapterController {
         this.activity = activity;
     }
 
-    public void insertChapter(ChapterModel chapter, IVolleyCallback callback) {
-        APICallPost("insert", chapter, callback);
+    public AuthorController(String url, Activity activity) {
+        this.url = url;
+        this.activity = activity;
     }
 
-    public void updateChapter(ChapterModel chapter,IVolleyCallback callback) {
-        APICallPost("update", chapter, callback);
+    public void insertAuthor(AuthorModel author, IVolleyCallback callback) {
+        APICallPost("insert", author, callback);
     }
 
-    public void deleteChapter(ChapterModel chapter,IVolleyCallback callback) {
-        APICallPost("delete", chapter, callback);
+    public void updateAuthor(AuthorModel author,IVolleyCallback callback) {
+        APICallPost("update", author, callback);
     }
 
-    public void getChapters(IVolleyCallback callback) {
+    public void deleteAuthor(AuthorModel author,IVolleyCallback callback) {
+        APICallPost("delete", author, callback);
+    }
+
+    public void getAuthors(IVolleyCallback callback) {
         APICallGet(callback);
     }
 
-    private void APICallPost(String type, ChapterModel chapter, IVolleyCallback callback) {
-        String urlAPI = url + "/api/truyenchu/api_chapter.php";
+    private void APICallPost(String type,AuthorModel author, IVolleyCallback callback) {
+        String urlAPI = url + "/api/truyenchu/api_author.php";
 
         if (type.equals("insert")) {
             reportState = "Thêm ";
@@ -81,12 +82,10 @@ public class ChapterController {
                 if (response.contains("Success")) {
                     callback.onSuccess(response);
                     Toast.makeText(activity.getApplicationContext(),
-                            reportState + "thành công '" + chapter.getTitle() + "'",
-                            Toast.LENGTH_SHORT).show();
+                            reportState + "thành công '" + author.getName() + "'", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(activity.getApplicationContext(),
-                            reportState + "không thành công '" + chapter.getTitle() + "'",
-                            Toast.LENGTH_SHORT).show();
+                            reportState + "không thành công '" + author.getName() + "'", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -100,11 +99,8 @@ public class ChapterController {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("Type", type);
-                params.put("ID", String.valueOf(chapter.getId()));
-                params.put("Title", chapter.getTitle());
-                params.put("Content", chapter.getContent());
-                params.put("IDNovel", String.valueOf(chapter.getNovelID()));
-
+                params.put("ID", String.valueOf(author.getId()));
+                params.put("Name", author.getName());
                 return params;
             }
         };
@@ -112,9 +108,8 @@ public class ChapterController {
         RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
         queue.add(request);
     }
-
     private void APICallGet(IVolleyCallback callback) {
-        String urlGet = url + "/api/truyenchu/get_chapter.php";
+        String urlGet = url + "/api/truyenchu/get_author.php";
         StringRequest request = new StringRequest(Request.Method.GET, urlGet, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -131,23 +126,20 @@ public class ChapterController {
         queue.add(request);
     }
 
-    public ArrayList<ChapterModel> convertJSONData(String json) {
-        ArrayList<ChapterModel> data = new ArrayList<>();
+    public ArrayList<AuthorModel> convertJSONData(String json) {
+        ArrayList<AuthorModel> data = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(json);
-            JSONArray jsonArray = jsonObject.getJSONArray("chapters");
+            JSONArray jsonArray = jsonObject.getJSONArray("authors");
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject object = jsonArray.getJSONObject(i);
 
-                ChapterModel chapter = new ChapterModel();
-                chapter.setId(object.getInt("ID"));
-                chapter.setTitle(object.getString("Title"));
-                chapter.setContent(object.getString("Content"));
-                chapter.setDatePost(object.getString("Date_Post"));
-                chapter.setNovelID(object.getInt("ID_Novel"));
+                AuthorModel author = new AuthorModel();
+                author.setId(object.getInt("ID"));
+                author.setName(object.getString("Author_Name"));
 
-                data.add(chapter);
+                data.add(author);
             }
 
         } catch (JSONException ex) {

@@ -11,14 +11,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_author = $_POST['IDAuthor'];
     $desc = $_POST['Desc'];
     $cover = $_POST['Cover'];
-    $date_post = $_POST['DatePost'];
+    // $date_post = $_POST['DatePost'];
+    $date_post = date("Y-m-d H:i:s");
     $id_user = $_POST['IDUser'];
     $image_bytes = $_POST['ImageBytes'];
     $image_path = "images/$cover.jpg";
 
     if ($type == "insert") {
         $query = "INSERT INTO novel (ID,Title,ID_Author,Description,Cover,Date_Post,ID_User) 
-        VALUES (null,'$title','$id_author','$desc','$cover','$date_post','$id_user')";
+        VALUES ($id,'$title','$id_author','$desc','$cover','$date_post','$id_user')";
     }
     if ($type == "delete") {
         $query = "DELETE FROM novel WHERE ID = '$id'";
