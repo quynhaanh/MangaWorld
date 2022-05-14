@@ -126,6 +126,7 @@
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable-v24/background_image.xml" value="0.237" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/background_btn_account.xml" value="0.237" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_admin.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_crud_genre.xml" value="0.24791666666666667" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_crudauthor.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_crudbook_types.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_crudchapter.xml" value="0.1911231884057971" />
@@ -136,6 +137,8 @@
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_item_author.xml" value="0.1" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_item_chapter.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_item_genre.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_item_user.xml" value="0.1" />
+        <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_manhwa_home.xml" value="0.24791666666666667" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layuout_item_author.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/tuana/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_dropdown_item.xml" value="0.24791666666666667" />
       </map>

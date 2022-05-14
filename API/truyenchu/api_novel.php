@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_author = $_POST['IDAuthor'];
     $desc = $_POST['Desc'];
     $cover = $_POST['Cover'];
-    // $date_post = $_POST['DatePost'];
     $date_post = date("Y-m-d H:i:s");
     $id_user = $_POST['IDUser'];
     $image_bytes = $_POST['ImageBytes'];
