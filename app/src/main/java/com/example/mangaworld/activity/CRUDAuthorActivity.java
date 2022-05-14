@@ -116,4 +116,7 @@ public class CRUDAuthorActivity extends AppCompatActivity {
     }
 
 
+    public void closeActivity(View view) {
+        finish();
+    }
 }

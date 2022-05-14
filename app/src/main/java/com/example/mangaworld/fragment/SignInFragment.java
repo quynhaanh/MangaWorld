@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.mangaworld.R;
 import com.example.mangaworld.activity.LoadActivity;
@@ -119,9 +120,11 @@ public class SignInFragment extends Fragment {
             public void onSuccess(String result) {
                 UserModel userModel = controller.convertJSONUser(result);
                 MainActivity.loggedUser = userModel;
+
                 ((MainActivity) getActivity()).openFragment(
                         AccountInfoFragment.newInstance("", "", userModel));
             }
+
         });
     }
 

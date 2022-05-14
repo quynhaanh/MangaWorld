@@ -17,22 +17,25 @@
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1475" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/ic_baseline_arrow_left_24.xml" value="0.1475" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/ic_baseline_arrow_right_24_w.xml" value="0.1475" />
+        <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.1475" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1475" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.1475" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1475" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/slide.xml" value="0.1475" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_admin.xml" value="0.13272543059777103" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_all_manga.xml" value="0.13272543059777103" />
+        <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_chart.xml" value="0.13272543059777103" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_crudbook_types.xml" value="0.27291666666666664" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_detail_chapter.xml" value="0.12552083333333333" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_load.xml" value="0.13272543059777103" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_main.xml" value="0.12082066869300911" />
-        <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_account_info.xml" value="0.13272543059777103" />
+        <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_account_info.xml" value="0.25" />
+        <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_change_pass.xml" value="0.27291666666666664" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_home_new.xml" value="0.13272543059777103" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_library.xml" value="0.13272543059777103" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_mine.xml" value="0.27291666666666664" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_otp.xml" value="0.23129251700680273" />
-        <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_sign_in.xml" value="0.23129251700680273" />
+        <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_sign_in.xml" value="0.25" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_sign_up.xml" value="0.25" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/item_chapter.xml" value="0.13272543059777103" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/item_content_chapter.xml" value="0.27291666666666664" />
@@ -124,6 +127,7 @@
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable-v24/background_image.xml" value="0.237" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/drawable/background_btn_account.xml" value="0.237" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_admin.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_crud_genre.xml" value="0.24791666666666667" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_crudauthor.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_crudbook_types.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_crudchapter.xml" value="0.1911231884057971" />
@@ -134,6 +138,8 @@
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_item_author.xml" value="0.1" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_item_chapter.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_item_genre.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_item_user.xml" value="0.1" />
+        <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_manhwa_home.xml" value="0.24791666666666667" />
         <entry key="..\:/Users/tuana/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layuout_item_author.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/tuana/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_dropdown_item.xml" value="0.24791666666666667" />
       </map>
