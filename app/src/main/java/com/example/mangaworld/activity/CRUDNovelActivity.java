@@ -107,7 +107,7 @@ public class CRUDNovelActivity extends AppCompatActivity {
         novelController = new NovelController(url, this);
         novelItemAdapter = new NovelItemAdapter(CRUDNovelActivity.this,
                 R.layout.layout_item_novel, novelData, url);
-        Log.d("ListNovel", novelData.size() + "");
+        //Log.d("ListNovel", novelData.size() + "");
     }
 
     private String getDateString() {
@@ -246,5 +246,14 @@ public class CRUDNovelActivity extends AppCompatActivity {
                 novelItemAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    public void loadNovelData(NovelModel novel)
+    {
+        txtNovelID.setText(novel.getId());
+        txtNovelTitle.setText(novel.getTitle());
+        spNovelAuthor.setSelection(novel.getIdAuthor()-1);
+        txtNovelDesc.setText(novel.getDescription());
+        txtNovelCoverName.setText(novel.getCover());
     }
 }

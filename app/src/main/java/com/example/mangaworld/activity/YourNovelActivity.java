@@ -57,9 +57,12 @@ public class YourNovelActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
 
                 bundle.putInt("NovelID", novel.getId());
-                intent.putExtras(bundle);
-                //Quăng cái bundle qua AddActivity chứa ID Novel rồi bên kia dùng Contronller lấy data thông qua ID
-                //In hope it works
+
+                if(bundle != null)
+                {
+                    intent.putExtras(bundle);
+                }
+
                 startActivity(intent);
             }
         });

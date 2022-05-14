@@ -62,7 +62,7 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
         TextView tvNovelID = convertView.findViewById(R.id.tvNovelID);
         TextView tvNovelTitle = convertView.findViewById(R.id.tvNovelTitle);
 
-        Button btnNovelAdd = convertView.findViewById(R.id.btnNovelAdd);
+        Button btnNovelUpdate = convertView.findViewById(R.id.btnNovelUpdate);
         Button btnNovelDel = convertView.findViewById(R.id.btnNovelDel);
         //Button btnNovelDetail = convertView.findViewById(R.id.btnNovelDetail);
 
@@ -74,7 +74,7 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
         tvNovelID.setText(String.valueOf(novel.getId()));
         tvNovelTitle.setText(novel.getTitle());
 
-        btnNovelAdd.setOnClickListener(new View.OnClickListener() {
+        btnNovelUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //((YourNovelAddActivity)context).loadBookData(novel);

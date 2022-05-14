@@ -172,9 +172,33 @@ public class NovelController {
         queue.add(request);
     }
 
-    public void getNovelByID(String id, IVolleyCallback callback)
+    public void getNovelByID(int id, IVolleyCallback callback)
     {
-        //String urlPost = url + "/api/truyenchu/get_novel_by_iduser.php"
+        String urlPost = url + "/api/truyenchu/get_novel_by_id.php";
+        StringRequest request = new StringRequest(Request.Method.POST, urlPost, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(),
+                        error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("ID", String.valueOf(id));
+
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
     }
 
     public ArrayList<NovelModel> convertJSONData(String json)
@@ -224,6 +248,6 @@ public class NovelController {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return  null;
+        return null;
     }
 }
