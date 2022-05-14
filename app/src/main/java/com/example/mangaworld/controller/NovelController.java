@@ -172,6 +172,11 @@ public class NovelController {
         queue.add(request);
     }
 
+    public void getNovelByID(String id, IVolleyCallback callback)
+    {
+        //String urlPost = url + "/api/truyenchu/get_novel_by_iduser.php"
+    }
+
     public ArrayList<NovelModel> convertJSONData(String json)
     {
         ArrayList<NovelModel> data = new ArrayList<>();
