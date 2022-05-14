@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.toolbar = initToolbar();
-        loggedUser =null;
+        loggedUser = null;
 
         initBottomNavigation();
     }
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, urlAPI, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//                Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
+                Log.d("otp", response);
             }
         }, new Response.ErrorListener() {
             @Override

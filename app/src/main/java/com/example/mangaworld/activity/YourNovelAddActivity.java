@@ -291,7 +291,6 @@ public class YourNovelAddActivity extends AppCompatActivity {
 
     private ArrayList<AuthorModel> getAuthorList()
     {
-
         authorController.getAuthors(new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
@@ -299,7 +298,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
                 listAuthor.addAll(authorController.convertJSONData(result));
             }
         });
-        return  listAuthor;
+        return listAuthor;
     }
 
     public void refreshListNovel()

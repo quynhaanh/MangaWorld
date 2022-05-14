@@ -7,20 +7,21 @@ public class NovelModel {
     private String description;
     private String cover;
     private String datePost;
+    private int viewCount;
     private String idUser;
     private String coverImageData;
 
     public NovelModel() {
     }
 
-    public NovelModel(int id, String title, int idAuthor, String description, String cover,
-                      String datePost, String idUser, String coverImageData) {
+    public NovelModel(int id, String title, int idAuthor, String description, String cover, String datePost, int viewCount, String idUser, String coverImageData) {
         this.id = id;
         this.title = title;
         this.idAuthor = idAuthor;
         this.description = description;
         this.cover = cover;
         this.datePost = datePost;
+        this.viewCount = viewCount;
         this.idUser = idUser;
         this.coverImageData = coverImageData;
     }
@@ -47,6 +48,14 @@ public class NovelModel {
 
     public void setIdAuthor(int idAuthor) {
         this.idAuthor = idAuthor;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
     }
 
     public String getDescription() {

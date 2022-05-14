@@ -13,15 +13,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mangaworld.R;
+import com.example.mangaworld.activity.LoadActivity;
 import com.example.mangaworld.model.Manga;
+import com.example.mangaworld.model.NovelModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecyclerviewAdapter.MangaRecyclerViewHoder>{
-    private ArrayList<Manga> mangaArrayList = new ArrayList<>();
+    private ArrayList<NovelModel> mangaArrayList = new ArrayList<>();
+    String imageUrl = LoadActivity.url + "/api/truyenchu/images/";
 
-    public MangaRecyclerviewAdapter(ArrayList<Manga> mangaArrayList) {
+    public MangaRecyclerviewAdapter(ArrayList<NovelModel> mangaArrayList) {
         this.mangaArrayList = mangaArrayList;
     }
 
@@ -64,17 +67,17 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
         }
     }
     public void bind(@NonNull MangaRecyclerviewAdapter.MangaRecyclerViewHoder viewHolder, int i){
-        Manga manga = mangaArrayList.get(i);
+        NovelModel manga = mangaArrayList.get(i);
         Picasso.get()
-                .load(manga.getLink())
+                .load(imageUrl + manga.getCover() + ".jpg")
                 .resize(1000, 1000)
                 .centerCrop()
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)
                 .into(viewHolder.imageView);
         viewHolder.tvName.setText(manga.getTitle());
-        viewHolder.tvPrice.setText(String.valueOf(manga.getPrice())+" view");
-        viewHolder.tvGenge.setText(manga.getGenre());
+        viewHolder.tvPrice.setText(manga.getViewCount() + " lượt xem");
+//        viewHolder.tvGenge.setText(manga.getGenre());
         viewHolder.bg_item_manga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

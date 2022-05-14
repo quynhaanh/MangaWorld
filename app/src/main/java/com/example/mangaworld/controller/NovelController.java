@@ -113,6 +113,7 @@ public class NovelController {
                 params.put("IDAuthor", String.valueOf(novel.getIdAuthor()));
                 params.put("Desc", novel.getDescription());
                 params.put("Cover", novel.getCover());
+                params.put("View", novel.getViewCount()+"");
                 params.put("IDUser", novel.getIdUser());
                 params.put("ImageBytes", novel.getCoverImageData());
                 return params;
@@ -126,6 +127,26 @@ public class NovelController {
     private void APICallGet(IVolleyCallback callback)
     {
         String urlGet = url + "/api/truyenchu/get_novel.php";
+        StringRequest request = new StringRequest(Request.Method.GET, urlGet, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(),
+                        error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
+    public void getMostViewNovel(IVolleyCallback callback)
+    {
+        String urlGet = url + "/api/truyenchu/get_most_view_novel.php";
         StringRequest request = new StringRequest(Request.Method.GET, urlGet, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -219,6 +240,7 @@ public class NovelController {
                 novel.setDescription(object.getString("Description"));
                 novel.setCover(object.getString("Cover"));
                 novel.setDatePost(object.getString("Date_Post"));
+                novel.setViewCount(object.getInt("View"));
                 novel.setIdUser(object.getString("ID_User"));
 
                 data.add(novel);
@@ -241,6 +263,7 @@ public class NovelController {
             novel.setDescription(jsonObject.getString("Description"));
             novel.setCover(jsonObject.getString("Cover"));
             novel.setDatePost(jsonObject.getString("Date_Post"));
+            novel.setViewCount(jsonObject.getInt("View"));
             novel.setIdUser(jsonObject.getString("ID_User"));
 
             return novel;

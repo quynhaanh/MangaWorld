@@ -11,13 +11,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mangaworld.R;
 import com.example.mangaworld.adapter.AllMangaRecyclerViewAdapter;
 import com.example.mangaworld.adapter.ItemClickInterface;
-import com.example.mangaworld.adapter.MangaRecyclerviewAdapter;
-import com.example.mangaworld.adapter.TopMangaRecyclerViewAdapter;
 import com.example.mangaworld.model.Manga;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
