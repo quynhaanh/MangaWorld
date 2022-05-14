@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.mangaworld.R;
+import com.example.mangaworld.activity.CRUDNovelActivity;
 import com.example.mangaworld.activity.LoadActivity;
 import com.example.mangaworld.activity.MainActivity;
 import com.example.mangaworld.activity.YourNovelActivity;
@@ -63,7 +64,7 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
 
         Button btnNovelAdd = convertView.findViewById(R.id.btnNovelAdd);
         Button btnNovelDel = convertView.findViewById(R.id.btnNovelDel);
-        Button btnNovelDetail = convertView.findViewById(R.id.btnNovelDetail);
+        //Button btnNovelDetail = convertView.findViewById(R.id.btnNovelDetail);
 
         NovelModel novel = objects.get(position);
 
@@ -100,6 +101,9 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
                                 if(MainActivity.loggedUser.getIdRole() == 1)
                                 {
                                     // Open CRUD Novel
+                                    ((CRUDNovelActivity)context).refreshListNovel();
+                                    Toast.makeText(context, "Xóa thành công " + novel.getTitle(),
+                                            Toast.LENGTH_SHORT).show();
                                 }
                                 else if(MainActivity.loggedUser.getIdRole() == 2)
                                 {
@@ -133,35 +137,34 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
             }
         });
 
-        btnNovelDetail.setOnClickListener(new View.OnClickListener() {
+        /*btnNovelDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                AlertDialog.Builder popUp = new AlertDialog.Builder(context);
-//                final View DetailPopUp = LayoutInflater.from(context).inflate(R.layout.activity_lv_detail_popup,null);
-//                ImageView imageBook1 = DetailPopUp.findViewById(R.id.imageBook1);
-//                TextView txtID = DetailPopUp.findViewById(R.id.txtID);
-//                TextView txtTitle = DetailPopUp.findViewById(R.id.txtBookTitle);
-//                TextView txtAuthor = DetailPopUp.findViewById(R.id.txtBookAuthor);
-//                TextView txtBookCover = DetailPopUp.findViewById(R.id.txtBookCover);
-//                TextView txtDesc = DetailPopUp.findViewById(R.id.txtDesc);
-//
-//                Book book =objects.get(position);
-//                AuthorDAO authorDAO = new AuthorDAO();
-//
-//                Picasso.get().load(book.getBookCover()).resize(500,800).into(imageBook1);
-//                //Toast.makeText(context, imageBook1.getWidth()+" "+imageBook1.getHeight(), Toast.LENGTH_SHORT).show();
-//                txtID.setText(book.getID());
-//                txtTitle.setText(book.getTitle());
-//                txtAuthor.setText(authorDAO.getAuthorByID(book.getAuthorID()).getAuthorName());
-//                txtBookCover.setText(book.getBookCover());
-//                txtDesc.setText(book.getShortDesc());
-//
-//                popUp.setView(DetailPopUp);
-//                Dialog dialog = popUp.create();
-//                dialog.show();
-                Intent intent = new Intent();
+                AlertDialog.Builder popUp = new AlertDialog.Builder(context);
+                final View DetailPopUp = LayoutInflater.from(context).inflate(R.layout.activity_lv_detail_popup,null);
+                ImageView imageBook1 = DetailPopUp.findViewById(R.id.imageBook1);
+                TextView txtID = DetailPopUp.findViewById(R.id.txtID);
+                TextView txtTitle = DetailPopUp.findViewById(R.id.txtBookTitle);
+                TextView txtAuthor = DetailPopUp.findViewById(R.id.txtBookAuthor);
+                TextView txtBookCover = DetailPopUp.findViewById(R.id.txtBookCover);
+                TextView txtDesc = DetailPopUp.findViewById(R.id.txtDesc);
+
+                Book book =objects.get(position);
+                AuthorDAO authorDAO = new AuthorDAO();
+
+                Picasso.get().load(book.getBookCover()).resize(500,800).into(imageBook1);
+                //Toast.makeText(context, imageBook1.getWidth()+" "+imageBook1.getHeight(), Toast.LENGTH_SHORT).show();
+                txtID.setText(book.getID());
+                txtTitle.setText(book.getTitle());
+                txtAuthor.setText(authorDAO.getAuthorByID(book.getAuthorID()).getAuthorName());
+                txtBookCover.setText(book.getBookCover());
+                txtDesc.setText(book.getShortDesc());
+
+                popUp.setView(DetailPopUp);
+                Dialog dialog = popUp.create();
+                dialog.show();
             }
-        });
+        });*/
 
 
         return convertView;
