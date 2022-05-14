@@ -4,62 +4,78 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bgAllManga"
-        android:background="@drawable/bg_item_manga"
+        android:background="@drawable/background_btn_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="220dp"
         app:cardCornerRadius="10dp"
         android:layout_margin="10dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:background="@drawable/background_btn_search"
             android:layout_height="match_parent"
-            >
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp">
 
-            <ImageView
-                android:id="@+id/imgAllManga"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image_title"
-                android:background="@drawable/bg_item_manga"
-                android:transitionName="imgTransition"
-                app:layout_constraintEnd_toEndOf="parent"
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cvAllManga"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/imgAllManga"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image_title"
+                    android:transitionName="imgTransition"
+                    />
+            </androidx.cardview.widget.CardView>
+
 
             <TextView
                 android:id="@+id/txtName"
-                android:layout_width="0dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/gilroy_bold"
-                android:lines="1"
-                android:textColor="#000"
-                android:textSize="20sp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgAllManga" />
+                app:layout_constraintStart_toEndOf="@+id/cvAllManga"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/gilroy_medium"
-                android:textColor="#7C7C7C"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/black"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text=""
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/cvAllManga"
                 app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
+            <TextView
+                android:id="@+id/tvGenreAllManga"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/cvAllManga"
+                app:layout_constraintTop_toBottomOf="@+id/txt" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

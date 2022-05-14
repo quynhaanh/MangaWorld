@@ -72,13 +72,19 @@ public class LibraryFragment extends Fragment {
         tmpArray = new ArrayList<>();
 
         //lấy dữ liệu tất cả truyện
-        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
-        Manga slide2 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào 2", 30000, "Siêu nhiên");
+        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507319/Mangaworld/MV5BODcwNWE3OTMtMDc3MS00NDFjLWE1OTAtNDU3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ_._V1_FMjpg_UX1000__ij1oft.jpg","Vua hải tặc", 30000, "Phiêu lưu");
+        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507145/Mangaworld/Naruto_Volume_1_manga_cover_q2cere.jpg","Naruto", 50000, "Hành động");
+        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507429/Mangaworld/conan_24_-_main_poster_1__vijsfb.jpg","Thám tử lừng danh conan", 80000, "Trinh thám");
+        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507420/Mangaworld/tranh-dan-tuong-3d-cartoon-songoku-scaled_cv67o3.jpg","Bảy viên ngọc rồng Z", 10000, "Hành động");
 
         mangaArrayList.add(slide);
         tmpArray.add(slide);
         mangaArrayList.add(slide2);
         tmpArray.add(slide2);
+        mangaArrayList.add(slide1);
+        tmpArray.add(slide1);
+        mangaArrayList.add(slide3);
+        tmpArray.add(slide3);
 
         allMangaRecyclerViewAdapter = new AllMangaRecyclerViewAdapter(mangaArrayList);
         //click vào từng nút +

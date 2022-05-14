@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mangaworld.R;
@@ -51,15 +52,16 @@ public class AllMangaRecyclerViewAdapter extends RecyclerView.Adapter <AllMangaR
     }
 
     public class AllMangaRecyclerViewHoder extends RecyclerView.ViewHolder{
-        public TextView txtName, txt;
+        public TextView txtName, txt, tvGenreAllManga;
         public ImageView imgAllManga;
-        public FrameLayout bgAllManga;
+        public ConstraintLayout bgAllManga;
         public AllMangaRecyclerViewHoder(@NonNull View view) {
             super(view);
             this.imgAllManga = (ImageView) view.findViewById(R.id.imgAllManga);
             this.txtName = (TextView) view.findViewById(R.id.txtName);
             this.txt = (TextView) view.findViewById(R.id.txt);
-            this.bgAllManga = (FrameLayout) view.findViewById(R.id.bgAllManga);
+            this.bgAllManga = (ConstraintLayout) view.findViewById(R.id.bgAllManga);
+            this.tvGenreAllManga = (TextView) view.findViewById(R.id.tvGenreAllManga);
             this.setIsRecyclable(false);
         }
     }
@@ -67,13 +69,14 @@ public class AllMangaRecyclerViewAdapter extends RecyclerView.Adapter <AllMangaR
         Manga manga = mangaArrayList.get(i);
         Picasso.get()
                 .load(manga.getLink())
-                .resize(100, 100)
+                .resize(3000, 4000)
                 .centerCrop()
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)
                 .into(viewHolder.imgAllManga);
         viewHolder.txtName.setText(manga.getTitle());
-        viewHolder.txt.setText(String.valueOf(manga.getPrice())+" view");
+        viewHolder.txt.setText("Lượt xem: "+String.valueOf(manga.getPrice()));
+        viewHolder.tvGenreAllManga.setText("Thể loại: "+String.valueOf(manga.getGenre()));
         viewHolder.bgAllManga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

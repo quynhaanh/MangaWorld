@@ -39,7 +39,7 @@ public class ViewPagerSlideAdapter extends RecyclerView.Adapter<ViewPagerSlideAd
         Manga slide = slideArrayList.get(position);
         Picasso.get()
                 .load(slideArrayList.get(position).getLink())
-                .resize(100, 100)
+                .resize(4000, 3000)
                 .centerCrop()
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MangaWorld</string>
+    <string name="app_name">Truyện chữ</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_world">Hello Square World!</string>
@@ -12,7 +12,7 @@
     <string name="update">Mới cập nhật</string>
     <string name="see_all">Xem tất cả</string>
     <string name="genres">Thể loại</string>
-    <string name="home">MangaWorld</string>
+    <string name="home">Truyện chữ</string>
     <string name="account">Tài khoản</string>
     <string name="top">Bảng xếp hạng</string>
     <string name="manhua">Truyện Trung Quốc</string>
