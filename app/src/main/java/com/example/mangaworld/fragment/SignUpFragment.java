@@ -1,8 +1,11 @@
 package com.example.mangaworld.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -21,9 +24,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mangaworld.R;
+import com.example.mangaworld.activity.LoadActivity;
 import com.example.mangaworld.activity.MainActivity;
+import com.example.mangaworld.controller.IVolleyCallback;
+import com.example.mangaworld.controller.UserController;
 import com.example.mangaworld.model.UserModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -47,6 +54,8 @@ public class SignUpFragment extends Fragment {
     ImageButton btnClose;
     Button btnRegister;
     EditText txtID, txtName, txtEmail, txtPassword, txtConfirmPassword;
+
+    ArrayList<UserModel> data = new ArrayList<>();
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -109,13 +118,65 @@ public class SignUpFragment extends Fragment {
                 newUser.setEmail(txtEmail.getText().toString());
                 newUser.setIdRole(2);
 
-                if (!newUser.getEmail().isEmpty()) {
-                    int code = ((MainActivity) getActivity()).sendOTPCode(newUser.getEmail());
-                    ((MainActivity) getActivity()).openFragment(
-                            OTPFragment.newInstance("", "", code, newUser));
-                }
+                UserController controller = new UserController(LoadActivity.url,getActivity());
+                controller.getUsers(new IVolleyCallback() {
+                    @Override
+                    public void onSuccess(String result) {
+                        data.addAll(controller.convertJSONData(result));
+                        register(newUser);
+                    }
+                });
+
             }
         });
+    }
+
+    private void register(@NonNull UserModel newUser) {
+        String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+        if (newUser.getId().isEmpty())
+        {
+            Toast.makeText(getActivity(), "Vui lòng nhập ID!", Toast.LENGTH_SHORT).show();
+        } else if (newUser.getName().isEmpty())
+        {
+            Toast.makeText(getActivity(), "Vui lòng nhập Họ và tên!", Toast.LENGTH_SHORT).show();
+        } else if (newUser.getEmail().isEmpty())
+        {
+            Toast.makeText(getActivity(), "Vui lòng nhập Email!", Toast.LENGTH_SHORT).show();
+        } else if (!newUser.getEmail().matches(emailPattern))
+        {
+            Toast.makeText(getActivity(), "Email không hợp lệ!", Toast.LENGTH_SHORT).show();
+        } else if (!checkExist().isEmpty())
+        {
+            Toast.makeText(getActivity(), checkExist(), Toast.LENGTH_SHORT).show();
+        } else if (newUser.getPass().isEmpty())
+        {
+            Toast.makeText(getActivity(), "Vui lòng nhập mật khẩu!", Toast.LENGTH_SHORT).show();
+        } else if (!txtPassword.getText().toString().trim().equals(txtConfirmPassword.getText().toString().trim()))
+        {
+            Toast.makeText(getActivity(), "Nhập lại mật khẩu không trùng khớp!", Toast.LENGTH_SHORT).show();
+        } else if (!newUser.getEmail().isEmpty())
+        {
+            int code = ((MainActivity) getActivity()).sendOTPCode(newUser.getEmail());
+            ((MainActivity) getActivity()).openFragment(
+                    OTPFragment.newInstance("", "", code, newUser));
+        }
+    }
+
+    private String checkExist() {
+        final String[] text = {""};
+
+        for (UserModel user : data)
+        {
+            if (user.getId().trim().equals(txtID.getText().toString().trim())) {
+                text[0] = "ID đã tồn tại xin vui lòng chọn ID khác!";
+            }
+            if (user.getEmail().trim().equals(txtEmail.getText().toString().trim())) {
+                text[0] = "Email đã liên kết với tài khoản khác!";
+            }
+        }
+
+        return text[0];
     }
 
     private void setControl(View view) {
@@ -128,4 +189,5 @@ public class SignUpFragment extends Fragment {
         txtPassword = view.findViewById(R.id.txtPassword);
         txtConfirmPassword = view.findViewById(R.id.txtConfirmPassword);
     }
+
 }

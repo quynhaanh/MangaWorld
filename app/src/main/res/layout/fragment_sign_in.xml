@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="40dp"
-            android:text="Login"
+            android:text="Đăng nhập"
             android:textSize="30dp"
             android:textStyle="bold" />
 
@@ -47,11 +47,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:text="Password: "
+            android:text="Mật khẩu: "
             android:textSize="20dp"
             android:textStyle="normal" />
 
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/txtSignInPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,10 +63,12 @@
     <Button
         android:id="@+id/btnSignInLogin"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        android:text="Login"
+        android:text="Đăng nhập"
         android:textSize="15dp"
-        android:textStyle="normal" />
+        android:textStyle="normal"
+        android:drawableLeft="@drawable/ic_baseline_login_24"
+        android:backgroundTint="#015DA6"/>
 
 </LinearLayout>
