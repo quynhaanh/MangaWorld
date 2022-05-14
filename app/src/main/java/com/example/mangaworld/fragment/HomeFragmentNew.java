@@ -158,9 +158,9 @@ public class HomeFragmentNew extends Fragment {
 
 //        Manga slide = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào");
         Manga slide = new Manga(LoadActivity.url + "/api/truyenchu/Upload/81HBvFY7sjL.jpg","Tiệc tùng thôi nào");
-        Manga slide1 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp");
-        Manga slide2 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè");
-        Manga slide3 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2");
+        Manga slide1 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507157/Mangaworld/World-Trigger-Season-2-release-date-WorTri-anime-sequel-confirmed-at-Jump-Festa-2020_aeub2y.jpg","World Trigger Season 2");
+        Manga slide2 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507206/Mangaworld/a14168d0bfc3099b_ad6fcc5373b42db5_13092816427815313185710_oahbmz.jpg","Hiệp sĩ xương du hành");
+        Manga slide3 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507216/Mangaworld/maxresdefault-06275585_hgqx60.jpg","Spy x Family");
         slideArrayList.add(slide);
         slideArrayList.add(slide1);
         slideArrayList.add(slide2);
@@ -200,10 +200,10 @@ public class HomeFragmentNew extends Fragment {
         shimmerPopular.setVisibility(View.VISIBLE);
         popularMangaArrayList = new ArrayList<>();
 
-        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
-        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp", 50000, "Hài hước");
-        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè", 80000, "Viễn tưởng, Siêu nhiên");
-        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2", 10000, "Bá đạo");
+        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507319/Mangaworld/MV5BODcwNWE3OTMtMDc3MS00NDFjLWE1OTAtNDU3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ_._V1_FMjpg_UX1000__ij1oft.jpg","Vua hải tặc", 30000, "Phiêu lưu");
+        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507145/Mangaworld/Naruto_Volume_1_manga_cover_q2cere.jpg","Naruto", 50000, "Hành động");
+        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507429/Mangaworld/conan_24_-_main_poster_1__vijsfb.jpg","Thám tử lừng danh conan", 80000, "Trinh thám");
+        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507420/Mangaworld/tranh-dan-tuong-3d-cartoon-songoku-scaled_cv67o3.jpg","Bảy viên ngọc rồng Z", 10000, "Hành động");
         popularMangaArrayList.add(slide);
         popularMangaArrayList.add(slide1);
         popularMangaArrayList.add(slide2);
@@ -246,10 +246,10 @@ public class HomeFragmentNew extends Fragment {
         shimmerManhua.setVisibility(View.VISIBLE);
         manhuaMangaArrayList = new ArrayList<>();
 
-        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
-        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp", 50000, "Hài hước");
-        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè", 80000, "Viễn tưởng, Siêu nhiên");
-        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2", 10000, "Bá đạo");
+        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507319/Mangaworld/MV5BODcwNWE3OTMtMDc3MS00NDFjLWE1OTAtNDU3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ_._V1_FMjpg_UX1000__ij1oft.jpg","Vua hải tặc", 30000, "Phiêu lưu");
+        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507145/Mangaworld/Naruto_Volume_1_manga_cover_q2cere.jpg","Naruto", 50000, "Hành động");
+        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507429/Mangaworld/conan_24_-_main_poster_1__vijsfb.jpg","Thám tử lừng danh conan", 80000, "Trinh thám");
+        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507420/Mangaworld/tranh-dan-tuong-3d-cartoon-songoku-scaled_cv67o3.jpg","Bảy viên ngọc rồng Z", 10000, "Hành động");
         manhuaMangaArrayList.add(slide);
         manhuaMangaArrayList.add(slide1);
         manhuaMangaArrayList.add(slide2);
@@ -292,10 +292,10 @@ public class HomeFragmentNew extends Fragment {
         shimmerManhwa.setVisibility(View.VISIBLE);
         manhwaMangaArrayList = new ArrayList<>();
 
-        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
-        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp", 50000, "Hài hước");
-        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè", 80000, "Viễn tưởng, Siêu nhiên");
-        Manga slide3 = new Manga(4,"https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2", 10000, "Bá đạo");
+        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507319/Mangaworld/MV5BODcwNWE3OTMtMDc3MS00NDFjLWE1OTAtNDU3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ_._V1_FMjpg_UX1000__ij1oft.jpg","Vua hải tặc", 30000, "Phiêu lưu");
+        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507145/Mangaworld/Naruto_Volume_1_manga_cover_q2cere.jpg","Naruto", 50000, "Hành động");
+        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507429/Mangaworld/conan_24_-_main_poster_1__vijsfb.jpg","Thám tử lừng danh conan", 80000, "Trinh thám");
+        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507420/Mangaworld/tranh-dan-tuong-3d-cartoon-songoku-scaled_cv67o3.jpg","Bảy viên ngọc rồng Z", 10000, "Hành động");
         manhwaMangaArrayList.add(slide);
         manhwaMangaArrayList.add(slide1);
         manhwaMangaArrayList.add(slide2);
@@ -338,10 +338,10 @@ public class HomeFragmentNew extends Fragment {
         shimmerTopManga.setVisibility(View.VISIBLE);
         topMangaArrayList = new ArrayList<>();
 
-        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", 30000, "Hành động");
-        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650651552/lbm9xyslmguocztmrdvu.jpg","Chị đẹp", 50000, "Hài hước");
-        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1650650848/rgvre1n9fmnhrpnlrd82.jpg","Quang nè", 80000, "Viễn tưởng, Siêu nhiên");
-        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi phần 2", 10000, "Bá đạo");
+        Manga slide = new Manga(LoadActivity.url + "/api/truyenchu/Upload/81HBvFY7sjL.jpg","Tiệc tùng thôi nào");
+        Manga slide1 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507157/Mangaworld/World-Trigger-Season-2-release-date-WorTri-anime-sequel-confirmed-at-Jump-Festa-2020_aeub2y.jpg","World Trigger Season 2");
+        Manga slide2 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507206/Mangaworld/a14168d0bfc3099b_ad6fcc5373b42db5_13092816427815313185710_oahbmz.jpg","Hiệp sĩ xương du hành");
+        Manga slide3 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507216/Mangaworld/maxresdefault-06275585_hgqx60.jpg","Spy x Family");
         topMangaArrayList.add(slide);
         topMangaArrayList.add(slide1);
         topMangaArrayList.add(slide2);

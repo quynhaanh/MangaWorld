@@ -50,7 +50,7 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
     }
 
     public class MangaRecyclerViewHoder extends RecyclerView.ViewHolder{
-        public TextView tvName, tvPrice, tvGenge, tvBuy;
+        public TextView tvName, tvPrice, tvGenge;
         public FrameLayout bg_item_manga;
         public ImageView imageView;
         public MangaRecyclerViewHoder(@NonNull View view) {
@@ -59,7 +59,6 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
             this.tvName = (TextView) view.findViewById(R.id.tvName);
             this.tvGenge = (TextView) view.findViewById(R.id.tvGenre);
             this.tvPrice = (TextView) view.findViewById(R.id.txtPrice);
-            this.tvBuy = (TextView) view.findViewById(R.id.tvBuy);
             this.bg_item_manga = (FrameLayout) view.findViewById(R.id.bg_item_manga);
             this.setIsRecyclable(false);
         }
@@ -68,7 +67,7 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
         Manga manga = mangaArrayList.get(i);
         Picasso.get()
                 .load(manga.getLink())
-                .resize(100, 100)
+                .resize(1000, 1000)
                 .centerCrop()
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)
@@ -76,12 +75,6 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
         viewHolder.tvName.setText(manga.getTitle());
         viewHolder.tvPrice.setText(String.valueOf(manga.getPrice())+" view");
         viewHolder.tvGenge.setText(manga.getGenre());
-        viewHolder.tvBuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                itemClickInterface.onClick(v, i);
-            }
-        });
         viewHolder.bg_item_manga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

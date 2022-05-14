@@ -62,7 +62,7 @@ public class TopMangaRecyclerViewAdapter extends RecyclerView.Adapter<TopMangaRe
         Manga manga = mangaArrayList.get(i);
         Picasso.get()
                 .load(manga.getLink())
-                .resize(100, 100)
+                .resize(1600, 900)
                 .centerCrop()
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)

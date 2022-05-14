@@ -80,19 +80,19 @@ public class DetailMangaActivity extends AppCompatActivity {
         chapterArrayList.add(chapter4);
 
         Genre genre = new Genre(1, "Hành động");
-        Genre genre1 = new Genre(2, "Phép thuật");
+        Genre genre1 = new Genre(2, "Phiêu lưu");
         Genre genre2 = new Genre(1, "Siêu nhiên");
         genreArrayList.add(genre);
         genreArrayList.add(genre1);
         genreArrayList.add(genre2);
 
-        Manga manga = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào", "abc", "390", "06/05/2021", "06/05/2022", true, "xyz", 1, 30000);
+        Manga manga = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507319/Mangaworld/MV5BODcwNWE3OTMtMDc3MS00NDFjLWE1OTAtNDU3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ_._V1_FMjpg_UX1000__ij1oft.jpg","Vua hải tặc", "Phiêu lưu", "1600", "01/01/1999", "06/05/2022", true, "xyz", 1, 300000);
         DetailManga detailManga = new DetailManga(1, 1, "Nhật Minh", "",chapterArrayList, genreArrayList);
 
         //gắn data vào view
         Picasso.get()
                 .load(manga.getLink())
-                .resize(100, 100)
+                .resize(4000, 4000)
                 .centerCrop()
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)

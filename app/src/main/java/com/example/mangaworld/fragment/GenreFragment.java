@@ -36,6 +36,8 @@ public class GenreFragment extends Fragment {
     private SearchView btnSearch;
     private ArrayList<GenreModel> genreModelArrayList;
     private  ArrayList<GenreModel> tmpArray;
+    private  ArrayList<String> urlBGArraylist;
+    private  ArrayList<String> urlTmpArraylist;
     private GenreRecylerviewAdapter genreRecylerviewAdapter;
 
     public static GenreFragment newInstance(String param1, String param2) {
@@ -71,12 +73,14 @@ public class GenreFragment extends Fragment {
         shimmerGenre.setVisibility(View.VISIBLE);
         genreModelArrayList = new ArrayList<>();
         tmpArray = new ArrayList<>();
+        urlBGArraylist = new ArrayList<>();
+        urlTmpArraylist = new ArrayList<>();
 
         //lấy dữ liệu tất cả truyện
         GenreModel genreModel1 = new GenreModel(1,"Hành động");
         GenreModel genreModel2 = new GenreModel(2,"Phép thuật");
         GenreModel genreModel3 = new GenreModel(3,"Siêu nhiên");
-        GenreModel genreModel4 = new GenreModel(4,"Harem");
+        GenreModel genreModel4 = new GenreModel(4,"Học đường");
         genreModelArrayList.add(genreModel1);
         genreModelArrayList.add(genreModel2);
         genreModelArrayList.add(genreModel3);
@@ -85,8 +89,20 @@ public class GenreFragment extends Fragment {
         tmpArray.add(genreModel2);
         tmpArray.add(genreModel3);
         tmpArray.add(genreModel4);
+        String url1 = "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652498644/Mangaworld/anime-hanh-dong-hay-nhat-ban-nen-xem-thu-54107_iki7yg.jpg";
+        String url2 = "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652498638/Mangaworld/anime-phep-thuat_midjwk.jpg";
+        String url3 = "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652498643/Mangaworld/20170409-112646-1_600x375_avjjip.jpg";
+        String url4 = "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652498645/Mangaworld/053e87e47e5137e0_dcc7bc8a05258629_13907015298358613185710_pdjimj.jpg";
+        urlBGArraylist.add(url1);
+        urlBGArraylist.add(url2);
+        urlBGArraylist.add(url3);
+        urlBGArraylist.add(url4);
+        urlTmpArraylist.add(url1);
+        urlTmpArraylist.add(url2);
+        urlTmpArraylist.add(url3);
+        urlTmpArraylist.add(url4);
 
-        genreRecylerviewAdapter = new GenreRecylerviewAdapter(genreModelArrayList);
+        genreRecylerviewAdapter = new GenreRecylerviewAdapter(genreModelArrayList, urlBGArraylist);
         //click vào từng nút +
         btnSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -128,6 +144,11 @@ public class GenreFragment extends Fragment {
             if(manga.getName().contains(query))
                 tmp.add(manga);
         }
-        genreRecylerviewAdapter.updateChange(tmp);
+
+        ArrayList<String> tmpUrl = new ArrayList<>();
+        for(String url:urlTmpArraylist){
+                tmpUrl.add(url);
+        }
+        genreRecylerviewAdapter.updateChange(tmp, tmpUrl);
     }
 }
