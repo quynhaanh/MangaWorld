@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -44,6 +45,22 @@ public class YourNovelActivity extends AppCompatActivity {
 //                Intent intent = new Intent(getActivity, YourNovelAddActivity.class);
 //                startActivity(intent);
                 startActivity(new Intent(YourNovelActivity.this, YourNovelAddActivity.class));
+            }
+        });
+
+        lvYourNovel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                NovelModel novel = novelData.get(i);
+                //putExtra...
+                Intent intent = new Intent(YourNovelActivity.this, YourNovelAddActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putInt("NovelID", novel.getId());
+                intent.putExtras(bundle);
+                //Quăng cái bundle qua AddActivity chứa ID Novel rồi bên kia dùng Contronller lấy data thông qua ID
+                //In hope it works
+                startActivity(intent);
             }
         });
     }
