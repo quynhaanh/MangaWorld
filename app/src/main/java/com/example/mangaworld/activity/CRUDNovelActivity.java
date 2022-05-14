@@ -43,7 +43,7 @@ public class CRUDNovelActivity extends AppCompatActivity {
     ImageButton ibtnNovelImgPicker;
     SearchView searchNovel;
 
-    View decorView;
+    //View decorView;
     ListView lvNovel;
 
     ArrayList<NovelModel> novelData = new ArrayList<>();
