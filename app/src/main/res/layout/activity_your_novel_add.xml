@@ -30,7 +30,7 @@
         <TextView
             style="@style/tv_normal"
             android:text="Tác giả:"/>
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/txtYourNovelAuthor"
             style="@style/ed_normal"
             android:layout_marginBottom="3dp"/>
@@ -50,6 +50,11 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_collections_24"/>
 
+            <EditText
+                android:id="@+id/txtYourNovelCoverName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tên hinh ảnh"/>
         </LinearLayout>
 
         <TextView
@@ -59,8 +64,8 @@
             android:id="@+id/txtYourNovelDesc"
             style="@style/ed_normal"
             android:inputType="textMultiLine"
-            android:lines="5"
-            android:maxLines="5"
+            android:lines="3"
+            android:maxLines="3"
             android:minLines="3"
             android:layout_marginBottom="5dp"/>
 
