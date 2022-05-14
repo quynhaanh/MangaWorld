@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $query = "DELETE FROM user";
     }
     if ($type == "update") {
-        $query = "UPDATE user SET Name = '$name', Password = '$pass' WHERE ID = '$id'";
+        $query = "UPDATE user SET Name = '$name', Pass = '$pass' WHERE ID = '$id'";
     }
 
     if (mysqli_query($connect, $query)) {

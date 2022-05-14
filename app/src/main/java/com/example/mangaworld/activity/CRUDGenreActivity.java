@@ -109,4 +109,7 @@ public class CRUDGenreActivity extends AppCompatActivity {
             }
         });
     }
+    public void closeActivity(View view) {
+        finish();
+    }
 }

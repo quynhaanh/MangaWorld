@@ -1,5 +1,7 @@
 package com.example.mangaworld.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,12 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mangaworld.R;
 import com.example.mangaworld.activity.AdminActivity;
 import com.example.mangaworld.activity.MainActivity;
+import com.example.mangaworld.activity.YourNovelActivity;
 import com.example.mangaworld.model.UserModel;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +39,8 @@ public class AccountInfoFragment extends Fragment {
 
     TextView txtName;
     TextView txtEmail;
-    Button btnNav, btnLogOut;
+    TextView txtID;
+    Button btnNav, btnLogOut, btnChangePass;
 
     UserModel user;
 
@@ -91,17 +97,21 @@ public class AccountInfoFragment extends Fragment {
         setControl(view);
         setEvent();
 
-        if (user.getIdRole() == 1) {
-            btnNav.setText("Quản trị");
-        } else if (user.getIdRole() == 2) {
-            btnNav.setText("Sách của bạn");
-            // user here
-        }
-
         return view;
     }
 
     private void setEvent() {
+        txtName.setText(user.getName());
+        txtEmail.setText(user.getEmail());
+        txtID.setText(user.getId());
+
+        if (user.getIdRole() == 1) {
+            btnNav.setText("Quản trị");
+            btnChangePass.setVisibility(View.GONE);
+        } else if (user.getIdRole() == 2) {
+            btnNav.setText("Sách của bạn");
+        }
+
         btnNav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,7 +120,8 @@ public class AccountInfoFragment extends Fragment {
                     startActivity(intent);
                 } else if (user.getIdRole() == 2) {
                     // user here - Chuyển hướng sang ACtivity của Long ở đây
-
+                    Intent intent = new Intent(getActivity(), YourNovelActivity.class);
+                    startActivity(intent);
                     //=======================
                 }
             }
@@ -119,21 +130,43 @@ public class AccountInfoFragment extends Fragment {
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Thêm Dialog hỏi người dùng có muốn logout hay không tại đây
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Đăng xuất");
+                builder.setMessage("Bạn có thật sự muốn đăng xuất?");
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        logOut();
+                    }
+                });
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
-                logOut();
+        btnChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).openFragment(ChangePassFragment.newInstance("", ""));
             }
         });
     }
 
     private void setControl(View view) {
-        txtName = view.findViewById(R.id.txtName);
-        txtEmail = view.findViewById(R.id.txtEmail);
+        txtName = view.findViewById(R.id.txtInfoName);
+        txtEmail = view.findViewById(R.id.txtInfoEmail);
+        txtID = view.findViewById(R.id.txtInfoID);
 
-        btnNav = view.findViewById(R.id.btnNav);
-        btnLogOut = view.findViewById(R.id.btnLogOut);
-
-
+        btnNav = view.findViewById(R.id.btnInfoNav);
+        btnLogOut = view.findViewById(R.id.btnInfoLogOut);
+        btnChangePass = view.findViewById(R.id.btnInfoChangePass);
     }
 
     private void logOut() {

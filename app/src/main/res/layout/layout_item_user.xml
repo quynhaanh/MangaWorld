@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_border"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/tv_normal_with_color"
+                android:text="ID: " />
+
+            <TextView
+                android:id="@+id/tvItemIDUser"
+                style="@style/tv_normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/tv_normal_with_color"
+                android:text="Name: " />
+
+            <TextView
+                android:id="@+id/tvItemNameUser"
+                style="@style/tv_normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/tv_normal_with_color"
+                android:text="Email: " />
+
+            <TextView
+                android:id="@+id/tvItemEmailUser"
+                style="@style/tv_normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvItemRoleUser"
+                style="@style/tv_normal_with_color"
+                android:text="Role: " />
+
+            <TextView
+                style="@style/tv_normal" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:gravity="right"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnItemSuaUser"
+            style="@style/btn_list_item"
+            android:text="Sửa" />
+
+        <Button
+            android:id="@+id/btnItemXoaUser"
+            style="@style/btn_list_item"
+            android:text="Xóa" />
+    </LinearLayout>
+
+</LinearLayout>

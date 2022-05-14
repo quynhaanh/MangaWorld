@@ -179,5 +179,9 @@ public class CRUDChapterActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void closeActivity(View view) {
+        finish();
+    }
 }
 

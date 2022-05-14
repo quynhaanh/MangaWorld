@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:onClick="gotoNovel"
         android:text="Quản lý truyện"
         android:textSize="20dp" />
 

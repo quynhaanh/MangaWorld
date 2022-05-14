@@ -81,7 +81,7 @@ public class UserController {
             public void onResponse(String response) {
                 if (response.contains("Success")) {
                     callback.onSuccess(response);
-                    Log.d("user",reportState + "thành công '" + user.getName() + "'");
+                    Log.d("user", reportState + "thành công '" + user.getName() + "'");
                 } else {
                     Log.d("user", reportState + "không thành công '" + user.getName());
                 }
@@ -127,6 +127,61 @@ public class UserController {
         RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
         queue.add(request);
     }
+
+    public void getUserByEmail(String email, IVolleyCallback callback) {
+        String urlGet = url + "/api/truyenchu/get_user_by_email.php";
+        StringRequest request = new StringRequest(Request.Method.POST, urlGet, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Email", email);
+
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
+    public void getUserByID(String userID, IVolleyCallback callback) {
+        String urlGet = url + "/api/truyenchu/get_user_by_id.php";
+        StringRequest request = new StringRequest(Request.Method.POST, urlGet, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("ID", userID);
+
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
 
     public void login(UserModel user, IVolleyCallback callback) {
         String urlGet = url + "/api/truyenchu/get_user.php";
