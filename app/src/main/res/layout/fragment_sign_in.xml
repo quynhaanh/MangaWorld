@@ -58,6 +58,15 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp" />
 
+        <TextView
+            android:id="@+id/tvForgotPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quên mật khẩu?"
+            android:layout_gravity="right"
+            android:textStyle="italic"
+            />
+
     </LinearLayout>
 
     <Button

@@ -1,6 +1,5 @@
 package com.example.mangaworld.fragment;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mangaworld.R;
 import com.example.mangaworld.activity.LoadActivity;
@@ -22,10 +21,10 @@ import com.example.mangaworld.model.UserModel;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SignInFragment#newInstance} factory method to
+ * Use the {@link recoveryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SignInFragment extends Fragment {
+public class recoveryFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,12 +35,11 @@ public class SignInFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    EditText edRecoveryEmail;
+    Button btnConfirmEmail;
     ImageButton btnClose;
-    Button btnLogin;
-    EditText txtID, txtPassword;
-    TextView tvForgotPass;
 
-    public SignInFragment() {
+    public recoveryFragment() {
         // Required empty public constructor
     }
 
@@ -51,11 +49,11 @@ public class SignInFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SignInFragment.
+     * @return A new instance of fragment recoveryFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SignInFragment newInstance(String param1, String param2) {
-        SignInFragment fragment = new SignInFragment();
+    public static recoveryFragment newInstance(String param1, String param2) {
+        recoveryFragment fragment = new recoveryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,14 +74,14 @@ public class SignInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_recovery, container, false);
 
         setControl(view);
         setEvent();
 
         return view;
     }
-
     private void setEvent() {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,53 +89,35 @@ public class SignInFragment extends Fragment {
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String userID = txtID.getText().toString();
-                String pass = txtPassword.getText().toString();
 
-                UserModel user = new UserModel();
-                user.setId(userID);
-                user.setPass(pass);
-
-                login(user);
-            }
-        });
-        tvForgotPass.setOnClickListener(new View.OnClickListener() {
+        btnConfirmEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).openFragment(
-                        recoveryFragment.newInstance("", ""));
+                String Email = edRecoveryEmail.getText().toString().trim();
+
+                if(!Email.isEmpty()) {
+                    int code = ((MainActivity) getActivity()).sendOTPCode(Email);
+                    UserController controller = new UserController(LoadActivity.url, getActivity());
+                    controller.getUserByEmail(Email, new IVolleyCallback() {
+                        @Override
+                        public void onSuccess(String result) {
+                            UserModel user = controller.convertJSONUser(result);
+                            if(user.getEmail() != null){
+                                ((MainActivity) getActivity()).openFragment(
+                                        OTPFragment.newInstance("", "", code, user, true));
+                            }else
+                                Toast.makeText(getActivity(), "Không tìm thấy tài khoản sử dụng email này", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
     }
 
     private void setControl(View view) {
-        btnClose = view.findViewById(R.id.btnSignInClose);
-        btnLogin = view.findViewById(R.id.btnSignInLogin);
+        btnClose = view.findViewById(R.id.btnChangePassClose);
+        btnConfirmEmail = view.findViewById(R.id.btnComfirmEmail);
 
-        txtID = view.findViewById(R.id.txtSignInID);
-        txtPassword = view.findViewById(R.id.txtSignInPassword);
-
-        tvForgotPass = view.findViewById(R.id.tvForgotPass);
-        tvForgotPass.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+        edRecoveryEmail = view.findViewById(R.id.edRecoveryEmail);
     }
-
-    private void login(UserModel user) {
-        String urlAPI = LoadActivity.url + "/api/truyenchu/login.php";
-        UserController controller = new UserController(urlAPI, getActivity());
-        controller.login(user, new IVolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                UserModel userModel = controller.convertJSONUser(result);
-                MainActivity.loggedUser = userModel;
-
-                ((MainActivity) getActivity()).openFragment(
-                        AccountInfoFragment.newInstance("", "", userModel));
-            }
-
-        });
-    }
-
 }
