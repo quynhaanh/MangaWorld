@@ -241,65 +241,65 @@ public class YourNovelAddActivity extends AppCompatActivity {
 
     private void writeNovelData()
     {
-//        authorName = txtYourNovelAuthor.getText().toString().trim();
-//        authorID = authorData.get(authorData.size()-1).getId()+1;
-//
-//        author = new AuthorModel();
-//        author.setId(authorID);
-//        author.setName(authorName);
-//
-//        for (AuthorModel authorModel : authorData) {
-//            if (authorModel.getName().equalsIgnoreCase(author.getName())) {
-//                authorID = authorModel.getId();
-//                updateFlagAuth = true;
-//                break;
-//            }
-//        }
-//
-//        if(!updateFlagAuth)
-//        {
-//            authorController.insertAuthor(author, new IVolleyCallback() {
-//                @Override
-//                public void onSuccess(String result) {
-//                    Log.d("insertAuthor", "1");
-//                }
-//            });
-//        }
-//        updateFlagAuth = false;
-//
-//        NovelModel novel = new NovelModel();
-//        novel.setId(novelData.get(novelData.size()-1).getId() + 1);
-//        novel.setTitle(txtYourNovelTitle.getText().toString());
-//        novel.setIdAuthor(authorID);
-//        novel.setCover(novel.getId() + "-Cover");
-//        novel.setDescription(txtYourNovelDesc.getText().toString());
-//        //novel.setDatePost();
-//        novel.setIdUser(MainActivity.loggedUser.getId());
-//        novel.setCoverImageData(imageToString(bitmap));
-//
-//        try {
-//            if (updateFlag == true) {
-//                novelController.updateNovel(novel, new IVolleyCallback() {
-//                    @Override
-//                    public void onSuccess(String result) {
-//                        Toast.makeText(YourNovelAddActivity.this,
-//                                "Sửa thành công" + novel.getTitle(),
-//                                Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//            } else {
-//                novelController.insertNovel(novel, new IVolleyCallback() {
-//                    @Override
-//                    public void onSuccess(String result) {
-//                        Toast.makeText(YourNovelAddActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
-//        updateFlag = false;
+        authorName = txtYourNovelAuthor.getText().toString().trim();
+        authorID = authorData.get(authorData.size()-1).getId()+1;
+
+        author = new AuthorModel();
+        author.setId(authorID);
+        author.setName(authorName);
+
+        for (AuthorModel authorModel : authorData) {
+            if (authorModel.getName().equalsIgnoreCase(author.getName())) {
+                authorID = authorModel.getId();
+                updateFlagAuth = true;
+                break;
+            }
+        }
+
+        if(!updateFlagAuth)
+        {
+            authorController.insertAuthor(author, new IVolleyCallback() {
+                @Override
+                public void onSuccess(String result) {
+                    Log.d("insertAuthor", "1");
+                }
+            });
+        }
+        updateFlagAuth = false;
+
+        NovelModel novel = new NovelModel();
+        novel.setId(novelData.get(novelData.size()-1).getId() + 1);
+        novel.setTitle(txtYourNovelTitle.getText().toString());
+        novel.setIdAuthor(authorID);
+        novel.setCover(novel.getId() + "-Cover");
+        novel.setDescription(txtYourNovelDesc.getText().toString());
+        //novel.setDatePost();
+        novel.setIdUser(MainActivity.loggedUser.getId());
+        novel.setCoverImageData(imageToString(bitmap));
+
+        try {
+            if (updateFlag == true) {
+                novelController.updateNovel(novel, new IVolleyCallback() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Toast.makeText(YourNovelAddActivity.this,
+                                "Sửa thành công" + novel.getTitle(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                novelController.insertNovel(novel, new IVolleyCallback() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Toast.makeText(YourNovelAddActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        updateFlag = false;
 
         String temp = tvMultiSelectGenre.getText().toString();
         String[] values = temp.split(",");
@@ -319,7 +319,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
                 if(value.equalsIgnoreCase(iGenre.getName()))
                 {
                     NovelGenresModel novelGenresModel = new NovelGenresModel();
-                    novelGenresModel.setNovelID(6);
+                    novelGenresModel.setNovelID(novel.getId());
                     novelGenresModel.setGenreID(iGenre.getId());
 
                     novelGenresController.insertNovelGenre(novelGenresModel, new IVolleyCallback() {
