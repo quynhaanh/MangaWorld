@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mangaworld.R;
 import com.example.mangaworld.activity.LoadActivity;
-import com.example.mangaworld.model.Manga;
 import com.example.mangaworld.model.NovelModel;
 import com.squareup.picasso.Picasso;
 

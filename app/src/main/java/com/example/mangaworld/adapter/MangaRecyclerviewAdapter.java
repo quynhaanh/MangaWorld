@@ -1,7 +1,6 @@
 package com.example.mangaworld.adapter;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import com.example.mangaworld.activity.MainActivity;
 import com.example.mangaworld.controller.GenreController;
 import com.example.mangaworld.controller.IVolleyCallback;
 import com.example.mangaworld.model.GenreModel;
-import com.example.mangaworld.model.Manga;
 import com.example.mangaworld.model.NovelModel;
 import com.squareup.picasso.Picasso;
 
@@ -56,7 +54,7 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
     }
 
     public class MangaRecyclerViewHoder extends RecyclerView.ViewHolder {
-        public TextView tvName, tvPrice, tvGenge;
+        public TextView tvName, tvViewCount, tvGenge;
         public FrameLayout bg_item_manga;
         public ImageView imageView;
         public Context context;
@@ -67,7 +65,7 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
             this.imageView = (ImageView) view.findViewById(R.id.imgManga);
             this.tvName = (TextView) view.findViewById(R.id.tvName);
             this.tvGenge = (TextView) view.findViewById(R.id.tvGenre);
-            this.tvPrice = (TextView) view.findViewById(R.id.txtPrice);
+            this.tvViewCount = (TextView) view.findViewById(R.id.txtPrice);
             this.bg_item_manga = (FrameLayout) view.findViewById(R.id.bg_item_manga);
             this.setIsRecyclable(false);
         }
@@ -83,7 +81,7 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
                 .error(R.drawable.logo)
                 .into(viewHolder.imageView);
         viewHolder.tvName.setText(manga.getTitle());
-        viewHolder.tvPrice.setText(manga.getViewCount() + " lượt xem");
+        viewHolder.tvViewCount.setText(manga.getViewCount() + " lượt xem");
 
         GenreController controller = new GenreController(LoadActivity.url, (MainActivity) viewHolder.context);
         controller.getGenreByNovelID(manga.getId(), new IVolleyCallback() {

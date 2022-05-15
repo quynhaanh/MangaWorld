@@ -27,7 +27,7 @@
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_chapter.xml" value="0.13272543059777103" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_chart.xml" value="0.13272543059777103" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_crudbook_types.xml" value="0.27291666666666664" />
-        <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_detail_chapter.xml" value="0.12552083333333333" />
+        <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_detail_chapter.xml" value="0.25" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_load.xml" value="0.13272543059777103" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_main.xml" value="0.12082066869300911" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/activity_your_novel_add.xml" value="0.13272543059777103" />
@@ -39,9 +39,12 @@
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_otp.xml" value="0.23129251700680273" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_sign_in.xml" value="0.25" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/fragment_sign_up.xml" value="0.25" />
+        <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/item_all_manga.xml" value="0.13272543059777103" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/item_chapter.xml" value="0.13272543059777103" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/item_content_chapter.xml" value="0.27291666666666664" />
+        <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/item_genre.xml" value="0.27291666666666664" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/item_manga.xml" value="0.13272543059777103" />
+        <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/item_slide.xml" value="0.27291666666666664" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_genre.xml" value="0.13272543059777103" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_item_genre.xml" value="0.27291666666666664" />
         <entry key="..\:/Code PJ/AndroidStudioProjects/MangaWorld/app/src/main/res/layout/layout_popular_home.xml" value="0.27291666666666664" />

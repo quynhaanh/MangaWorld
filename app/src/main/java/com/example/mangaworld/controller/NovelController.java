@@ -213,6 +213,35 @@ public class NovelController {
         queue.add(request);
     }
 
+    public void getNovelByIDGenre(int idGenre, IVolleyCallback callback)
+    {
+        String urlPost = url + "/api/truyenchu/get_novel_by_idgenre.php";
+        StringRequest request = new StringRequest(Request.Method.POST, urlPost, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(),
+                        error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("IDGenre", idGenre+"");
+
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
     public void getNovelByID(int id, IVolleyCallback callback)
     {
         String urlPost = url + "/api/truyenchu/get_novel_by_id.php";
@@ -226,6 +255,53 @@ public class NovelController {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(activity.getApplicationContext(),
                         error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("ID", String.valueOf(id));
+
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
+    public void getNovelOrderByDatePost(IVolleyCallback callback)
+    {
+        String urlGet = url + "/api/truyenchu/get_novel_order_by_date_post.php";
+        StringRequest request = new StringRequest(Request.Method.GET, urlGet, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(),
+                        error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
+
+    public void increaseNovelViewCountByID(int id)
+    {
+        String urlPost = url + "/api/truyenchu/increase_novel_view.php";
+        StringRequest request = new StringRequest(Request.Method.POST, urlPost, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
             }
         }){
             @Nullable

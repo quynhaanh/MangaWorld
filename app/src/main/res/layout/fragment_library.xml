@@ -16,18 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:text="Tìm kiếm truyện"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="22sp"
-            android:fontFamily="@font/gilroy_bold"
-            android:textColor="@color/colorSkyBlue"
-            android:layout_marginTop="10dp"
-            android:layout_height="?attr/actionBarSize"/>
-
         <androidx.appcompat.widget.SearchView
             android:id="@+id/btnSearch"
             android:layout_marginTop="20dp"

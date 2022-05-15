@@ -1,7 +1,7 @@
 <?php
 require "connect.php";
 
-$query = "SELECT * FROM novel ORDER BY View DESC";
+$query = "SELECT * FROM novel ORDER BY Date_Post DESC";
 $result = mysqli_query($connect, $query);
 $temp_array = array();
 $total_records = mysqli_num_rows($result);

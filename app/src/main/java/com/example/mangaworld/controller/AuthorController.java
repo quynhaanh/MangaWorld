@@ -53,11 +53,11 @@ public class AuthorController {
         APICallPost("insert", author, callback);
     }
 
-    public void updateAuthor(AuthorModel author,IVolleyCallback callback) {
+    public void updateAuthor(AuthorModel author, IVolleyCallback callback) {
         APICallPost("update", author, callback);
     }
 
-    public void deleteAuthor(AuthorModel author,IVolleyCallback callback) {
+    public void deleteAuthor(AuthorModel author, IVolleyCallback callback) {
         APICallPost("delete", author, callback);
     }
 
@@ -65,7 +65,7 @@ public class AuthorController {
         APICallGet(callback);
     }
 
-    private void APICallPost(String type,AuthorModel author, IVolleyCallback callback) {
+    private void APICallPost(String type, AuthorModel author, IVolleyCallback callback) {
         String urlAPI = url + "/api/truyenchu/api_author.php";
 
         if (type.equals("insert")) {
@@ -108,6 +108,7 @@ public class AuthorController {
         RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
         queue.add(request);
     }
+
     private void APICallGet(IVolleyCallback callback) {
         String urlGet = url + "/api/truyenchu/get_author.php";
         StringRequest request = new StringRequest(Request.Method.GET, urlGet, new Response.Listener<String>() {
@@ -126,7 +127,32 @@ public class AuthorController {
         queue.add(request);
     }
 
+    public void getAuthorByID(int id, IVolleyCallback callback) {
+        String urlAPI = url + "/api/truyenchu/get_author_by_id.php";
 
+        StringRequest request = new StringRequest(Request.Method.POST, urlAPI, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("ID", id + "");
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
 
     public ArrayList<AuthorModel> convertJSONData(String json) {
         ArrayList<AuthorModel> data = new ArrayList<>();
@@ -149,5 +175,22 @@ public class AuthorController {
         }
 
         return data;
+    }
+
+    public AuthorModel convertJSONAuthor(String json) {
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            AuthorModel author = new AuthorModel();
+            author.setId(jsonObject.getInt("ID"));
+            author.setName(jsonObject.getString("Author_Name"));
+
+            return author;
+
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
     }
 }

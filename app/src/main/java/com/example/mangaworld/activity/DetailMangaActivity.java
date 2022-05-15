@@ -16,24 +16,31 @@ import android.widget.Toast;
 import com.example.mangaworld.R;
 import com.example.mangaworld.adapter.ChapterRecyclerViewAdapter;
 import com.example.mangaworld.adapter.ItemClickInterface;
-import com.example.mangaworld.model.Chapter;
-import com.example.mangaworld.model.DetailManga;
-import com.example.mangaworld.model.Genre;
-import com.example.mangaworld.model.Manga;
+import com.example.mangaworld.controller.AuthorController;
+import com.example.mangaworld.controller.ChapterController;
+import com.example.mangaworld.controller.GenreController;
+import com.example.mangaworld.controller.IVolleyCallback;
+import com.example.mangaworld.controller.NovelController;
+import com.example.mangaworld.model.ChapterModel;
+import com.example.mangaworld.model.GenreModel;
+import com.example.mangaworld.model.NovelModel;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 
 public class DetailMangaActivity extends AppCompatActivity {
     private RecyclerView recycleViewChapter;
-    private TextView tvMangaName, tvBack, tvSoTap, tvNgayTao, tvTacGia, tvLuotXem, tvMoTa, tvTheLoai;
+    private TextView tvMangaName, tvNgayTao, tvTacGia, tvLuotXem, tvMoTa, tvTheLoai;
     private ImageView imgDetailManga;
-    private Button btnFavorite;
-    private ArrayList<Chapter> chapterArrayList;
-    private ArrayList<Genre> genreArrayList;
+    private ArrayList<ChapterModel> chapterArrayList;
+    private ArrayList<GenreModel> genreArrayList;
     private ChapterRecyclerViewAdapter chapterRecyclerViewAdapter;
-    private int idManga;
+    private int idNovel;
+    private NovelModel novel;
+    String imageUrl = LoadActivity.url + "/api/truyenchu/images/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,75 +49,89 @@ public class DetailMangaActivity extends AppCompatActivity {
 
         //        Chuyển màn hình qua nhận cái id manga để get 1 cái manga có chứa list chapter từ cái id này
         Intent intent = getIntent();
-        idManga = intent.getIntExtra("idManga", 0);
+        idNovel = intent.getIntExtra("idNovel", 0);
 
-        LoadMangaAndChapter(idManga);
+        LoadMangaAndChapter(idNovel);
     }
+
     @SuppressLint("SetTextI18n")
     private void LoadMangaAndChapter(int idManga) {
         //ánh xạ
         recycleViewChapter = findViewById(R.id.recycleViewChapter);
         imgDetailManga = findViewById(R.id.imgDetailManga);
         tvMangaName = findViewById(R.id.tvMangaName);
-        tvSoTap = findViewById(R.id.tvSoTap);
         tvNgayTao = findViewById(R.id.tvNgayTao);
         tvTacGia = findViewById(R.id.tvTacGia);
         tvLuotXem = findViewById(R.id.tvLuotXem);
         tvMoTa = findViewById(R.id.tvMoTa);
         tvTheLoai = findViewById(R.id.tvTheLoai);
-        btnFavorite = findViewById(R.id.btnFavorite);
-        btnFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(DetailMangaActivity.this, "Đã thêm", Toast.LENGTH_SHORT).show();
-            }
-        });
 
 
         chapterArrayList = new ArrayList<>();
         genreArrayList = new ArrayList<>();
-        Chapter chapter1 = new Chapter(0, "10", "Bắt đầu hành trình mới", "", false);
-        Chapter chapter2 = new Chapter(1, "10", "Đi đánh lộn", "", false);
-        Chapter chapter3 = new Chapter(2, "10", "Đập banh nóc", "", false);
-        Chapter chapter4 = new Chapter(3, "10", "Hết truyện luôn", "", true);
 
-        chapterArrayList.add(chapter1);
-        chapterArrayList.add(chapter2);
-        chapterArrayList.add(chapter3);
-        chapterArrayList.add(chapter4);
-
-        Genre genre = new Genre(1, "Hành động");
-        Genre genre1 = new Genre(2, "Phiêu lưu");
-        Genre genre2 = new Genre(1, "Siêu nhiên");
-        genreArrayList.add(genre);
-        genreArrayList.add(genre1);
-        genreArrayList.add(genre2);
-
-        Manga manga = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507319/Mangaworld/MV5BODcwNWE3OTMtMDc3MS00NDFjLWE1OTAtNDU3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ_._V1_FMjpg_UX1000__ij1oft.jpg","Vua hải tặc", "Phiêu lưu", "1600", "01/01/1999", "06/05/2022", true, "xyz", 1, 300000);
-        DetailManga detailManga = new DetailManga(1, 1, "Nhật Minh", "",chapterArrayList, genreArrayList);
-
-        //gắn data vào view
-        Picasso.get()
-                .load(manga.getLink())
-                .resize(4000, 4000)
-                .centerCrop()
-                .placeholder(R.drawable.logo)
-                .error(R.drawable.logo)
-                .into(imgDetailManga);
-        tvMangaName.setText("Tên truyện: "+manga.getTitle());
-        tvLuotXem.setText("Lượt xem: "+String.valueOf(manga.getView()));
-        tvMoTa.setText("Mô tả: "+manga.getRecents());
-        tvNgayTao.setText("Ngày xuất bản: "+manga.getUpload_on());
-        tvSoTap.setText("Số tập: "+manga.getEndpoint());
-        String tl="";
-        for(int i=0; i<genreArrayList.size(); i++){
-            if(i < genreArrayList.size()-1){
-                tl += genreArrayList.get(i).getNameGenre()+", ";
+        ChapterController chapterController = new ChapterController(LoadActivity.url, this);
+        chapterController.getChaptersByNovelId(idNovel,new IVolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                chapterArrayList.clear();
+                chapterArrayList.addAll(chapterController.convertJSONData(result));
+                chapterRecyclerViewAdapter.notifyDataSetChanged();
             }
-            else tl += genreArrayList.get(i).getNameGenre();
-        }
-        tvTheLoai.setText("Thể loại: "+tl);
-        tvTacGia.setText("Tác giả: "+detailManga.getAuthor());
+        });
+
+        NovelController novelController = new NovelController(LoadActivity.url, this);
+        novelController.getNovelByID(idManga, new IVolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                novel = novelController.convertJSONNovel(result);
+                //gắn data vào view
+                Picasso.get()
+                        .load(imageUrl + novel.getCover() + ".jpg")
+                        .resize(1000, 1000)
+                        .centerCrop()
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.logo)
+                        .into(imgDetailManga);
+                tvMangaName.setText(novel.getTitle());
+                tvLuotXem.setText(novel.getViewCount()+"");
+                tvMoTa.setText(novel.getDescription());
+
+                try {
+                    Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(novel.getDatePost());
+                    tvNgayTao.setText(new SimpleDateFormat("dd/MM/yyyy").format(date));
+                } catch (ParseException e) {
+                    tvNgayTao.setText("");
+                }
+
+
+                AuthorController authorController = new AuthorController(LoadActivity.url,DetailMangaActivity.this);
+                authorController.getAuthorByID(novel.getIdAuthor(), new IVolleyCallback() {
+                    @Override
+                    public void onSuccess(String result) {
+                        tvTacGia.setText(authorController.convertJSONAuthor(result).getName());
+                    }
+                });
+            }
+        });
+
+        GenreController genreController = new GenreController(LoadActivity.url,this);
+        genreController.getGenreByNovelID(idNovel, new IVolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                ArrayList<GenreModel> genreList = genreController.convertJSONData(result);
+                String genreStr = "";
+                for (int i = 0; i < genreList.size(); i++) {
+                    genreStr += genreList.get(i).getName();
+                    if (i < genreList.size() - 1) {
+                        genreStr += ", ";
+                    }
+                }
+                tvTheLoai.setText(genreStr);
+            }
+        });
+
+
 
         chapterRecyclerViewAdapter = new ChapterRecyclerViewAdapter(chapterArrayList);
         //click vào từng nút +
@@ -118,8 +139,8 @@ public class DetailMangaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Intent intent = new Intent(DetailMangaActivity.this, ChapterActivity.class);
-                intent.putExtra("idManga", manga.getIdManga());
-                intent.putExtra("idChapter", chapterArrayList.get(position).getIdChapter());
+                intent.putExtra("idNovel", novel.getId());
+                intent.putExtra("idChapter", position);
                 startActivity(intent);
             }
         });

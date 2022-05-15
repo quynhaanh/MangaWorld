@@ -25,7 +25,6 @@ import com.example.mangaworld.adapter.TopNovelRecyclerViewAdapter;
 import com.example.mangaworld.adapter.ViewPagerSlideAdapter;
 import com.example.mangaworld.controller.IVolleyCallback;
 import com.example.mangaworld.controller.NovelController;
-import com.example.mangaworld.model.Manga;
 import com.example.mangaworld.model.NovelModel;
 import com.example.mangaworld.transformer.ZoomOutPageTransformer;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -169,7 +168,7 @@ public class HomeFragmentNew extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Intent intent = new Intent(getContext(), DetailMangaActivity.class);
-                intent.putExtra("idManga", slideArrayList.get(position).getId());
+                intent.putExtra("idNovel", slideArrayList.get(position).getId());
                 startActivity(intent);
             }
         });
@@ -205,7 +204,7 @@ public class HomeFragmentNew extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Intent intent = new Intent(getContext(), DetailMangaActivity.class);
-                intent.putExtra("idManga", popularMangaArrayList.get(position).getId());
+                intent.putExtra("idNovel", popularMangaArrayList.get(position).getId());
                 startActivity(intent);
             }
         });
@@ -220,7 +219,7 @@ public class HomeFragmentNew extends Fragment {
                 //truyền qua cho nó key để nhận biết dữ liệu khi dùng chung màn hình
                 //vd số 1 là see all popular, số 2 là see all manhhua, số 3 là see all manhwa
                 Intent intent = new Intent(getContext(), AllMangaActivity.class);
-                intent.putExtra("checkManga", "popular");
+                intent.putExtra("checkNovel", "popular");
                 startActivity(intent);
             }
         });
@@ -417,7 +416,16 @@ public class HomeFragmentNew extends Fragment {
             @Override
             public void onSuccess(String result) {
                 popularMangaArrayList.clear();
-                popularMangaArrayList.addAll(controller.convertJSONData(result));
+                ArrayList<NovelModel> tmp = controller.convertJSONData(result);
+
+                for(int i=0;i<4;i++)
+                {
+                    if (i > tmp.size() - 1)
+                        break;
+
+                    popularMangaArrayList.add(tmp.get(i));
+                }
+
                 mangaRecyclerviewAdapter.notifyDataSetChanged();
             }
         });

@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.navigation_world:
-                    toolbar.setTitle(R.string.search);
+                    toolbar.setTitle(R.string.list);
                     MainActivity.this.openFragment(LibraryFragment.newInstance(str, str));
                     return true;
 
