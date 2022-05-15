@@ -67,6 +67,15 @@ public class YourNovelDetailsActivity extends AppCompatActivity {
                 chapter.setContent(txtYourNovelChapterContent.getText().toString());
                 chapter.setNovelID(novelID);
 
+                for(ChapterModel chapterModel : chapterData)
+                {
+                    if(chapter.getId() == chapterModel.getId())
+                    {
+                        updateFlag = true;
+                        break;
+                    }
+                }
+
                 if (updateFlag == true) {
                     chapterController.updateChapter(chapter, new IVolleyCallback() {
                         @Override

@@ -531,6 +531,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
             public void onSuccess(String result) {
                 chapterData.clear();
                 chapterData.addAll(chapterController.convertJSONData(result));
+                chapterItemAdapter.notifyDataSetChanged();
             }
         });
     }
