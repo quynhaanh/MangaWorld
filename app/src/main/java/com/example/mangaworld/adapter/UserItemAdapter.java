@@ -96,4 +96,23 @@ public class UserItemAdapter extends ArrayAdapter {
         });
         return convertView;
     }
+    public void search(String searchString) {
+        if(datatmp.size() < data.size())
+        {
+            datatmp.clear();
+            datatmp.addAll(data);
+        }
+        data.clear();
+        searchString = searchString.toLowerCase();
+        if (searchString.length()==0) {
+            data.addAll(datatmp);
+        } else {
+            for (UserModel userModel : datatmp) {
+                if (userModel.getId().toLowerCase().contains(searchString) || userModel.getName().toLowerCase().contains(searchString) || userModel.getEmail().toLowerCase().contains(searchString)) {
+                    data.add(userModel);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 }

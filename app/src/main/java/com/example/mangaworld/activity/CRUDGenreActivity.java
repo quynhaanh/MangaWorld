@@ -91,6 +91,18 @@ public class CRUDGenreActivity extends AppCompatActivity {
             }
         });
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                genreItemAdapter.search(newText);
+                return false;
+            }
+        });
 
     }
 

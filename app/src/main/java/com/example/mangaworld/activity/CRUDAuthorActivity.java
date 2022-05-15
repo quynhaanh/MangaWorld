@@ -98,6 +98,18 @@ public class CRUDAuthorActivity extends AppCompatActivity {
 
             }
         });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                authorItemAdapter.search(newText);
+                return false;
+            }
+        });
     }
     public void loadData(AuthorModel author) {
         edID.setText(author.getId());
