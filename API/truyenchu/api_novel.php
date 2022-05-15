@@ -12,13 +12,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $desc = $_POST['Desc'];
     $cover = $_POST['Cover'];
     $date_post = date("Y-m-d H:i:s");
+    $view = $_POST['View'];
     $id_user = $_POST['IDUser'];
     $image_bytes = $_POST['ImageBytes'];
     $image_path = "images/$cover.jpg";
 
     if ($type == "insert") {
-        $query = "INSERT INTO novel (ID,Title,ID_Author,Description,Cover,Date_Post,ID_User) 
-        VALUES ($id,'$title','$id_author','$desc','$cover','$date_post','$id_user')";
+        $query = "INSERT INTO novel (ID,Title,ID_Author,Description,Cover,Date_Post,View,ID_User) 
+        VALUES ($id,'$title','$id_author','$desc','$cover','$date_post',$view,'$id_user')";
     }
     if ($type == "delete") {
         $query = "DELETE FROM novel WHERE ID = '$id'";
@@ -27,7 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $query = "DELETE FROM novel";
     }
     if ($type == "update") {
-        $query = "UPDATE novel SET Title = '$title', ID_Author = '$id_author', Description='$desc', Cover='$cover' WHERE ID = '$id'";
+        $query = "UPDATE novel SET Title = '$title', ID_Author = '$id_author', Description='$desc', Cover='$cover', View = '$view'
+         WHERE ID = '$id'";
     }
 
     if (mysqli_query($connect, $query)) {

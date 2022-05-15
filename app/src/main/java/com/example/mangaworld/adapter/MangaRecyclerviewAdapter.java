@@ -13,15 +13,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mangaworld.R;
+import com.example.mangaworld.activity.LoadActivity;
+import com.example.mangaworld.activity.MainActivity;
+import com.example.mangaworld.controller.GenreController;
+import com.example.mangaworld.controller.IVolleyCallback;
+import com.example.mangaworld.model.GenreModel;
 import com.example.mangaworld.model.Manga;
+import com.example.mangaworld.model.NovelModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecyclerviewAdapter.MangaRecyclerViewHoder>{
-    private ArrayList<Manga> mangaArrayList = new ArrayList<>();
+public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecyclerviewAdapter.MangaRecyclerViewHoder> {
+    private ArrayList<NovelModel> mangaArrayList = new ArrayList<>();
+    String imageUrl = LoadActivity.url + "/api/truyenchu/images/";
 
-    public MangaRecyclerviewAdapter(ArrayList<Manga> mangaArrayList) {
+    public MangaRecyclerviewAdapter(ArrayList<NovelModel> mangaArrayList) {
         this.mangaArrayList = mangaArrayList;
     }
 
@@ -31,7 +38,7 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
     @Override
     public MangaRecyclerViewHoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_manga, parent, false);
-        return new MangaRecyclerViewHoder(view);
+        return new MangaRecyclerViewHoder(view, parent.getContext());
     }
 
     @Override
@@ -41,20 +48,22 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
 
     @Override
     public int getItemCount() {
-        if(mangaArrayList.size()>0){
+        if (mangaArrayList.size() > 0) {
             return mangaArrayList.size();
-        }
-        else {
+        } else {
             return 0;
         }
     }
 
-    public class MangaRecyclerViewHoder extends RecyclerView.ViewHolder{
+    public class MangaRecyclerViewHoder extends RecyclerView.ViewHolder {
         public TextView tvName, tvPrice, tvGenge;
         public FrameLayout bg_item_manga;
         public ImageView imageView;
-        public MangaRecyclerViewHoder(@NonNull View view) {
+        public Context context;
+
+        public MangaRecyclerViewHoder(@NonNull View view, Context context) {
             super(view);
+            this.context = context;
             this.imageView = (ImageView) view.findViewById(R.id.imgManga);
             this.tvName = (TextView) view.findViewById(R.id.tvName);
             this.tvGenge = (TextView) view.findViewById(R.id.tvGenre);
@@ -63,18 +72,35 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
             this.setIsRecyclable(false);
         }
     }
-    public void bind(@NonNull MangaRecyclerviewAdapter.MangaRecyclerViewHoder viewHolder, int i){
-        Manga manga = mangaArrayList.get(i);
+
+    public void bind(@NonNull MangaRecyclerviewAdapter.MangaRecyclerViewHoder viewHolder, int i) {
+        NovelModel manga = mangaArrayList.get(i);
         Picasso.get()
-                .load(manga.getLink())
-                .resize(1000, 1000)
+                .load(imageUrl + manga.getCover() + ".jpg")
+                .resize(500, 800)
                 .centerCrop()
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)
                 .into(viewHolder.imageView);
         viewHolder.tvName.setText(manga.getTitle());
-        viewHolder.tvPrice.setText(String.valueOf(manga.getPrice())+" view");
-        viewHolder.tvGenge.setText(manga.getGenre());
+        viewHolder.tvPrice.setText(manga.getViewCount() + " lượt xem");
+
+        GenreController controller = new GenreController(LoadActivity.url, (MainActivity) viewHolder.context);
+        controller.getGenreByNovelID(manga.getId(), new IVolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                ArrayList<GenreModel> genreList = controller.convertJSONData(result);
+                String genreStr = "";
+                for (int i = 0; i < genreList.size(); i++) {
+                    genreStr += genreList.get(i).getName();
+                    if (i < genreList.size() - 1) {
+                        genreStr += ", ";
+                    }
+                }
+                viewHolder.tvGenge.setText(genreStr);
+            }
+        });
+
         viewHolder.bg_item_manga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +108,8 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
             }
         });
     }
-    public void setOnClickItemRecyclerView(ItemClickInterface itemRecyclerView){
+
+    public void setOnClickItemRecyclerView(ItemClickInterface itemRecyclerView) {
         itemClickInterface = itemRecyclerView;
     }
 }
