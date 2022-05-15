@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 
 public class CRUDAuthorActivity extends AppCompatActivity {
     EditText edID, edName;
-    Button btnCommit;
+    ImageButton btnCommit;
     ListView listView;
     SearchView searchView;
 
@@ -95,6 +96,18 @@ public class CRUDAuthorActivity extends AppCompatActivity {
                 updateFlag = false;
 
 
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                authorItemAdapter.search(newText);
+                return false;
             }
         });
     }

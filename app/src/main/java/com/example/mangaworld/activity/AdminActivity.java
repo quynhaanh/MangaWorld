@@ -17,7 +17,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void gotoUser(View view) {
-        startActivity(new Intent(this, CRUDUser.class));
+        startActivity(new Intent(this, CRUDUserActivity.class));
     }
 
     public void gotoNovel(View view){

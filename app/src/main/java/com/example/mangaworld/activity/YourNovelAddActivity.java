@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -80,9 +81,10 @@ public class YourNovelAddActivity extends AppCompatActivity {
     AuthorModel author;
 
     Bundle bundle;
+    int novelID;
 
     String url = LoadActivity.url;
-    int novelID = -1;
+
     int authorID;
     int genreID;
     String authorName;
@@ -96,10 +98,14 @@ public class YourNovelAddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_your_novel_add);
         setControl();
         setEvent();
-        refreshListNovel();
     }
 
     private void setEvent() {
+        if(bundle!=null)
+        {
+            novelID = bundle.getInt("idNovel");
+            loadNovelData();
+        }
 
         lvYourNovelChapter.setAdapter(chapterItemAdapter);
 
@@ -194,9 +200,26 @@ public class YourNovelAddActivity extends AppCompatActivity {
                 writeNovelData();
             }
         });
+
+        lvYourNovelChapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(YourNovelAddActivity.this, YourNovelDetailsActivity.class);
+                Bundle bundle = new Bundle();
+
+                ChapterModel chapter = chapterData.get(position);
+
+                bundle.putInt("idChapter", chapter.getId());
+                bundle.putInt("idNovel", novelID);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setControl() {
+
+
         authorController = new AuthorController(url, this);
         getAuthorList();
 
@@ -204,10 +227,6 @@ public class YourNovelAddActivity extends AppCompatActivity {
         getNovelList();
 
         chapterController = new ChapterController(url, this);
-        if(bundle!=null)
-        {
-            loadNovelData();
-        }
 
         genreController = new GenreController(url, this);
         getGenreList();
@@ -236,6 +255,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
         chapterController = new ChapterController(url, this);
         chapterItemAdapter = new ChapterItemAdapter(YourNovelAddActivity.this,
                 R.layout.layout_item_chapter, chapterData, url);
+        lvYourNovelChapter.setAdapter(chapterItemAdapter);
     }
 
 
@@ -262,6 +282,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(String result) {
                     Log.d("insertAuthor", "1");
+                    getAuthorList();
                 }
             });
         }
@@ -285,6 +306,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
                         Toast.makeText(YourNovelAddActivity.this,
                                 "Sửa thành công" + novel.getTitle(),
                                 Toast.LENGTH_SHORT).show();
+                        getNovelList();
                     }
                 });
             } else {
@@ -292,6 +314,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(String result) {
                         Toast.makeText(YourNovelAddActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        getNovelList();
                     }
                 });
             }
@@ -330,8 +353,6 @@ public class YourNovelAddActivity extends AppCompatActivity {
                 }
             }
         }
-
-        //refreshListNovel();
     }
 
     private String imageToString(Bitmap bitmap) {
@@ -367,22 +388,22 @@ public class YourNovelAddActivity extends AppCompatActivity {
 
     public void loadNovelData()
     {
-        bundle = getIntent().getExtras();
         updateFlag = true;
-        novelID = bundle.getInt("NovelID");
         novelController.getNovelByID(novelID, new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 //novelData.add(novelController.convertJSONNovel(result));
                 loadNovel = novelController.convertJSONNovel(result);
+                Log.d("Result", result);
+
+                authorName = getAuthorNameById(loadNovel.getIdAuthor());
+                txtYourNovelTitle.setText(loadNovel.getTitle());
+                txtYourNovelAuthor.setText(authorName);
+                txtYourNovelDesc.setText(loadNovel.getDescription());
+                getChapterListByNovelId(novelID);
             }
         });
-        String authorName = getAuthorNameById(loadNovel.getIdAuthor());
-        txtYourNovelTitle.setText(loadNovel.getTitle());
-        txtYourNovelAuthor.setText(authorName);
-        txtYourNovelDesc.setText(loadNovel.getDescription());
-        //txtYourNovelCoverName.setText(loadNovel.getCover());
-        getChapterListByNovelId(novelID);
+
     }
 
     private String getAuthorNameById(int id)
@@ -510,23 +531,5 @@ public class YourNovelAddActivity extends AppCompatActivity {
                 chapterData.addAll(chapterController.convertJSONData(result));
             }
         });
-    }
-
-    public void refreshListNovel()
-    {
-        try {
-            novelController.getNovelByIDUser(MainActivity.loggedUser.getId(), new IVolleyCallback() {
-                @Override
-                public void onSuccess(String result) {
-                    novelData.clear();
-                    novelData.addAll(novelController.convertJSONData(result));
-                }
-            });
-        }catch (Exception e)
-        {
-            Toast.makeText(this, "Bạn chưa có truyện nào" +
-                    "\nHãy thêm truyện", Toast.LENGTH_SHORT).show();
-        }
-
     }
 }

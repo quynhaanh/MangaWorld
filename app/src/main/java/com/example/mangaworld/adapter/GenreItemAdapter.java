@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import com.example.mangaworld.R;
 import com.example.mangaworld.activity.CRUDGenreActivity;
 import com.example.mangaworld.controller.GenreController;
 import com.example.mangaworld.controller.IVolleyCallback;
+import com.example.mangaworld.model.AuthorModel;
 import com.example.mangaworld.model.GenreModel;
 
 import java.util.ArrayList;
@@ -50,8 +52,8 @@ public class GenreItemAdapter extends ArrayAdapter {
         TextView tvID = convertView.findViewById(R.id.tvItemIDType);
         TextView tvName = convertView.findViewById(R.id.tvItemNameType);
 
-        Button btnSua = convertView.findViewById(R.id.btnItemSuaType);
-        Button btnXoa = convertView.findViewById(R.id.btnItemXoaType);
+        ImageButton btnSua = convertView.findViewById(R.id.btnItemSuaType);
+        ImageButton btnXoa = convertView.findViewById(R.id.btnItemXoaType);
 
         GenreModel genre = data.get(position);
         tvID.setText(String.valueOf(genre.getId()));
@@ -77,5 +79,24 @@ public class GenreItemAdapter extends ArrayAdapter {
             }
         });
         return convertView;
+    }
+    public void search(String searchString) {
+        if(datatmp.size() < data.size())
+        {
+            datatmp.clear();
+            datatmp.addAll(data);
+        }
+        data.clear();
+        searchString = searchString.toLowerCase();
+        if (searchString.length()==0) {
+            data.addAll(datatmp);
+        } else {
+            for (GenreModel genreModel : datatmp) {
+                if (String.valueOf(genreModel.getId()).contains(searchString) || genreModel.getName().toLowerCase().contains(searchString)) {
+                    data.add(genreModel);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }

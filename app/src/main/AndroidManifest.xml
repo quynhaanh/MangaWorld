@@ -24,20 +24,21 @@
             android:name=".activity.AdminActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.DetailMangaActivity"
+            android:name=".activity.DetailNovelActivity"
             android:exported="false" />
         <activity
             android:name=".activity.ChapterActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.AllMangaActivity"
+            android:name=".activity.AllNovelActivity"
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="false" />
         <activity
             android:name=".activity.CRUDGenreActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".activity.AdminActivity"/>
         <activity
             android:name=".activity.CRUDAuthorActivity"
             android:exported="false" />
@@ -45,7 +46,7 @@
             android:name=".activity.CRUDChapterActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.CRUDUser"
+            android:name=".activity.CRUDUserActivity"
             android:exported="false" />
         <activity
             android:name=".activity.YourNovelActivity"

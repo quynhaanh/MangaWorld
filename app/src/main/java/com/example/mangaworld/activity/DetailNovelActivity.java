@@ -8,10 +8,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mangaworld.R;
 import com.example.mangaworld.adapter.ChapterRecyclerViewAdapter;
@@ -31,10 +29,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DetailMangaActivity extends AppCompatActivity {
+public class DetailNovelActivity extends AppCompatActivity {
     private RecyclerView recycleViewChapter;
-    private TextView tvMangaName, tvNgayTao, tvTacGia, tvLuotXem, tvMoTa, tvTheLoai;
-    private ImageView imgDetailManga;
+    private TextView tvNovelName, tvNgayTao, tvTacGia, tvLuotXem, tvMoTa, tvTheLoai;
+    private ImageView imgDetailNovel;
     private ArrayList<ChapterModel> chapterArrayList;
     private ArrayList<GenreModel> genreArrayList;
     private ChapterRecyclerViewAdapter chapterRecyclerViewAdapter;
@@ -58,8 +56,8 @@ public class DetailMangaActivity extends AppCompatActivity {
     private void LoadMangaAndChapter(int idManga) {
         //ánh xạ
         recycleViewChapter = findViewById(R.id.recycleViewChapter);
-        imgDetailManga = findViewById(R.id.imgDetailManga);
-        tvMangaName = findViewById(R.id.tvMangaName);
+        imgDetailNovel = findViewById(R.id.imgDetailNovel);
+        tvNovelName = findViewById(R.id.tvNovelName);
         tvNgayTao = findViewById(R.id.tvNgayTao);
         tvTacGia = findViewById(R.id.tvTacGia);
         tvLuotXem = findViewById(R.id.tvLuotXem);
@@ -92,8 +90,8 @@ public class DetailMangaActivity extends AppCompatActivity {
                         .centerCrop()
                         .placeholder(R.drawable.logo)
                         .error(R.drawable.logo)
-                        .into(imgDetailManga);
-                tvMangaName.setText(novel.getTitle());
+                        .into(imgDetailNovel);
+                tvNovelName.setText(novel.getTitle());
                 tvLuotXem.setText(novel.getViewCount()+"");
                 tvMoTa.setText(novel.getDescription());
 
@@ -105,7 +103,7 @@ public class DetailMangaActivity extends AppCompatActivity {
                 }
 
 
-                AuthorController authorController = new AuthorController(LoadActivity.url,DetailMangaActivity.this);
+                AuthorController authorController = new AuthorController(LoadActivity.url, DetailNovelActivity.this);
                 authorController.getAuthorByID(novel.getIdAuthor(), new IVolleyCallback() {
                     @Override
                     public void onSuccess(String result) {
@@ -138,7 +136,7 @@ public class DetailMangaActivity extends AppCompatActivity {
         chapterRecyclerViewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
-                Intent intent = new Intent(DetailMangaActivity.this, ChapterActivity.class);
+                Intent intent = new Intent(DetailNovelActivity.this, ChapterActivity.class);
                 intent.putExtra("idNovel", novel.getId());
                 intent.putExtra("idChapter", position);
                 startActivity(intent);

@@ -55,13 +55,9 @@ public class YourNovelActivity extends AppCompatActivity {
                 //putExtra...
                 Intent intent = new Intent(YourNovelActivity.this, YourNovelAddActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putInt("idNovel", novel.getId());
 
-                bundle.putInt("NovelID", novel.getId());
-
-                if(bundle != null)
-                {
-                    intent.putExtras(bundle);
-                }
+                intent.putExtras(bundle);
 
                 startActivity(intent);
             }

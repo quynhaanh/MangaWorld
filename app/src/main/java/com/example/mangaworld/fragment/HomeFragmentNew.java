@@ -15,12 +15,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mangaworld.R;
-import com.example.mangaworld.activity.AllMangaActivity;
-import com.example.mangaworld.activity.DetailMangaActivity;
+import com.example.mangaworld.activity.AllNovelActivity;
+import com.example.mangaworld.activity.DetailNovelActivity;
 import com.example.mangaworld.activity.LoadActivity;
 import com.example.mangaworld.activity.MainActivity;
 import com.example.mangaworld.adapter.ItemClickInterface;
-import com.example.mangaworld.adapter.MangaRecyclerviewAdapter;
+import com.example.mangaworld.adapter.NovelRecyclerviewAdapter;
 import com.example.mangaworld.adapter.TopNovelRecyclerViewAdapter;
 import com.example.mangaworld.adapter.ViewPagerSlideAdapter;
 import com.example.mangaworld.controller.IVolleyCallback;
@@ -56,21 +56,21 @@ public class HomeFragmentNew extends Fragment {
     private ShimmerFrameLayout shimmerPopular;
     private TextView tvSeeAllPopular;
     private ArrayList<NovelModel> popularMangaArrayList;
-    private MangaRecyclerviewAdapter mangaRecyclerviewAdapter;
+    private NovelRecyclerviewAdapter novelRecyclerviewAdapter;
 
     //manhua
     private RecyclerView recycleViewManhua;
     private ShimmerFrameLayout shimmerManhua;
     private TextView tvSeeAllManhua;
     private ArrayList<NovelModel> manhuaMangaArrayList;
-    private MangaRecyclerviewAdapter manhuaRecyclerviewAdapter;
+    private NovelRecyclerviewAdapter manhuaRecyclerviewAdapter;
 
     //manhwa
     private RecyclerView recycleViewManhwa;
     private ShimmerFrameLayout shimmerManhwa;
     private TextView tvSeeAllManhwa;
     private ArrayList<NovelModel> manhwaMangaArrayList;
-    private MangaRecyclerviewAdapter manhwaRecyclerviewAdapter;
+    private NovelRecyclerviewAdapter manhwaRecyclerviewAdapter;
 
     //top manga
     private RecyclerView recycleViewTopNovel;
@@ -167,7 +167,7 @@ public class HomeFragmentNew extends Fragment {
         viewPagerSlideAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
-                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
+                Intent intent = new Intent(getContext(), DetailNovelActivity.class);
                 intent.putExtra("idNovel", slideArrayList.get(position).getId());
                 startActivity(intent);
             }
@@ -198,17 +198,17 @@ public class HomeFragmentNew extends Fragment {
         popularMangaArrayList = new ArrayList<>();
 
 
-        mangaRecyclerviewAdapter = new MangaRecyclerviewAdapter(popularMangaArrayList);
+        novelRecyclerviewAdapter = new NovelRecyclerviewAdapter(popularMangaArrayList);
         //click vào từng nút +
-        mangaRecyclerviewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
+        novelRecyclerviewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
-                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
+                Intent intent = new Intent(getContext(), DetailNovelActivity.class);
                 intent.putExtra("idNovel", popularMangaArrayList.get(position).getId());
                 startActivity(intent);
             }
         });
-        recycleViewPopulation.setAdapter(mangaRecyclerviewAdapter);
+        recycleViewPopulation.setAdapter(novelRecyclerviewAdapter);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recycleViewPopulation.setLayoutManager(layoutManager);
@@ -218,7 +218,7 @@ public class HomeFragmentNew extends Fragment {
             public void onClick(View v) {
                 //truyền qua cho nó key để nhận biết dữ liệu khi dùng chung màn hình
                 //vd số 1 là see all popular, số 2 là see all manhhua, số 3 là see all manhwa
-                Intent intent = new Intent(getContext(), AllMangaActivity.class);
+                Intent intent = new Intent(getContext(), AllNovelActivity.class);
                 intent.putExtra("checkNovel", "popular");
                 startActivity(intent);
             }
@@ -426,7 +426,7 @@ public class HomeFragmentNew extends Fragment {
                     popularMangaArrayList.add(tmp.get(i));
                 }
 
-                mangaRecyclerviewAdapter.notifyDataSetChanged();
+                novelRecyclerviewAdapter.notifyDataSetChanged();
             }
         });
     }

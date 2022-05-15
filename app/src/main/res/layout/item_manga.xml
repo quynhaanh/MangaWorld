@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <FrameLayout
-        android:id="@+id/bg_item_manga"
+        android:id="@+id/bg_item_novel"
         android:background="@drawable/background_btn_search"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewManga"
+                android:id="@+id/cardViewNovel"
                 app:cardCornerRadius="10dp"
                 android:layout_width="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_height="180dp">
                 <ImageView
-                    android:id="@+id/imgManga"
+                    android:id="@+id/imgNovel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -51,7 +51,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardViewManga" />
+                app:layout_constraintTop_toBottomOf="@+id/cardViewNovel" />
 
             <TextView
                 android:id="@+id/tvGenre"
