@@ -96,7 +96,6 @@ public class CRUDGenreActivity extends AppCompatActivity {
     public void loadData(GenreModel genre) {
         edID.setText(String.valueOf(genre.getId()));
         edName.setText(genre.getName());
-
     }
 
     public void refreshListView() {
