@@ -101,6 +101,11 @@ public class YourNovelAddActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
+        if(bundle!=null)
+        {
+            novelID = bundle.getInt("idNovel");
+            loadNovelData();
+        }
 
         lvYourNovelChapter.setAdapter(chapterItemAdapter);
 
@@ -213,11 +218,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
     }
 
     private void setControl() {
-        if(bundle!=null)
-        {
-            novelID = bundle.getInt("idNovel");
-            loadNovelData();
-        }
+
 
         authorController = new AuthorController(url, this);
         getAuthorList();
@@ -254,6 +255,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
         chapterController = new ChapterController(url, this);
         chapterItemAdapter = new ChapterItemAdapter(YourNovelAddActivity.this,
                 R.layout.layout_item_chapter, chapterData, url);
+        lvYourNovelChapter.setAdapter(chapterItemAdapter);
     }
 
 
@@ -394,13 +396,16 @@ public class YourNovelAddActivity extends AppCompatActivity {
             public void onSuccess(String result) {
                 //novelData.add(novelController.convertJSONNovel(result));
                 loadNovel = novelController.convertJSONNovel(result);
+                Log.d("Result", result);
+
+                authorName = getAuthorNameById(loadNovel.getIdAuthor());
+                txtYourNovelTitle.setText(loadNovel.getTitle());
+                txtYourNovelAuthor.setText(authorName);
+                txtYourNovelDesc.setText(loadNovel.getDescription());
+                getChapterListByNovelId(novelID);
             }
         });
-        authorName = getAuthorNameById(loadNovel.getIdAuthor());
-        txtYourNovelTitle.setText(loadNovel.getTitle());
-        txtYourNovelAuthor.setText(authorName);
-        txtYourNovelDesc.setText(loadNovel.getDescription());
-        getChapterListByNovelId(novelID);
+
     }
 
     private String getAuthorNameById(int id)
