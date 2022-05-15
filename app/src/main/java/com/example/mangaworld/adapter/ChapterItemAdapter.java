@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import com.example.mangaworld.R;
 import com.example.mangaworld.activity.CRUDAuthorActivity;
 import com.example.mangaworld.activity.CRUDChapterActivity;
+import com.example.mangaworld.activity.YourNovelAddActivity;
 import com.example.mangaworld.controller.ChapterController;
 import com.example.mangaworld.controller.IVolleyCallback;
 import com.example.mangaworld.controller.NovelController;
@@ -65,7 +66,7 @@ public class ChapterItemAdapter  extends ArrayAdapter {
         tvDate.setText(chapter.getDatePost());
 
         ArrayList<NovelModel> listBook = new ArrayList<>();
-        NovelController novelController = new NovelController(url, (CRUDChapterActivity) context);
+        NovelController novelController = new NovelController(url, (YourNovelAddActivity) context);
         novelController.getNovel(new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
@@ -84,18 +85,18 @@ public class ChapterItemAdapter  extends ArrayAdapter {
         btnSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((CRUDChapterActivity) context).loadData(chapter);
+//                ((CRUDChapterActivity) context).loadData(chapter);
             }
         });
 
         btnXoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ChapterController chapterDAO = new ChapterController(url, (CRUDChapterActivity) context);
+                ChapterController chapterDAO = new ChapterController(url, (YourNovelAddActivity) context);
                 chapterDAO.deleteChapter(chapter, new IVolleyCallback() {
                     @Override
                     public void onSuccess(String result) {
-                        ((CRUDChapterActivity) context).refreshListView();
+                        ((YourNovelAddActivity) context).getChapterListByNovelId();
                     }
                 });
             }

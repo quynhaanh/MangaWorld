@@ -80,7 +80,6 @@ public class YourNovelAddActivity extends AppCompatActivity {
     NovelModel loadNovel;
     AuthorModel author;
 
-    Bundle bundle;
     int novelID;
 
     String url = LoadActivity.url;
@@ -101,18 +100,17 @@ public class YourNovelAddActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
-        if(bundle!=null)
-        {
-            novelID = bundle.getInt("idNovel");
+        novelID = getIntent().getIntExtra("idNovel", -1);
+        if (novelID != -1) {
             loadNovelData();
         }
-
-        lvYourNovelChapter.setAdapter(chapterItemAdapter);
 
         fbtnYourNovelToDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(YourNovelAddActivity.this, YourNovelDetailsActivity.class));
+                Intent intent = new Intent(YourNovelAddActivity.this, YourNovelDetailsActivity.class);
+                intent.putExtra("idNovel", novelID);
+                startActivity(intent);
             }
         });
 
@@ -127,7 +125,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder( YourNovelAddActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(YourNovelAddActivity.this);
                 //Set title
                 builder.setTitle("Chọn thể loại");
                 //Set dialog non cancelable
@@ -136,14 +134,11 @@ public class YourNovelAddActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
                         //Check condition
-                        if(b)
-                        {
+                        if (b) {
                             //when box checked, add to list and sort
                             genreList.add(i);
                             Collections.sort(genreList);
-                        }
-                        else
-                        {
+                        } else {
                             genreList.remove(i);
                         }
                     }
@@ -152,13 +147,11 @@ public class YourNovelAddActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         StringBuilder stringBuilder = new StringBuilder();
-                        for(int j =0;j< genreList.size();j++)
-                        {
+                        for (int j = 0; j < genreList.size(); j++) {
                             //combine array value
                             stringBuilder.append(array[genreList.get(j)]);
                             //Check condition
-                            if(j!= genreList.size()-1)
-                            {
+                            if (j != genreList.size() - 1) {
                                 stringBuilder.append(", ");
 
                             }
@@ -178,8 +171,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //
-                        for(int j =0;j<genreSelected.length;j++)
-                        {
+                        for (int j = 0; j < genreSelected.length; j++) {
                             //Remove all selection
                             genreSelected[j] = false;
                             //clear list
@@ -259,10 +251,9 @@ public class YourNovelAddActivity extends AppCompatActivity {
     }
 
 
-    private void writeNovelData()
-    {
+    private void writeNovelData() {
         authorName = txtYourNovelAuthor.getText().toString().trim();
-        authorID = authorData.get(authorData.size()-1).getId()+1;
+        authorID = authorData.get(authorData.size() - 1).getId() + 1;
 
         author = new AuthorModel();
         author.setId(authorID);
@@ -276,8 +267,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
             }
         }
 
-        if(!updateFlagAuth)
-        {
+        if (!updateFlagAuth) {
             authorController.insertAuthor(author, new IVolleyCallback() {
                 @Override
                 public void onSuccess(String result) {
@@ -289,7 +279,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
         updateFlagAuth = false;
 
         NovelModel novel = new NovelModel();
-        novel.setId(novelData.get(novelData.size()-1).getId() + 1);
+        novel.setId(novelData.get(novelData.size() - 1).getId() + 1);
         novel.setTitle(txtYourNovelTitle.getText().toString());
         novel.setIdAuthor(authorID);
         novel.setCover(novel.getId() + "-Cover");
@@ -318,7 +308,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
                     }
                 });
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -330,22 +320,17 @@ public class YourNovelAddActivity extends AppCompatActivity {
 
         //NovelGenresModel novelGenresModel = new NovelGenresModel();
         //novelGenresModel.setNovelID(6);
-        Log.d("Value size", values.length+"");
-        for(String value : values)
-        {
-
+        for (String value : values) {
             //getGenreIdByName(value);
 
-            for(GenreModel iGenre : genreData)
-            {
-
-                if(value.equalsIgnoreCase(iGenre.getName()))
-                {
+            for (GenreModel iGenre : genreData) {
+                if (value.equals(iGenre.getName())) {
                     NovelGenresModel novelGenresModel = new NovelGenresModel();
-                    novelGenresModel.setNovelID(novel.getId());
+                    novelGenresModel.setNovelID(10);
                     novelGenresModel.setGenreID(iGenre.getId());
 
-                    novelGenresController.insertNovelGenre(novelGenresModel, new IVolleyCallback() {
+                    NovelGenresController controller = new NovelGenresController(LoadActivity.url, this);
+                    controller.insertNovelGenre(novelGenresModel, new IVolleyCallback() {
                         @Override
                         public void onSuccess(String result) {
                             Log.d("insert Novel Genre", "1");
@@ -388,8 +373,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
         }
     }
 
-    public void loadNovelData()
-    {
+    public void loadNovelData() {
         updateFlag = true;
         novelController.getNovelByID(novelID, new IVolleyCallback() {
             @Override
@@ -402,34 +386,30 @@ public class YourNovelAddActivity extends AppCompatActivity {
                 txtYourNovelTitle.setText(loadNovel.getTitle());
                 txtYourNovelAuthor.setText(authorName);
                 txtYourNovelDesc.setText(loadNovel.getDescription());
-                getChapterListByNovelId(novelID);
+
             }
         });
-
+        getChapterListByNovelId();
     }
 
-    private String getAuthorNameById(int id)
-    {
+    private String getAuthorNameById(int id) {
         String authorName = "";
         for (AuthorModel author : authorData
         ) {
-            if(id == author.getId())
-            {
+            if (id == author.getId()) {
                 authorName = author.getName();
             }
         }
         return authorName;
     }
 
-    private void getAuthorList()
-    {
+    private void getAuthorList() {
         authorController.getAuthors(new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 authorData.clear();
                 authorData.addAll(authorController.convertJSONData(result));
-                for (AuthorModel iAuthor : authorData)
-                {
+                for (AuthorModel iAuthor : authorData) {
                     authorNameData.add(iAuthor.getName());
                 }
 
@@ -439,8 +419,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
         });
     }
 
-    private void getAuthorIdByName(String name)
-    {
+    private void getAuthorIdByName(String name) {
         authorController.getAuthors(new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
@@ -448,11 +427,10 @@ public class YourNovelAddActivity extends AppCompatActivity {
                 authorData.addAll(authorController.convertJSONData(result));
 
                 for (AuthorModel iAuthor : authorData) {
-                    if(iAuthor.getName().equals(name))
-                    {
+                    if (iAuthor.getName().equals(name)) {
                         authorID = iAuthor.getId();
                         updateFlagAuth = false;
-                        Log.d("forAuthorID" , authorID+"");
+                        Log.d("forAuthorID", authorID + "");
                         break;
                     }
                 }
@@ -460,8 +438,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
         });
     }
 
-    private void getNovelGenreList()
-    {
+    private void getNovelGenreList() {
         novelGenresController.getNovelGenres(new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
@@ -471,8 +448,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
         });
     }
 
-    private void getNovelList()
-    {
+    private void getNovelList() {
         novelController.getNovel(new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
@@ -482,8 +458,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
         });
     }
 
-    private void getGenreList()
-    {
+    private void getGenreList() {
         // Chạy bất đồng bộ
         // Không thể xử lý array ở ngoài onSuccess
         genreController.getGenres(new IVolleyCallback() {
@@ -492,10 +467,9 @@ public class YourNovelAddActivity extends AppCompatActivity {
                 genreData.clear();
                 genreData.addAll(genreController.convertJSONData(result));
                 //genreItemAdapter.notifyDataSetChanged();
-                for(GenreModel iGenre : genreData)
-                {
+                for (GenreModel iGenre : genreData) {
                     genreArray.add(iGenre.getName());
-                    Log.d("GenreArray #0",genreArray.get(0));
+                    Log.d("GenreArray #0", genreArray.get(0));
                 }
 
                 array = new String[genreArray.size()];
@@ -505,18 +479,15 @@ public class YourNovelAddActivity extends AppCompatActivity {
         });
     }
 
-    private void getGenreIdByName(String name)
-    {
+    private void getGenreIdByName(String name) {
         genreController.getGenres(new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 genreData.clear();
                 genreData.addAll(genreController.convertJSONData(result));
 
-                for(GenreModel iGenre : genreData)
-                {
-                    if(iGenre.getName().equalsIgnoreCase(name))
-                    {
+                for (GenreModel iGenre : genreData) {
+                    if (iGenre.getName().equalsIgnoreCase(name)) {
                         genreID = iGenre.getId();
                     }
                 }
@@ -524,9 +495,8 @@ public class YourNovelAddActivity extends AppCompatActivity {
         });
     }
 
-    private void getChapterListByNovelId(int novelId)
-    {
-        chapterController.getChaptersByNovelId(novelId, new IVolleyCallback() {
+    public void getChapterListByNovelId() {
+        chapterController.getChaptersByNovelId(novelID, new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 chapterData.clear();
