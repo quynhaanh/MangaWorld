@@ -159,24 +159,24 @@ public class SignUpFragment extends Fragment {
         {
             int code = ((MainActivity) getActivity()).sendOTPCode(newUser.getEmail());
             ((MainActivity) getActivity()).openFragment(
-                    OTPFragment.newInstance("", "", code, newUser));
+                    OTPFragment.newInstance("", "", code, newUser,false));
         }
     }
 
     private String checkExist() {
-        final String[] text = {""};
+        String text = "";
 
         for (UserModel user : data)
         {
             if (user.getId().trim().equals(txtID.getText().toString().trim())) {
-                text[0] = "ID đã tồn tại xin vui lòng chọn ID khác!";
+                text = "ID đã tồn tại xin vui lòng chọn ID khác!";
             }
             if (user.getEmail().trim().equals(txtEmail.getText().toString().trim())) {
-                text[0] = "Email đã liên kết với tài khoản khác!";
+                text = "Email đã liên kết với tài khoản khác!";
             }
         }
 
-        return text[0];
+        return text;
     }
 
     private void setControl(View view) {

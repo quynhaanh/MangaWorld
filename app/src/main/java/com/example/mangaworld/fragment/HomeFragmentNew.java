@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -14,19 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mangaworld.R;
 import com.example.mangaworld.activity.AllMangaActivity;
-import com.example.mangaworld.activity.ChapterActivity;
 import com.example.mangaworld.activity.DetailMangaActivity;
 import com.example.mangaworld.activity.LoadActivity;
 import com.example.mangaworld.activity.MainActivity;
 import com.example.mangaworld.adapter.ItemClickInterface;
 import com.example.mangaworld.adapter.MangaRecyclerviewAdapter;
-import com.example.mangaworld.adapter.TopMangaRecyclerViewAdapter;
+import com.example.mangaworld.adapter.TopNovelRecyclerViewAdapter;
 import com.example.mangaworld.adapter.ViewPagerSlideAdapter;
-import com.example.mangaworld.model.Manga;
+import com.example.mangaworld.controller.IVolleyCallback;
+import com.example.mangaworld.controller.NovelController;
+import com.example.mangaworld.model.NovelModel;
 import com.example.mangaworld.transformer.ZoomOutPageTransformer;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
@@ -39,7 +38,10 @@ public class HomeFragmentNew extends Fragment {
     public HomeFragmentNew() {
         // Required empty public constructor
     }
+
     MainActivity mainAcdsctivity;
+    ArrayList<NovelModel> newestNovelData = new ArrayList<>();
+
 
     //slider
     private Handler mhandler = new Handler();
@@ -47,44 +49,43 @@ public class HomeFragmentNew extends Fragment {
     private ViewPager2 viewPager2;
     private CircleIndicator3 indicator3;
     private ShimmerFrameLayout shimmerFrameLayout;
-    private ArrayList<Manga> slideArrayList ;
+    private ArrayList<NovelModel> slideArrayList;
 
     //popular
     private RecyclerView recycleViewPopulation;
     private ShimmerFrameLayout shimmerPopular;
     private TextView tvSeeAllPopular;
-    private ArrayList<Manga> popularMangaArrayList;
+    private ArrayList<NovelModel> popularMangaArrayList;
     private MangaRecyclerviewAdapter mangaRecyclerviewAdapter;
 
     //manhua
     private RecyclerView recycleViewManhua;
     private ShimmerFrameLayout shimmerManhua;
     private TextView tvSeeAllManhua;
-    private ArrayList<Manga> manhuaMangaArrayList;
+    private ArrayList<NovelModel> manhuaMangaArrayList;
     private MangaRecyclerviewAdapter manhuaRecyclerviewAdapter;
 
     //manhwa
     private RecyclerView recycleViewManhwa;
     private ShimmerFrameLayout shimmerManhwa;
     private TextView tvSeeAllManhwa;
-    private ArrayList<Manga> manhwaMangaArrayList;
+    private ArrayList<NovelModel> manhwaMangaArrayList;
     private MangaRecyclerviewAdapter manhwaRecyclerviewAdapter;
 
     //top manga
-    private RecyclerView recycleViewTopManga;
-    private ShimmerFrameLayout shimmerTopManga;
+    private RecyclerView recycleViewTopNovel;
+    private ShimmerFrameLayout shimmerTopNovel;
     private TextView tvSeeAllTop;
-    private ArrayList<Manga> topMangaArrayList;
-    private TopMangaRecyclerViewAdapter topMangaRecyclerviewAdapter;
+    private ArrayList<NovelModel> topNovelArrayList;
+    private TopNovelRecyclerViewAdapter topNovelRecyclerviewAdapter;
 
     public Runnable runnable = new Runnable() {
         @Override
         public void run() {
             //nếu slide di chuyển đến cuối thì set lại về đầu
-            if(viewPager2.getCurrentItem() == slideArrayList.size() - 1){
+            if (viewPager2.getCurrentItem() == slideArrayList.size() - 1) {
                 viewPager2.setCurrentItem(0);
-            }
-            else {
+            } else {
                 viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);
             }
         }
@@ -120,9 +121,14 @@ public class HomeFragmentNew extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_new, container, false);
         LoadSlide(view);
         LoadPopular(view);
-        LoadManhua(view);
-        LoadManhwa(view);
-        LoadTopManga(view);
+
+        initNewestData();
+        initPopularData();
+//        LoadManhua(view);
+//        LoadManhwa(view);
+//        LoadTopManga(view);
+
+
         return view;
     }
 
@@ -136,10 +142,10 @@ public class HomeFragmentNew extends Fragment {
         shimmerFrameLayout.setVisibility(View.GONE);
         shimmerPopular.stopShimmer();
         shimmerPopular.setVisibility(View.GONE);
-        shimmerManhua.stopShimmer();
-        shimmerManhua.setVisibility(View.GONE);
-        shimmerManhwa.stopShimmer();
-        shimmerManhwa.setVisibility(View.GONE);
+//        shimmerManhua.stopShimmer();
+//        shimmerManhua.setVisibility(View.GONE);
+//        shimmerManhwa.stopShimmer();
+//        shimmerManhwa.setVisibility(View.GONE);
     }
 
     @Override
@@ -148,7 +154,7 @@ public class HomeFragmentNew extends Fragment {
         mhandler.removeCallbacks(runnable);
     }
 
-    public void LoadSlide(View view){
+    public void LoadSlide(View view) {
         viewPager2 = view.findViewById(R.id.viewPagerTitle);
         indicator3 = view.findViewById(R.id.indicator3);
         shimmerFrameLayout = view.findViewById(R.id.contentShimmerRecommended);
@@ -156,24 +162,15 @@ public class HomeFragmentNew extends Fragment {
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         slideArrayList = new ArrayList<>();
 
-//        Manga slide = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1638689117/cqihlyiwovjgksu3jnmy.jpg","Tiệc tùng thôi nào");
-        Manga slide = new Manga(LoadActivity.url + "/api/truyenchu/Upload/81HBvFY7sjL.jpg","Tiệc tùng thôi nào");
-        Manga slide1 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507157/Mangaworld/World-Trigger-Season-2-release-date-WorTri-anime-sequel-confirmed-at-Jump-Festa-2020_aeub2y.jpg","World Trigger Season 2");
-        Manga slide2 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507206/Mangaworld/a14168d0bfc3099b_ad6fcc5373b42db5_13092816427815313185710_oahbmz.jpg","Hiệp sĩ xương du hành");
-        Manga slide3 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507216/Mangaworld/maxresdefault-06275585_hgqx60.jpg","Spy x Family");
-        slideArrayList.add(slide);
-        slideArrayList.add(slide1);
-        slideArrayList.add(slide2);
-        slideArrayList.add(slide3);
-
         viewPagerSlideAdapter = new ViewPagerSlideAdapter(slideArrayList);
         //click vào từng slider
         viewPagerSlideAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
                 Intent intent = new Intent(getContext(), DetailMangaActivity.class);
-                intent.putExtra("idManga", slideArrayList.get(position).getIdManga());
-                startActivity(intent);            }
+                intent.putExtra("idNovel", slideArrayList.get(position).getId());
+                startActivity(intent);
+            }
         });
         viewPager2.setAdapter(viewPagerSlideAdapter);
         indicator3.setViewPager(viewPager2);
@@ -192,7 +189,7 @@ public class HomeFragmentNew extends Fragment {
         shimmerFrameLayout.setVisibility(View.GONE);
     }
 
-    public void LoadPopular(View view){
+    public void LoadPopular(View view) {
         recycleViewPopulation = view.findViewById(R.id.recycleViewPopulation);
         tvSeeAllPopular = view.findViewById(R.id.btnPopular);
         shimmerPopular = view.findViewById(R.id.contentShimmerPopular);
@@ -200,14 +197,6 @@ public class HomeFragmentNew extends Fragment {
         shimmerPopular.setVisibility(View.VISIBLE);
         popularMangaArrayList = new ArrayList<>();
 
-        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507319/Mangaworld/MV5BODcwNWE3OTMtMDc3MS00NDFjLWE1OTAtNDU3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ_._V1_FMjpg_UX1000__ij1oft.jpg","Vua hải tặc", 30000, "Phiêu lưu");
-        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507145/Mangaworld/Naruto_Volume_1_manga_cover_q2cere.jpg","Naruto", 50000, "Hành động");
-        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507429/Mangaworld/conan_24_-_main_poster_1__vijsfb.jpg","Thám tử lừng danh conan", 80000, "Trinh thám");
-        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507420/Mangaworld/tranh-dan-tuong-3d-cartoon-songoku-scaled_cv67o3.jpg","Bảy viên ngọc rồng Z", 10000, "Hành động");
-        popularMangaArrayList.add(slide);
-        popularMangaArrayList.add(slide1);
-        popularMangaArrayList.add(slide2);
-        popularMangaArrayList.add(slide3);
 
         mangaRecyclerviewAdapter = new MangaRecyclerviewAdapter(popularMangaArrayList);
         //click vào từng nút +
@@ -215,8 +204,9 @@ public class HomeFragmentNew extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Intent intent = new Intent(getContext(), DetailMangaActivity.class);
-                intent.putExtra("idManga", popularMangaArrayList.get(position).getIdManga());
-                startActivity(intent);            }
+                intent.putExtra("idNovel", popularMangaArrayList.get(position).getId());
+                startActivity(intent);
+            }
         });
         recycleViewPopulation.setAdapter(mangaRecyclerviewAdapter);
         LinearLayoutManager layoutManager
@@ -229,7 +219,7 @@ public class HomeFragmentNew extends Fragment {
                 //truyền qua cho nó key để nhận biết dữ liệu khi dùng chung màn hình
                 //vd số 1 là see all popular, số 2 là see all manhhua, số 3 là see all manhwa
                 Intent intent = new Intent(getContext(), AllMangaActivity.class);
-                intent.putExtra("checkManga", "popular");
+                intent.putExtra("checkNovel", "popular");
                 startActivity(intent);
             }
         });
@@ -238,143 +228,206 @@ public class HomeFragmentNew extends Fragment {
         shimmerPopular.setVisibility(View.GONE);
     }
 
-    public void LoadManhua(View view){
-        recycleViewManhua = view.findViewById(R.id.recycleViewManhua);
-        tvSeeAllManhua = view.findViewById(R.id.btnManhua);
-        shimmerManhua = view.findViewById(R.id.contentShimmerManhua);
-        shimmerManhua.startShimmer();
-        shimmerManhua.setVisibility(View.VISIBLE);
-        manhuaMangaArrayList = new ArrayList<>();
+//    public void LoadManhua(View view){
+//        recycleViewManhua = view.findViewById(R.id.recycleViewManhua);
+//        tvSeeAllManhua = view.findViewById(R.id.btnManhua);
+//        shimmerManhua = view.findViewById(R.id.contentShimmerManhua);
+//        shimmerManhua.startShimmer();
+//        shimmerManhua.setVisibility(View.VISIBLE);
+//        manhuaMangaArrayList = new ArrayList<>();
+//
+////        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507319/Mangaworld/MV5BODcwNWE3OTMtMDc3MS00NDFjLWE1OTAtNDU3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ_._V1_FMjpg_UX1000__ij1oft.jpg","Vua hải tặc", 30000, "Phiêu lưu");
+////        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507145/Mangaworld/Naruto_Volume_1_manga_cover_q2cere.jpg","Naruto", 50000, "Hành động");
+////        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507429/Mangaworld/conan_24_-_main_poster_1__vijsfb.jpg","Thám tử lừng danh conan", 80000, "Trinh thám");
+////        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507420/Mangaworld/tranh-dan-tuong-3d-cartoon-songoku-scaled_cv67o3.jpg","Bảy viên ngọc rồng Z", 10000, "Hành động");
+////        manhuaMangaArrayList.add(slide);
+////        manhuaMangaArrayList.add(slide1);
+////        manhuaMangaArrayList.add(slide2);
+////        manhuaMangaArrayList.add(slide3);
+//
+//        NovelController controller = new NovelController(LoadActivity.url, getActivity());
+//        controller.getMostViewNovel(new IVolleyCallback() {
+//            @Override
+//            public void onSuccess(String result) {
+//                manhuaMangaArrayList.clear();
+//                manhuaMangaArrayList.addAll(controller.convertJSONData(result));
+//                manhuaRecyclerviewAdapter.notifyDataSetChanged();
+//            }
+//        });
+//
+//        manhuaRecyclerviewAdapter = new MangaRecyclerviewAdapter(manhuaMangaArrayList);
+//        //click vào từng nút +
+//        manhuaRecyclerviewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
+//                intent.putExtra("idManga", manhuaMangaArrayList.get(position).getId());
+//                startActivity(intent);            }
+//        });
+//        recycleViewManhua.setAdapter(manhuaRecyclerviewAdapter);
+//        LinearLayoutManager layoutManager
+//                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+//        recycleViewManhua.setLayoutManager(layoutManager);
+//
+//        tvSeeAllManhua.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //truyền qua cho nó 1 chữ số để nhận biết dữ liệu khi dùng chung màn hình
+//                //vd số 1 là see all popular, số 2 là see all manhhua, số 3 là see all manhwa
+//                Intent intent = new Intent(getContext(), AllMangaActivity.class);
+//                intent.putExtra("checkManga", "manhua");
+//                startActivity(intent);
+//            }
+//        });
+//
+//        shimmerManhua.stopShimmer();
+//        shimmerManhua.setVisibility(View.GONE);
+//    }
+//
+//    public void LoadManhwa(View view){
+//        recycleViewManhwa = view.findViewById(R.id.recycleViewManhwa);
+//        tvSeeAllManhwa = view.findViewById(R.id.btnManhwa);
+//        shimmerManhwa = view.findViewById(R.id.contentShimmerManhwa);
+//        shimmerManhwa.startShimmer();
+//        shimmerManhwa.setVisibility(View.VISIBLE);
+//        manhwaMangaArrayList = new ArrayList<>();
+//
+////        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507319/Mangaworld/MV5BODcwNWE3OTMtMDc3MS00NDFjLWE1OTAtNDU3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ_._V1_FMjpg_UX1000__ij1oft.jpg","Vua hải tặc", 30000, "Phiêu lưu");
+////        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507145/Mangaworld/Naruto_Volume_1_manga_cover_q2cere.jpg","Naruto", 50000, "Hành động");
+////        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507429/Mangaworld/conan_24_-_main_poster_1__vijsfb.jpg","Thám tử lừng danh conan", 80000, "Trinh thám");
+////        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507420/Mangaworld/tranh-dan-tuong-3d-cartoon-songoku-scaled_cv67o3.jpg","Bảy viên ngọc rồng Z", 10000, "Hành động");
+////        manhwaMangaArrayList.add(slide);
+////        manhwaMangaArrayList.add(slide1);
+////        manhwaMangaArrayList.add(slide2);
+////        manhwaMangaArrayList.add(slide3);
+//
+//        NovelController controller = new NovelController(LoadActivity.url, getActivity());
+//        controller.getMostViewNovel(new IVolleyCallback() {
+//            @Override
+//            public void onSuccess(String result) {
+//                manhwaMangaArrayList.clear();
+//                manhwaMangaArrayList.addAll(controller.convertJSONData(result));
+//                manhwaRecyclerviewAdapter.notifyDataSetChanged();
+//            }
+//        });
+//
+//        manhwaRecyclerviewAdapter = new MangaRecyclerviewAdapter(manhwaMangaArrayList);
+//        //click vào từng nút +
+//        manhwaRecyclerviewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
+//                intent.putExtra("idManga", manhwaMangaArrayList.get(position).getId());
+//                startActivity(intent);            }
+//        });
+//        recycleViewManhwa.setAdapter(manhwaRecyclerviewAdapter);
+//        LinearLayoutManager layoutManager
+//                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+//        recycleViewManhwa.setLayoutManager(layoutManager);
+//
+//        tvSeeAllManhwa.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //truyền qua cho nó 1 chữ số để nhận biết dữ liệu khi dùng chung màn hình
+//                //vd số 1 là see all popular, số 2 là see all manhhua, số 3 là see all manhwa
+//                Intent intent = new Intent(getContext(), AllMangaActivity.class);
+//                intent.putExtra("checkManga", "manhwa");
+//                startActivity(intent);
+//            }
+//        });
+//
+//        shimmerManhwa.stopShimmer();
+//        shimmerManhwa.setVisibility(View.GONE);
+//    }
+//
+//    private void LoadTopManga(View view) {
+//        recycleViewTopNovel = view.findViewById(R.id.recycleViewGenres);
+//        tvSeeAllTop = view.findViewById(R.id.btnTop);
+//        shimmerTopNovel = view.findViewById(R.id.contentShimmerGener);
+//        shimmerTopNovel.startShimmer();
+//        shimmerTopNovel.setVisibility(View.VISIBLE);
+//        topNovelArrayList = new ArrayList<>();
+//
+//        NovelController controller = new NovelController(LoadActivity.url, getActivity());
+//        controller.getMostViewNovel(new IVolleyCallback() {
+//            @Override
+//            public void onSuccess(String result) {
+//                topNovelArrayList.clear();
+//                topNovelArrayList.addAll(controller.convertJSONData(result));
+//                topNovelRecyclerviewAdapter.notifyDataSetChanged();
+//            }
+//        });
+//
+//        topNovelRecyclerviewAdapter = new TopNovelRecyclerViewAdapter(topNovelArrayList);
+//        //click vào từng nút +
+//        topNovelRecyclerviewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
+//                intent.putExtra("idManga", topNovelArrayList.get(position).getId());
+//                startActivity(intent);
+//            }
+//        });
+//        recycleViewTopNovel.setAdapter(topNovelRecyclerviewAdapter);
+//        LinearLayoutManager layoutManager
+//                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+//        recycleViewTopNovel.setLayoutManager(layoutManager);
+//
+//        tvSeeAllTop.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //truyền qua cho nó 1 chữ số để nhận biết dữ liệu khi dùng chung màn hình
+//                //vd số 1 là see all popular, số 2 là see all manhhua, số 3 là see all manhwa
+//                Intent intent = new Intent(getContext(), AllMangaActivity.class);
+//                intent.putExtra("checkManga", "top");
+//                startActivity(intent);
+//            }
+//        });
+//
+//        //tắt shimmer
+//        shimmerTopNovel.stopShimmer();
+//        shimmerTopNovel.setVisibility(View.GONE);
+//    }
 
-        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507319/Mangaworld/MV5BODcwNWE3OTMtMDc3MS00NDFjLWE1OTAtNDU3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ_._V1_FMjpg_UX1000__ij1oft.jpg","Vua hải tặc", 30000, "Phiêu lưu");
-        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507145/Mangaworld/Naruto_Volume_1_manga_cover_q2cere.jpg","Naruto", 50000, "Hành động");
-        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507429/Mangaworld/conan_24_-_main_poster_1__vijsfb.jpg","Thám tử lừng danh conan", 80000, "Trinh thám");
-        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507420/Mangaworld/tranh-dan-tuong-3d-cartoon-songoku-scaled_cv67o3.jpg","Bảy viên ngọc rồng Z", 10000, "Hành động");
-        manhuaMangaArrayList.add(slide);
-        manhuaMangaArrayList.add(slide1);
-        manhuaMangaArrayList.add(slide2);
-        manhuaMangaArrayList.add(slide3);
-
-        manhuaRecyclerviewAdapter = new MangaRecyclerviewAdapter(manhuaMangaArrayList);
-        //click vào từng nút +
-        manhuaRecyclerviewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
+    private void initNewestData() {
+        NovelController controller = new NovelController(LoadActivity.url, getActivity());
+        controller.getNewestNovel(new IVolleyCallback() {
             @Override
-            public void onClick(View view, int position) {
-                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
-                intent.putExtra("idManga", manhuaMangaArrayList.get(position).getIdManga());
-                startActivity(intent);            }
-        });
-        recycleViewManhua.setAdapter(manhuaRecyclerviewAdapter);
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recycleViewManhua.setLayoutManager(layoutManager);
+            public void onSuccess(String result) {
+                newestNovelData.clear();
+                newestNovelData.addAll(controller.convertJSONData(result));
 
-        tvSeeAllManhua.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //truyền qua cho nó 1 chữ số để nhận biết dữ liệu khi dùng chung màn hình
-                //vd số 1 là see all popular, số 2 là see all manhhua, số 3 là see all manhwa
-                Intent intent = new Intent(getContext(), AllMangaActivity.class);
-                intent.putExtra("checkManga", "manhua");
-                startActivity(intent);
+                slideArrayList.clear();
+                for (int i = 0; i < 4; i++) {
+                    if (i > newestNovelData.size() - 1)
+                        break;
+
+                    slideArrayList.add(newestNovelData.get(i));
+                }
+
+                viewPagerSlideAdapter.notifyDataSetChanged();
             }
         });
-
-        shimmerManhua.stopShimmer();
-        shimmerManhua.setVisibility(View.GONE);
     }
 
-    public void LoadManhwa(View view){
-        recycleViewManhwa = view.findViewById(R.id.recycleViewManhwa);
-        tvSeeAllManhwa = view.findViewById(R.id.btnManhwa);
-        shimmerManhwa = view.findViewById(R.id.contentShimmerManhwa);
-        shimmerManhwa.startShimmer();
-        shimmerManhwa.setVisibility(View.VISIBLE);
-        manhwaMangaArrayList = new ArrayList<>();
-
-        Manga slide = new Manga(1, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507319/Mangaworld/MV5BODcwNWE3OTMtMDc3MS00NDFjLWE1OTAtNDU3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ_._V1_FMjpg_UX1000__ij1oft.jpg","Vua hải tặc", 30000, "Phiêu lưu");
-        Manga slide1 = new Manga(2, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507145/Mangaworld/Naruto_Volume_1_manga_cover_q2cere.jpg","Naruto", 50000, "Hành động");
-        Manga slide2 = new Manga(3, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507429/Mangaworld/conan_24_-_main_poster_1__vijsfb.jpg","Thám tử lừng danh conan", 80000, "Trinh thám");
-        Manga slide3 = new Manga(4, "https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507420/Mangaworld/tranh-dan-tuong-3d-cartoon-songoku-scaled_cv67o3.jpg","Bảy viên ngọc rồng Z", 10000, "Hành động");
-        manhwaMangaArrayList.add(slide);
-        manhwaMangaArrayList.add(slide1);
-        manhwaMangaArrayList.add(slide2);
-        manhwaMangaArrayList.add(slide3);
-
-        manhwaRecyclerviewAdapter = new MangaRecyclerviewAdapter(manhwaMangaArrayList);
-        //click vào từng nút +
-        manhwaRecyclerviewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
+    private void initPopularData() {
+        NovelController controller = new NovelController(LoadActivity.url, getActivity());
+        controller.getMostViewNovel(new IVolleyCallback() {
             @Override
-            public void onClick(View view, int position) {
-                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
-                intent.putExtra("idManga", manhwaMangaArrayList.get(position).getIdManga());
-                startActivity(intent);            }
-        });
-        recycleViewManhwa.setAdapter(manhwaRecyclerviewAdapter);
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recycleViewManhwa.setLayoutManager(layoutManager);
+            public void onSuccess(String result) {
+                popularMangaArrayList.clear();
+                ArrayList<NovelModel> tmp = controller.convertJSONData(result);
 
-        tvSeeAllManhwa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //truyền qua cho nó 1 chữ số để nhận biết dữ liệu khi dùng chung màn hình
-                //vd số 1 là see all popular, số 2 là see all manhhua, số 3 là see all manhwa
-                Intent intent = new Intent(getContext(), AllMangaActivity.class);
-                intent.putExtra("checkManga", "manhwa");
-                startActivity(intent);
+                for(int i=0;i<4;i++)
+                {
+                    if (i > tmp.size() - 1)
+                        break;
+
+                    popularMangaArrayList.add(tmp.get(i));
+                }
+
+                mangaRecyclerviewAdapter.notifyDataSetChanged();
             }
         });
-
-        shimmerManhwa.stopShimmer();
-        shimmerManhwa.setVisibility(View.GONE);
-    }
-
-    private void LoadTopManga(View view) {
-        recycleViewTopManga = view.findViewById(R.id.recycleViewGenres);
-        tvSeeAllTop = view.findViewById(R.id.btnTop);
-        shimmerTopManga = view.findViewById(R.id.contentShimmerGener);
-        shimmerTopManga.startShimmer();
-        shimmerTopManga.setVisibility(View.VISIBLE);
-        topMangaArrayList = new ArrayList<>();
-
-        Manga slide = new Manga(LoadActivity.url + "/api/truyenchu/Upload/81HBvFY7sjL.jpg","Tiệc tùng thôi nào");
-        Manga slide1 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507157/Mangaworld/World-Trigger-Season-2-release-date-WorTri-anime-sequel-confirmed-at-Jump-Festa-2020_aeub2y.jpg","World Trigger Season 2");
-        Manga slide2 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507206/Mangaworld/a14168d0bfc3099b_ad6fcc5373b42db5_13092816427815313185710_oahbmz.jpg","Hiệp sĩ xương du hành");
-        Manga slide3 = new Manga("https://res.cloudinary.com/dmfrvd4tl/image/upload/v1652507216/Mangaworld/maxresdefault-06275585_hgqx60.jpg","Spy x Family");
-        topMangaArrayList.add(slide);
-        topMangaArrayList.add(slide1);
-        topMangaArrayList.add(slide2);
-        topMangaArrayList.add(slide3);
-
-        topMangaRecyclerviewAdapter = new TopMangaRecyclerViewAdapter(topMangaArrayList);
-        //click vào từng nút +
-        topMangaRecyclerviewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
-            @Override
-            public void onClick(View view, int position) {
-                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
-                intent.putExtra("idManga", topMangaArrayList.get(position).getIdManga());
-                startActivity(intent);
-            }
-        });
-        recycleViewTopManga.setAdapter(topMangaRecyclerviewAdapter);
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recycleViewTopManga.setLayoutManager(layoutManager);
-
-        tvSeeAllTop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //truyền qua cho nó 1 chữ số để nhận biết dữ liệu khi dùng chung màn hình
-                //vd số 1 là see all popular, số 2 là see all manhhua, số 3 là see all manhwa
-                Intent intent = new Intent(getContext(), AllMangaActivity.class);
-                intent.putExtra("checkManga", "top");
-                startActivity(intent);
-            }
-        });
-
-        //tắt shimmer
-        shimmerTopManga.stopShimmer();
-        shimmerTopManga.setVisibility(View.GONE);
     }
 }

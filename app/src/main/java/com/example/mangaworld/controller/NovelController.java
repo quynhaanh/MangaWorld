@@ -113,6 +113,7 @@ public class NovelController {
                 params.put("IDAuthor", String.valueOf(novel.getIdAuthor()));
                 params.put("Desc", novel.getDescription());
                 params.put("Cover", novel.getCover());
+                params.put("View", novel.getViewCount()+"");
                 params.put("IDUser", novel.getIdUser());
                 params.put("ImageBytes", novel.getCoverImageData());
                 return params;
@@ -126,6 +127,46 @@ public class NovelController {
     private void APICallGet(IVolleyCallback callback)
     {
         String urlGet = url + "/api/truyenchu/get_novel.php";
+        StringRequest request = new StringRequest(Request.Method.GET, urlGet, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(),
+                        error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
+    public void getMostViewNovel(IVolleyCallback callback)
+    {
+        String urlGet = url + "/api/truyenchu/get_most_view_novel.php";
+        StringRequest request = new StringRequest(Request.Method.GET, urlGet, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(),
+                        error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
+    public void getNewestNovel(IVolleyCallback callback)
+    {
+        String urlGet = url + "/api/truyenchu/get_newest_novel.php";
         StringRequest request = new StringRequest(Request.Method.GET, urlGet, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -172,6 +213,35 @@ public class NovelController {
         queue.add(request);
     }
 
+    public void getNovelByIDGenre(int idGenre, IVolleyCallback callback)
+    {
+        String urlPost = url + "/api/truyenchu/get_novel_by_idgenre.php";
+        StringRequest request = new StringRequest(Request.Method.POST, urlPost, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(),
+                        error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("IDGenre", idGenre+"");
+
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
     public void getNovelByID(int id, IVolleyCallback callback)
     {
         String urlPost = url + "/api/truyenchu/get_novel_by_id.php";
@@ -185,6 +255,53 @@ public class NovelController {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(activity.getApplicationContext(),
                         error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("ID", String.valueOf(id));
+
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
+    public void getNovelOrderByDatePost(IVolleyCallback callback)
+    {
+        String urlGet = url + "/api/truyenchu/get_novel_order_by_date_post.php";
+        StringRequest request = new StringRequest(Request.Method.GET, urlGet, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(),
+                        error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
+
+    public void increaseNovelViewCountByID(int id)
+    {
+        String urlPost = url + "/api/truyenchu/increase_novel_view.php";
+        StringRequest request = new StringRequest(Request.Method.POST, urlPost, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
             }
         }){
             @Nullable
@@ -219,6 +336,7 @@ public class NovelController {
                 novel.setDescription(object.getString("Description"));
                 novel.setCover(object.getString("Cover"));
                 novel.setDatePost(object.getString("Date_Post"));
+                novel.setViewCount(object.getInt("View"));
                 novel.setIdUser(object.getString("ID_User"));
 
                 data.add(novel);
@@ -241,6 +359,7 @@ public class NovelController {
             novel.setDescription(jsonObject.getString("Description"));
             novel.setCover(jsonObject.getString("Cover"));
             novel.setDatePost(jsonObject.getString("Date_Post"));
+            novel.setViewCount(jsonObject.getInt("View"));
             novel.setIdUser(jsonObject.getString("ID_User"));
 
             return novel;

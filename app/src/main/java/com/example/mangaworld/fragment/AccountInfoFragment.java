@@ -109,7 +109,7 @@ public class AccountInfoFragment extends Fragment {
             btnNav.setText("Quản trị");
             btnChangePass.setVisibility(View.GONE);
         } else if (user.getIdRole() == 2) {
-            btnNav.setText("Sách của bạn");
+            btnNav.setText("Truyện của bạn");
         }
 
         btnNav.setOnClickListener(new View.OnClickListener() {

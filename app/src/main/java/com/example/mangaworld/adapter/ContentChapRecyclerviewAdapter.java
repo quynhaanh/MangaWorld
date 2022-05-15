@@ -12,15 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mangaworld.R;
-import com.example.mangaworld.model.Chapter;
+import com.example.mangaworld.model.ChapterModel;
 
 import java.util.ArrayList;
 
 public class ContentChapRecyclerviewAdapter extends RecyclerView.Adapter<ContentChapRecyclerviewAdapter.ContentRecyclerViewHoder>{
-    private ArrayList<Chapter> chapterArrayList = new ArrayList<>();
+    private ArrayList<ChapterModel> chapterArrayList;
     private ItemClickInterface itemClickInterface;
 
-    public ContentChapRecyclerviewAdapter(ArrayList<Chapter> chapterArrayList) {
+    public ContentChapRecyclerviewAdapter(ArrayList<ChapterModel> chapterArrayList) {
         this.chapterArrayList = chapterArrayList;
     }
 
@@ -58,15 +58,15 @@ public class ContentChapRecyclerviewAdapter extends RecyclerView.Adapter<Content
 
     @SuppressLint("SetTextI18n")
     public void bind(@NonNull ContentChapRecyclerviewAdapter.ContentRecyclerViewHoder viewHolder, int i){
-        Chapter chapter = chapterArrayList.get(i);
-        viewHolder.txtName.setText("Chapter "+String.valueOf(chapter.getIdChapter())+": "+ chapter.getChapter_title());
-        viewHolder.tvContent.setText(chapter.getChapter_thumb());
+        ChapterModel chapter = chapterArrayList.get(i);
+        viewHolder.txtName.setText("Chapter "+(i+1)+": "+ chapter.getTitle());
+        viewHolder.tvContent.setText(chapter.getContent());
     }
     public void setOnClickItemRecyclerView(ItemClickInterface itemRecyclerView){
         itemClickInterface = itemRecyclerView;
     }
 
-    public void updateChange(ArrayList<Chapter> data) {
+    public void updateChange(ArrayList<ChapterModel> data) {
         chapterArrayList = data;
         notifyDataSetChanged();
     }

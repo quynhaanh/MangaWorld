@@ -33,15 +33,12 @@ import com.example.mangaworld.controller.NovelController;
 import com.example.mangaworld.controller.NovelGenresController;
 import com.example.mangaworld.model.AuthorModel;
 import com.example.mangaworld.model.ChapterModel;
-import com.example.mangaworld.model.Genre;
 import com.example.mangaworld.model.GenreModel;
 import com.example.mangaworld.model.NovelGenresModel;
 import com.example.mangaworld.model.NovelModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 

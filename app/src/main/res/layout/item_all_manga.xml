@@ -40,7 +40,7 @@
 
 
             <TextView
-                android:id="@+id/txtName"
+                android:id="@+id/txtNameAll"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -54,17 +54,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txt"
+                android:id="@+id/txtViewAll"
                 android:fontFamily="@font/gilroy_medium"
-                android:textColor="@color/black"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text=""
+                style="@style/tv_normal_with_color"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/cvAllManga"
-                app:layout_constraintTop_toBottomOf="@+id/txtName" />
+                app:layout_constraintTop_toBottomOf="@+id/txtNameAll" />
 
             <TextView
                 android:id="@+id/tvGenreAllManga"
@@ -72,9 +71,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/colorLightRed"
+                app:layout_constraintStart_toEndOf="@+id/cvAllManga"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewAll" />
+
+            <TextView
+                android:id="@+id/tvDatePostAllManga"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/cvAllManga"
-                app:layout_constraintTop_toBottomOf="@+id/txt" />
+                app:layout_constraintTop_toBottomOf="@+id/tvGenreAllManga" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

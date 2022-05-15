@@ -13,7 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mangaworld.R;
-import com.example.mangaworld.model.Manga;
+import com.example.mangaworld.activity.LoadActivity;
+import com.example.mangaworld.model.NovelModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,9 +22,10 @@ import java.util.ArrayList;
 public class ViewPagerSlideAdapter extends RecyclerView.Adapter<ViewPagerSlideAdapter.PhotoViewHoder>{
 
     private ItemClickInterface itemClickInterface;
-    private ArrayList<Manga> slideArrayList;
+    private ArrayList<NovelModel> slideArrayList;
+    String imageUrl = LoadActivity.url + "/api/truyenchu/images/";
 
-    public ViewPagerSlideAdapter(ArrayList<Manga> slideArrayList) {
+    public ViewPagerSlideAdapter(ArrayList<NovelModel> slideArrayList) {
         this.slideArrayList = slideArrayList;
     }
 
@@ -36,10 +38,10 @@ public class ViewPagerSlideAdapter extends RecyclerView.Adapter<ViewPagerSlideAd
 
     @Override
     public void onBindViewHolder(@NonNull PhotoViewHoder holder, @SuppressLint("RecyclerView") int position) {
-        Manga slide = slideArrayList.get(position);
+        NovelModel slide = slideArrayList.get(position);
         Picasso.get()
-                .load(slideArrayList.get(position).getLink())
-                .resize(4000, 3000)
+                .load(imageUrl + slide.getCover() + ".jpg")
+                .resize(800, 600)
                 .centerCrop()
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)

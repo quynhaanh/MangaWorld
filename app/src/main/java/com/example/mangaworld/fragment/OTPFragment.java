@@ -49,16 +49,17 @@ public class OTPFragment extends Fragment {
 
     int verifyCode;
     UserModel newUser;
-
+    Boolean updateFlag;
     public OTPFragment() {
         // Required empty public constructor
     }
 
-    public OTPFragment(int verifyCode, UserModel user) {
+
+    public OTPFragment(int verifyCode, UserModel user, Boolean updateFlag) {
         this.verifyCode = verifyCode;
         this.newUser = user;
+        this.updateFlag = updateFlag;
     }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -77,8 +78,9 @@ public class OTPFragment extends Fragment {
         return fragment;
     }
 
-    public static OTPFragment newInstance(String param1, String param2, int verifyCode, UserModel newUser) {
-        OTPFragment fragment = new OTPFragment(verifyCode, newUser);
+
+    public static OTPFragment newInstance(String param1, String param2, int verifyCode, UserModel newUser, Boolean updateFlag) {
+        OTPFragment fragment = new OTPFragment(verifyCode, newUser, updateFlag);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -189,19 +191,24 @@ public class OTPFragment extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        //((MainActivity) getActivity()).openFragment(ResetPassFragment.newInstance("", "",newUser));
                         if(String.valueOf(verifyCode).equals(code))
                         {
                             UserController controller = new UserController(LoadActivity.url, getActivity());
-                            controller.insertUser(newUser, new IVolleyCallback() {
-                                @Override
-                                public void onSuccess(String result) {
-                                    progressBar.setVisibility(View.GONE);
-                                    btnConfirm.setVisibility(View.VISIBLE);
+                            if(!updateFlag) {
+                                controller.insertUser(newUser, new IVolleyCallback() {
+                                    @Override
+                                    public void onSuccess(String result) {
+                                        progressBar.setVisibility(View.GONE);
+                                        btnConfirm.setVisibility(View.VISIBLE);
 
-                                    Toast.makeText(getActivity(), "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
-                                    ((MainActivity) getActivity()).openFragment(SignInFragment.newInstance("", ""));
-                                }
-                            });
+                                        Toast.makeText(getActivity(), "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
+                                        ((MainActivity) getActivity()).openFragment(SignInFragment.newInstance("", ""));
+                                    }
+                                });
+                            }else {
+                                ((MainActivity) getActivity()).openFragment(ResetPassFragment.newInstance("", "",newUser));
+                            }
                         }
                         else{
                             progressBar.setVisibility(View.GONE);
