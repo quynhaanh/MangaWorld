@@ -37,7 +37,8 @@
             android:exported="false" />
         <activity
             android:name=".activity.CRUDGenreActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".activity.AdminActivity"/>
         <activity
             android:name=".activity.CRUDAuthorActivity"
             android:exported="false" />

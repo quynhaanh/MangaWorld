@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,8 +51,8 @@ public class GenreItemAdapter extends ArrayAdapter {
         TextView tvID = convertView.findViewById(R.id.tvItemIDType);
         TextView tvName = convertView.findViewById(R.id.tvItemNameType);
 
-        Button btnSua = convertView.findViewById(R.id.btnItemSuaType);
-        Button btnXoa = convertView.findViewById(R.id.btnItemXoaType);
+        ImageButton btnSua = convertView.findViewById(R.id.btnItemSuaType);
+        ImageButton btnXoa = convertView.findViewById(R.id.btnItemXoaType);
 
         GenreModel genre = data.get(position);
         tvID.setText(String.valueOf(genre.getId()));

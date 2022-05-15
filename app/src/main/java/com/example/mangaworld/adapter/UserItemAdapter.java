@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -50,8 +51,8 @@ public class UserItemAdapter extends ArrayAdapter {
         TextView tvEmail = convertView.findViewById(R.id.tvItemEmailUser);
         TextView tvRole = convertView.findViewById(R.id.tvItemRoleUser);
 
-        Button btnSua = convertView.findViewById(R.id.btnItemSuaUser);
-        Button btnXoa = convertView.findViewById(R.id.btnItemXoaUser);
+        ImageButton btnSua = convertView.findViewById(R.id.btnItemSuaUser);
+        ImageButton btnXoa = convertView.findViewById(R.id.btnItemXoaUser);
 
         UserModel user = data.get(position);
         tvID.setText(String.valueOf(user.getId()));
