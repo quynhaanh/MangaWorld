@@ -126,6 +126,18 @@ public class CRUDUserActivity extends AppCompatActivity {
 
             }
         });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                userItemAdapter.search(newText);
+                return false;
+            }
+        });
     }
 
     public void loadData(UserModel user) {

@@ -18,6 +18,7 @@ import com.example.mangaworld.R;
 import com.example.mangaworld.activity.CRUDGenreActivity;
 import com.example.mangaworld.controller.GenreController;
 import com.example.mangaworld.controller.IVolleyCallback;
+import com.example.mangaworld.model.AuthorModel;
 import com.example.mangaworld.model.GenreModel;
 
 import java.util.ArrayList;
@@ -78,5 +79,24 @@ public class GenreItemAdapter extends ArrayAdapter {
             }
         });
         return convertView;
+    }
+    public void search(String searchString) {
+        if(datatmp.size() < data.size())
+        {
+            datatmp.clear();
+            datatmp.addAll(data);
+        }
+        data.clear();
+        searchString = searchString.toLowerCase();
+        if (searchString.length()==0) {
+            data.addAll(datatmp);
+        } else {
+            for (GenreModel genreModel : datatmp) {
+                if (String.valueOf(genreModel.getId()).contains(searchString) || genreModel.getName().toLowerCase().contains(searchString)) {
+                    data.add(genreModel);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }
