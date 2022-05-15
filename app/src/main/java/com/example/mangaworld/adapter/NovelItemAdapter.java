@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +79,17 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
             @Override
             public void onClick(View view) {
                 //((YourNovelAddActivity)context).loadBookData(novel);
+                if(MainActivity.loggedUser.getIdRole()==1)
+                {
+                    ((CRUDNovelActivity)context).loadNovelData(novel);
+                }
+                else if(MainActivity.loggedUser.getIdRole()==2)
+                {
+                    Intent intent = new Intent(context, YourNovelAddActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("idNovel", novel.getId());
+                    context.startActivity(intent);
+                }
 
             }
         });
@@ -101,7 +113,6 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
                             public void onSuccess(String result) {
                                 if(MainActivity.loggedUser.getIdRole() == 1)
                                 {
-                                    // Open CRUD Novel
                                     ((CRUDNovelActivity)context).refreshListNovel();
                                     Toast.makeText(context, "Xóa thành công " + novel.getTitle(),
                                             Toast.LENGTH_SHORT).show();
@@ -110,11 +121,6 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
                                 {
                                     ((YourNovelActivity)context).refreshListYourNovel();
                                     Toast.makeText(context, "Xóa thành công " + novel.getTitle(),
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                                else
-                                {
-                                    Toast.makeText(context, "Bro, what are you?",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }
