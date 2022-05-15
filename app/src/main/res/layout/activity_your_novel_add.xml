@@ -15,88 +15,101 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Thêm truyện"
-                android:textSize="40dp"
                 android:layout_marginVertical="10dp"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:text="Thêm truyện"
+                android:textSize="40dp" />
 
             <TextView
                 style="@style/tv_normal"
-                android:text="Tiêu đề:"/>
+                android:text="Tiêu đề:" />
+
             <EditText
                 android:id="@+id/txtYourNovelTitle"
                 style="@style/ed_normal"
-                android:layout_marginBottom="3dp"/>
+                android:layout_marginBottom="3dp" />
 
             <TextView
                 style="@style/tv_normal"
-                android:text="Tác giả:"/>
+                android:text="Tác giả:" />
+
             <AutoCompleteTextView
                 android:id="@+id/txtYourNovelAuthor"
                 style="@style/ed_normal"
-                android:layout_marginBottom="3dp"/>
+                android:layout_marginBottom="3dp" />
 
             <TextView
                 style="@style/tv_normal"
-                android:text="Ảnh bìa:"/>
+                android:text="Ảnh bìa:" />
+
+            <ImageView
+                android:id="@+id/imgYourNovelCover"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
+                android:visibility="gone" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="3dp">
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/ibtnYourNovelImgPicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_collections_24"/>
+                    android:src="@drawable/ic_baseline_collections_24" />
 
                 <TextView
+                    android:id="@+id/tvMultiSelectGenre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Chọn thể loại"
-                    android:id="@+id/tvMultiSelectGenre"
-                    android:padding="12dp"
-                    android:drawablePadding="16dp"
-                    android:drawableEnd="@android:drawable/arrow_down_float"
                     android:background="@android:drawable/editbox_background"
-                    />
+                    android:drawableEnd="@android:drawable/arrow_down_float"
+                    android:drawablePadding="16dp"
+                    android:hint="Chọn thể loại"
+                    android:padding="12dp" />
 
             </LinearLayout>
 
             <TextView
                 style="@style/tv_normal"
-                android:text="Mô tả:"/>
+                android:text="Mô tả:" />
+
             <EditText
                 android:id="@+id/txtYourNovelDesc"
                 style="@style/ed_normal"
-                android:inputType="textMultiLine"
-                android:maxLines="3"
                 android:layout_marginBottom="5dp"
-                android:maxLength="256"/>
+                android:inputType="textMultiLine"
+                android:maxLength="256"
+                android:maxLines="3" />
 
             <ListView
                 android:id="@+id/lvYourNovelChapter"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"/>
+                android:layout_height="200dp" />
 
             <Button
                 android:id="@+id/btnYourNovelConfirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Xác nhận"/>
+                android:text="Xác nhận" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fbtnYourNovelToDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_baseline_add_24"/>
+        android:src="@drawable/ic_baseline_add_24" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

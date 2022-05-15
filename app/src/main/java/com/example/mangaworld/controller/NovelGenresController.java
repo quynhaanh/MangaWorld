@@ -1,6 +1,7 @@
 package com.example.mangaworld.controller;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -80,13 +81,9 @@ public class NovelGenresController {
             public void onResponse(String response) {
                 if (response.contains("Success")) {
                     callback.onSuccess(response);
-                    Toast.makeText(activity.getApplicationContext(),
-                            reportState + "thành công '" + novelGenre.getNovelID() + "'",
-                            Toast.LENGTH_SHORT).show();
+                    Log.d("api",reportState + "thành công '" + novelGenre.getNovelID() + "'");
                 } else {
-                    Toast.makeText(activity.getApplicationContext(),
-                            reportState + "không thành công '" + novelGenre.getNovelID() + "'",
-                            Toast.LENGTH_SHORT).show();
+                    Log.d("api",reportState + "không thành công '" + novelGenre.getNovelID() + "'");
                 }
             }
         }, new Response.ErrorListener() {
@@ -127,6 +124,39 @@ public class NovelGenresController {
         RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
         queue.add(request);
     }
+
+    public void deleteGenresByIDNovel(int idNovel, IVolleyCallback callback)
+    {
+        String urlAPI = url + "/api/truyenchu/api_novel_genres.php";
+
+        StringRequest request = new StringRequest(Request.Method.POST, urlAPI, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.contains("Success")) {
+                    callback.onSuccess(response);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Type", "delete_by_id_novel");
+                params.put("IDNovel", String.valueOf(idNovel));
+                params.put("IDGenre", String.valueOf(-1));
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
 
     public ArrayList<NovelGenresModel> convertJSONData(String json) {
         ArrayList<NovelGenresModel> data = new ArrayList<>();
