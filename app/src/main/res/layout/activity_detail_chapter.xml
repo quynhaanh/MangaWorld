@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="#D1D1D1"
         android:orientation="vertical"
-        tools:context=".activity.DetailMangaActivity">
+        tools:context=".activity.DetailNovelActivity">
 
         <TextView
             android:id="@+id/textView2"
@@ -39,7 +39,7 @@
             app:cardCornerRadius="10dp">
 
             <ImageView
-                android:id="@+id/imgDetailManga"
+                android:id="@+id/imgDetailNovel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
@@ -78,7 +78,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/tvMangaName"
+                        android:id="@+id/tvNovelName"
                         style="@style/tv_normal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

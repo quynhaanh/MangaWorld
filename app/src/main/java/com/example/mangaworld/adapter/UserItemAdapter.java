@@ -12,16 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.mangaworld.R;
-import com.example.mangaworld.activity.CRUDAuthorActivity;
-import com.example.mangaworld.activity.CRUDChapterActivity;
-import com.example.mangaworld.activity.CRUDUser;
-import com.example.mangaworld.controller.AuthorController;
+import com.example.mangaworld.activity.CRUDUserActivity;
 import com.example.mangaworld.controller.IVolleyCallback;
-import com.example.mangaworld.controller.NovelController;
 import com.example.mangaworld.controller.UserController;
 import com.example.mangaworld.controller.UserRoleController;
-import com.example.mangaworld.model.AuthorModel;
-import com.example.mangaworld.model.NovelModel;
 import com.example.mangaworld.model.UserModel;
 import com.example.mangaworld.model.UserRoleModel;
 
@@ -66,7 +60,7 @@ public class UserItemAdapter extends ArrayAdapter {
         //tvRole.setText(user.getIdRole());
 
         ArrayList<UserRoleModel> listRole = new ArrayList<>();
-        UserRoleController userRoleController = new UserRoleController(url, (CRUDUser) context);
+        UserRoleController userRoleController = new UserRoleController(url, (CRUDUserActivity) context);
         userRoleController.getRoles(new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
@@ -83,18 +77,18 @@ public class UserItemAdapter extends ArrayAdapter {
         btnSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((CRUDUser) context).loadData(user);
+                ((CRUDUserActivity) context).loadData(user);
             }
         });
 
         btnXoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserController userController = new UserController(url, (CRUDUser) context);
+                UserController userController = new UserController(url, (CRUDUserActivity) context);
                 userController.deleteUser(user, new IVolleyCallback() {
                     @Override
                     public void onSuccess(String result) {
-                        ((CRUDUser) context).refreshListView();
+                        ((CRUDUserActivity) context).refreshListView();
                     }
                 });
             }

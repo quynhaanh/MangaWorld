@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.mangaworld.R;
-import com.example.mangaworld.adapter.AllMangaRecyclerViewAdapter;
+import com.example.mangaworld.adapter.AllNovelRecyclerViewAdapter;
 import com.example.mangaworld.adapter.ItemClickInterface;
 import com.example.mangaworld.controller.IVolleyCallback;
 import com.example.mangaworld.controller.NovelController;
@@ -22,14 +22,14 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 
-public class AllMangaActivity extends AppCompatActivity {
-    private RecyclerView recycleViewAllManga;
-    private ShimmerFrameLayout shimmerAllManga;
+public class AllNovelActivity extends AppCompatActivity {
+    private RecyclerView recycleViewAllNovel;
+    private ShimmerFrameLayout shimmerAllNovel;
     private SearchView btnSearch;
-    private ArrayList<NovelModel> mangaArrayList;
+    private ArrayList<NovelModel> novelArrayList;
     private  ArrayList<NovelModel> tmpArray;
-    private AllMangaRecyclerViewAdapter allMangaRecyclerViewAdapter;
-    private String checkManga;
+    private AllNovelRecyclerViewAdapter allNovelRecyclerViewAdapter;
+    private String checkNovel;
     private TextView tvTitle;
 
     @Override
@@ -38,12 +38,12 @@ public class AllMangaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_all_manga);
 
         Intent intent = getIntent();
-        checkManga = intent.getStringExtra("checkNovel");
-        if(checkManga.equalsIgnoreCase("popular")){
+        checkNovel = intent.getStringExtra("checkNovel");
+        if(checkNovel.equalsIgnoreCase("popular")){
             //call api get list manga popular
             LoadPopularManga();
         }
-        else if(checkManga.equalsIgnoreCase("genre")){
+        else if(checkNovel.equalsIgnoreCase("genre")){
             //call api get list manga by genre
             LoadMangaByGenre();
         }
@@ -55,41 +55,41 @@ public class AllMangaActivity extends AppCompatActivity {
         int idGenre = getIntent().getIntExtra("genreID",0);
         String genreName= getIntent().getStringExtra("genreName");
 
-        recycleViewAllManga = findViewById(R.id.recycleViewAllManga);
+        recycleViewAllNovel = findViewById(R.id.recycleViewAllNovel);
         btnSearch = findViewById(R.id.btnSearch);
 
         tvTitle = findViewById(R.id.tvAllNovelTitle);
         tvTitle.setText(genreName);
 
-        shimmerAllManga = findViewById(R.id.shimmerAllManga);
-        shimmerAllManga.startShimmer();
-        shimmerAllManga.setVisibility(View.VISIBLE);
-        mangaArrayList = new ArrayList<>();
+        shimmerAllNovel = findViewById(R.id.shimmerAllNovel);
+        shimmerAllNovel.startShimmer();
+        shimmerAllNovel.setVisibility(View.VISIBLE);
+        novelArrayList = new ArrayList<>();
         tmpArray = new ArrayList<>();
 
         NovelController novelController = new NovelController(LoadActivity.url,this);
         novelController.getNovelByIDGenre(idGenre, new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
-                mangaArrayList.clear();
-                mangaArrayList.addAll(novelController.convertJSONData(result));
-                allMangaRecyclerViewAdapter.notifyDataSetChanged();
+                novelArrayList.clear();
+                novelArrayList.addAll(novelController.convertJSONData(result));
+                allNovelRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
 
-        allMangaRecyclerViewAdapter = new AllMangaRecyclerViewAdapter(mangaArrayList,this);
+        allNovelRecyclerViewAdapter = new AllNovelRecyclerViewAdapter(novelArrayList,this);
         //click vào từng nút +
-        allMangaRecyclerViewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
+        allNovelRecyclerViewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
-                Intent intent = new Intent(AllMangaActivity.this, DetailMangaActivity.class);
-                intent.putExtra("idNovel", mangaArrayList.get(position).getId());
+                Intent intent = new Intent(AllNovelActivity.this, DetailNovelActivity.class);
+                intent.putExtra("idNovel", novelArrayList.get(position).getId());
                 startActivity(intent);            }
         });
-        recycleViewAllManga.setAdapter(allMangaRecyclerViewAdapter);
+        recycleViewAllNovel.setAdapter(allNovelRecyclerViewAdapter);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        recycleViewAllManga.setLayoutManager(layoutManager);
+        recycleViewAllNovel.setLayoutManager(layoutManager);
 
         btnSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -106,48 +106,48 @@ public class AllMangaActivity extends AppCompatActivity {
         });
 
         //tắt shimmer
-        shimmerAllManga.stopShimmer();
-        shimmerAllManga.setVisibility(View.GONE);
+        shimmerAllNovel.stopShimmer();
+        shimmerAllNovel.setVisibility(View.GONE);
     }
 
     private void LoadPopularManga() {
-        recycleViewAllManga = findViewById(R.id.recycleViewAllManga);
+        recycleViewAllNovel = findViewById(R.id.recycleViewAllNovel);
         btnSearch = findViewById(R.id.btnSearch);
 
         tvTitle = findViewById(R.id.tvAllNovelTitle);
         tvTitle.setText("Thịnh hành");
 
-        shimmerAllManga = findViewById(R.id.shimmerAllManga);
-        shimmerAllManga.startShimmer();
-        shimmerAllManga.setVisibility(View.VISIBLE);
-        mangaArrayList = new ArrayList<>();
+        shimmerAllNovel = findViewById(R.id.shimmerAllNovel);
+        shimmerAllNovel.startShimmer();
+        shimmerAllNovel.setVisibility(View.VISIBLE);
+        novelArrayList = new ArrayList<>();
         tmpArray = new ArrayList<>();
 
         NovelController novelController = new NovelController(LoadActivity.url,this);
         novelController.getMostViewNovel(new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
-                mangaArrayList.clear();
-                mangaArrayList.addAll(novelController.convertJSONData(result));
-                allMangaRecyclerViewAdapter.notifyDataSetChanged();
+                novelArrayList.clear();
+                novelArrayList.addAll(novelController.convertJSONData(result));
+                allNovelRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
 
-        allMangaRecyclerViewAdapter = new AllMangaRecyclerViewAdapter(mangaArrayList, this);
+        allNovelRecyclerViewAdapter = new AllNovelRecyclerViewAdapter(novelArrayList, this);
         //click vào từng nút +
-        allMangaRecyclerViewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
+        allNovelRecyclerViewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
-                NovelModel novel = allMangaRecyclerViewAdapter.getAtPosition(position);
-                Intent intent = new Intent(AllMangaActivity.this, DetailMangaActivity.class);
+                NovelModel novel = allNovelRecyclerViewAdapter.getAtPosition(position);
+                Intent intent = new Intent(AllNovelActivity.this, DetailNovelActivity.class);
                 intent.putExtra("idManga", novel.getId());
                 startActivity(intent);
             }
         });
-        recycleViewAllManga.setAdapter(allMangaRecyclerViewAdapter);
+        recycleViewAllNovel.setAdapter(allNovelRecyclerViewAdapter);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        recycleViewAllManga.setLayoutManager(layoutManager);
+        recycleViewAllNovel.setLayoutManager(layoutManager);
 
         btnSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -164,8 +164,8 @@ public class AllMangaActivity extends AppCompatActivity {
         });
 
         //tắt shimmer
-        shimmerAllManga.stopShimmer();
-        shimmerAllManga.setVisibility(View.GONE);
+        shimmerAllNovel.stopShimmer();
+        shimmerAllNovel.setVisibility(View.GONE);
     }
 
     public void queryData(String query) {
@@ -174,6 +174,6 @@ public class AllMangaActivity extends AppCompatActivity {
             if(manga.getTitle().contains(query))
                 tmp.add(manga);
         }
-        allMangaRecyclerViewAdapter.updateChange(tmp);
+        allNovelRecyclerViewAdapter.updateChange(tmp);
     }
 }

@@ -15,9 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mangaworld.R;
-import com.example.mangaworld.activity.DetailMangaActivity;
+import com.example.mangaworld.activity.DetailNovelActivity;
 import com.example.mangaworld.activity.LoadActivity;
-import com.example.mangaworld.adapter.AllMangaRecyclerViewAdapter;
+import com.example.mangaworld.adapter.AllNovelRecyclerViewAdapter;
 import com.example.mangaworld.adapter.ItemClickInterface;
 import com.example.mangaworld.controller.IVolleyCallback;
 import com.example.mangaworld.controller.NovelController;
@@ -33,7 +33,7 @@ public class LibraryFragment extends Fragment {
     private SearchView btnSearch;
     private ArrayList<NovelModel> mangaArrayList;
     private ArrayList<NovelModel> tmpArray;
-    private AllMangaRecyclerViewAdapter allMangaRecyclerViewAdapter;
+    private AllNovelRecyclerViewAdapter allNovelRecyclerViewAdapter;
 
     public LibraryFragment() {
         // Required empty public constructor
@@ -64,26 +64,26 @@ public class LibraryFragment extends Fragment {
     }
 
     private void LoadSearchManga(View view) {
-        recycleViewAllManga = view.findViewById(R.id.recycleViewAllManga);
+        recycleViewAllManga = view.findViewById(R.id.recycleViewAllNovel);
         btnSearch = view.findViewById(R.id.btnSearch);
-        shimmerAllManga = view.findViewById(R.id.shimmerAllManga);
+        shimmerAllManga = view.findViewById(R.id.shimmerAllNovel);
         shimmerAllManga.startShimmer();
         shimmerAllManga.setVisibility(View.VISIBLE);
         mangaArrayList = new ArrayList<>();
         tmpArray = new ArrayList<>();
 
-        allMangaRecyclerViewAdapter = new AllMangaRecyclerViewAdapter(mangaArrayList, getActivity());
+        allNovelRecyclerViewAdapter = new AllNovelRecyclerViewAdapter(mangaArrayList, getActivity());
         //click vào từng nút +
-        allMangaRecyclerViewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
+        allNovelRecyclerViewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
-                NovelModel manga = allMangaRecyclerViewAdapter.getAtPosition(position);
-                Intent intent = new Intent(getContext(), DetailMangaActivity.class);
+                NovelModel manga = allNovelRecyclerViewAdapter.getAtPosition(position);
+                Intent intent = new Intent(getContext(), DetailNovelActivity.class);
                 intent.putExtra("idNovel", manga.getId());
                 startActivity(intent);
             }
         });
-        recycleViewAllManga.setAdapter(allMangaRecyclerViewAdapter);
+        recycleViewAllManga.setAdapter(allNovelRecyclerViewAdapter);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recycleViewAllManga.setLayoutManager(layoutManager);
@@ -118,7 +118,7 @@ public class LibraryFragment extends Fragment {
             }
         }
 
-        allMangaRecyclerViewAdapter.updateChange(tmp);
+        allNovelRecyclerViewAdapter.updateChange(tmp);
     }
 
     private void getNovelList() {
@@ -128,7 +128,7 @@ public class LibraryFragment extends Fragment {
             public void onSuccess(String result) {
                 mangaArrayList.clear();
                 mangaArrayList.addAll(controller.convertJSONData(result));
-                allMangaRecyclerViewAdapter.notifyDataSetChanged();
+                allNovelRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
     }

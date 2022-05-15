@@ -8,29 +8,21 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
 import com.example.mangaworld.R;
-import com.example.mangaworld.adapter.ChapterItemAdapter;
 import com.example.mangaworld.adapter.UserItemAdapter;
-import com.example.mangaworld.controller.ChapterController;
 import com.example.mangaworld.controller.IVolleyCallback;
 import com.example.mangaworld.controller.UserController;
 import com.example.mangaworld.controller.UserRoleController;
-import com.example.mangaworld.model.ChapterModel;
-import com.example.mangaworld.model.NovelModel;
 import com.example.mangaworld.model.UserModel;
 import com.example.mangaworld.model.UserRoleModel;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
-public class CRUDUser extends AppCompatActivity {
+public class CRUDUserActivity extends AppCompatActivity {
     EditText edID, edName, edEmail, edPass;
     Button btnCommit;
     ListView listView;
@@ -75,7 +67,7 @@ public class CRUDUser extends AppCompatActivity {
         listView = findViewById(R.id.lvUser);
 
         userController= new UserController(url, this);
-        userItemAdapter = new UserItemAdapter(CRUDUser.this, R.layout.layout_item_user, userData, url);
+        userItemAdapter = new UserItemAdapter(CRUDUserActivity.this, R.layout.layout_item_user, userData, url);
 
         //spinner
         adapterRole = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listRoleName);

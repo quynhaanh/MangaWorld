@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mangaworld.R;
-import com.example.mangaworld.activity.AllMangaActivity;
+import com.example.mangaworld.activity.AllNovelActivity;
 import com.example.mangaworld.activity.LoadActivity;
 import com.example.mangaworld.adapter.GenreRecylerviewAdapter;
 import com.example.mangaworld.adapter.ItemClickInterface;
@@ -88,7 +88,7 @@ public class GenreFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 GenreModel genreModel = genreRecylerviewAdapter.getAtPosition(position);
-                Intent intent = new Intent(getContext(), AllMangaActivity.class);
+                Intent intent = new Intent(getContext(), AllNovelActivity.class);
                 intent.putExtra("checkNovel", "genre");
                 intent.putExtra("genreID", genreModel.getId());
                 intent.putExtra("genreName", genreModel.getName());

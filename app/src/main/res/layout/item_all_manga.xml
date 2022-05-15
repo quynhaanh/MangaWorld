@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bgAllManga"
+        android:id="@+id/bgAllNovel"
         android:background="@drawable/background_btn_search"
         android:layout_width="match_parent"
         android:layout_height="220dp"
@@ -23,13 +23,13 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="150dp"
                 app:cardCornerRadius="10dp"
-                android:id="@+id/cvAllManga"
+                android:id="@+id/cvAllNovel"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
                 <ImageView
-                    android:id="@+id/imgAllManga"
+                    android:id="@+id/imgAllNovel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -50,7 +50,7 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/cvAllManga"
+                app:layout_constraintStart_toEndOf="@+id/cvAllNovel"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -62,28 +62,28 @@
                 android:layout_marginTop="10dp"
                 style="@style/tv_normal_with_color"
                 android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/cvAllManga"
+                app:layout_constraintStart_toEndOf="@+id/cvAllNovel"
                 app:layout_constraintTop_toBottomOf="@+id/txtNameAll" />
 
             <TextView
-                android:id="@+id/tvGenreAllManga"
+                android:id="@+id/tvGenreAllNovel"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/colorLightRed"
-                app:layout_constraintStart_toEndOf="@+id/cvAllManga"
+                app:layout_constraintStart_toEndOf="@+id/cvAllNovel"
                 app:layout_constraintTop_toBottomOf="@+id/txtViewAll" />
 
             <TextView
-                android:id="@+id/tvDatePostAllManga"
+                android:id="@+id/tvDatePostAllNovel"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@+id/cvAllManga"
-                app:layout_constraintTop_toBottomOf="@+id/tvGenreAllManga" />
+                app:layout_constraintStart_toEndOf="@+id/cvAllNovel"
+                app:layout_constraintTop_toBottomOf="@+id/tvGenreAllNovel" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

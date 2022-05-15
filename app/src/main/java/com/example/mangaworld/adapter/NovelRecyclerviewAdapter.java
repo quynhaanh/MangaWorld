@@ -22,57 +22,57 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecyclerviewAdapter.MangaRecyclerViewHoder> {
-    private ArrayList<NovelModel> mangaArrayList = new ArrayList<>();
+public class NovelRecyclerviewAdapter extends RecyclerView.Adapter<NovelRecyclerviewAdapter.NovelRecyclerViewHoder> {
+    private ArrayList<NovelModel> novelArrayList = new ArrayList<>();
     String imageUrl = LoadActivity.url + "/api/truyenchu/images/";
 
-    public MangaRecyclerviewAdapter(ArrayList<NovelModel> mangaArrayList) {
-        this.mangaArrayList = mangaArrayList;
+    public NovelRecyclerviewAdapter(ArrayList<NovelModel> novelArrayList) {
+        this.novelArrayList = novelArrayList;
     }
 
     private ItemClickInterface itemClickInterface;
 
     @NonNull
     @Override
-    public MangaRecyclerViewHoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NovelRecyclerViewHoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_manga, parent, false);
-        return new MangaRecyclerViewHoder(view, parent.getContext());
+        return new NovelRecyclerViewHoder(view, parent.getContext());
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MangaRecyclerViewHoder holder, int position) {
+    public void onBindViewHolder(@NonNull NovelRecyclerViewHoder holder, int position) {
         bind(holder, position);
     }
 
     @Override
     public int getItemCount() {
-        if (mangaArrayList.size() > 0) {
-            return mangaArrayList.size();
+        if (novelArrayList.size() > 0) {
+            return novelArrayList.size();
         } else {
             return 0;
         }
     }
 
-    public class MangaRecyclerViewHoder extends RecyclerView.ViewHolder {
+    public class NovelRecyclerViewHoder extends RecyclerView.ViewHolder {
         public TextView tvName, tvViewCount, tvGenge;
-        public FrameLayout bg_item_manga;
+        public FrameLayout bg_item_novel;
         public ImageView imageView;
         public Context context;
 
-        public MangaRecyclerViewHoder(@NonNull View view, Context context) {
+        public NovelRecyclerViewHoder(@NonNull View view, Context context) {
             super(view);
             this.context = context;
-            this.imageView = (ImageView) view.findViewById(R.id.imgManga);
+            this.imageView = (ImageView) view.findViewById(R.id.imgNovel);
             this.tvName = (TextView) view.findViewById(R.id.tvName);
             this.tvGenge = (TextView) view.findViewById(R.id.tvGenre);
             this.tvViewCount = (TextView) view.findViewById(R.id.txtPrice);
-            this.bg_item_manga = (FrameLayout) view.findViewById(R.id.bg_item_manga);
+            this.bg_item_novel = (FrameLayout) view.findViewById(R.id.bg_item_novel);
             this.setIsRecyclable(false);
         }
     }
 
-    public void bind(@NonNull MangaRecyclerviewAdapter.MangaRecyclerViewHoder viewHolder, int i) {
-        NovelModel manga = mangaArrayList.get(i);
+    public void bind(@NonNull NovelRecyclerViewHoder viewHolder, int i) {
+        NovelModel manga = novelArrayList.get(i);
         Picasso.get()
                 .load(imageUrl + manga.getCover() + ".jpg")
                 .resize(500, 800)
@@ -99,7 +99,7 @@ public class MangaRecyclerviewAdapter extends RecyclerView.Adapter<MangaRecycler
             }
         });
 
-        viewHolder.bg_item_manga.setOnClickListener(new View.OnClickListener() {
+        viewHolder.bg_item_novel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 itemClickInterface.onClick(v, i);

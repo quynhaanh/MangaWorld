@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#DFDFDF"
-        tools:context=".activity.AllMangaActivity">
+        tools:context=".activity.AllNovelActivity">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -47,7 +47,7 @@
             app:queryHint="Tìm kiếm truyện" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleViewAllManga"
+            android:id="@+id/recycleViewAllNovel"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
@@ -60,7 +60,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnSearch" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmerAllManga"
+            android:id="@+id/shimmerAllNovel"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
