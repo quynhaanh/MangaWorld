@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -192,6 +193,15 @@ public class YourNovelAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 writeNovelData();
+            }
+        });
+
+        lvYourNovelChapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(YourNovelAddActivity.this, YourNovelDetailsActivity.class);
+                Bundle bundle = new Bundle();
+
             }
         });
     }
