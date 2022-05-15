@@ -1,6 +1,7 @@
 package com.example.mangaworld.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,10 @@ import androidx.annotation.Nullable;
 import com.example.mangaworld.R;
 import com.example.mangaworld.activity.CRUDAuthorActivity;
 import com.example.mangaworld.activity.CRUDChapterActivity;
+import com.example.mangaworld.activity.CRUDNovelActivity;
+import com.example.mangaworld.activity.MainActivity;
 import com.example.mangaworld.activity.YourNovelAddActivity;
+import com.example.mangaworld.activity.YourNovelDetailsActivity;
 import com.example.mangaworld.controller.ChapterController;
 import com.example.mangaworld.controller.IVolleyCallback;
 import com.example.mangaworld.controller.NovelController;
@@ -86,6 +90,17 @@ public class ChapterItemAdapter  extends ArrayAdapter {
             @Override
             public void onClick(View view) {
 //                ((CRUDChapterActivity) context).loadData(chapter);
+                if(MainActivity.loggedUser.getIdRole()==1)
+                {
+                    ((CRUDChapterActivity)context).loadData(chapter);
+                }
+                else if(MainActivity.loggedUser.getIdRole()==2)
+                {
+                    Intent intent = new Intent(context, YourNovelDetailsActivity.class);
+                    intent.putExtra("idChapter", chapter.getId());
+                    intent.putExtra("idNovelAdapter", chapter.getNovelID());
+                    context.startActivity(intent);
+                }
             }
         });
 

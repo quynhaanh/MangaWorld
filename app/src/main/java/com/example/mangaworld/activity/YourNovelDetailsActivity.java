@@ -24,11 +24,14 @@ public class YourNovelDetailsActivity extends AppCompatActivity {
     ChapterController chapterController;
 
     ChapterModel chapter;
+    ChapterModel loadChapter;
 
     ArrayList<ChapterModel> chapterData = new ArrayList<>();
 
     String url = LoadActivity.url;
     int novelID;
+    int novelIDAdapter;
+    int chapterID;
     boolean updateFlag = false;
 
     Bundle bundle;
@@ -42,12 +45,6 @@ public class YourNovelDetailsActivity extends AppCompatActivity {
     }
 
     private void setControl() {
-        bundle = getIntent().getExtras();
-        if(bundle!=null)
-        {
-            novelID = bundle.getInt("idNovel");
-        }
-
         txtYourNovelChapterName = findViewById(R.id.txtYourNovelChapterName);
         txtYourNovelChapterContent = findViewById(R.id.txtYourNovelChapterContent);
 
@@ -58,14 +55,38 @@ public class YourNovelDetailsActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
+        novelID = getIntent().getIntExtra("idNovel", -1);
+        novelIDAdapter = getIntent().getIntExtra("idNovelAdapter",-1);
+        chapterID = getIntent().getIntExtra("idChapter", -1);
+
+        if(chapterID != -1)
+        {
+            loadChapterData();
+        }
+
         btnYourNovelAddChapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chapter = new ChapterModel();
-                chapter.setId(chapterData.get(chapterData.size()-1).getId()+1);
+                if(chapterID != -1)
+                {
+                    chapter.setId(chapterID);
+                    chapter.setNovelID(novelIDAdapter);
+                }else{
+                    chapter.setId(chapterData.get(chapterData.size()-1).getId()+1);
+                    chapter.setNovelID(novelID);
+                }
                 chapter.setTitle(txtYourNovelChapterName.getText().toString());
                 chapter.setContent(txtYourNovelChapterContent.getText().toString());
-                chapter.setNovelID(novelID);
+
+                for(ChapterModel chapterModel : chapterData)
+                {
+                    if(chapter.getId() == chapterModel.getId())
+                    {
+                        updateFlag = true;
+                        break;
+                    }
+                }
 
                 if (updateFlag == true) {
                     chapterController.updateChapter(chapter, new IVolleyCallback() {
@@ -95,6 +116,20 @@ public class YourNovelDetailsActivity extends AppCompatActivity {
             public void onSuccess(String result) {
                 chapterData.clear();
                 chapterData.addAll(chapterController.convertJSONData(result));
+            }
+        });
+    }
+
+    private void loadChapterData()
+    {
+        updateFlag = true;
+        chapterController.getChapterById(novelIDAdapter, new IVolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                loadChapter = chapterController.convertJSONChapter(result);
+
+                txtYourNovelChapterName.setText(loadChapter.getTitle());
+                txtYourNovelChapterContent.setText(loadChapter.getContent());
             }
         });
     }
