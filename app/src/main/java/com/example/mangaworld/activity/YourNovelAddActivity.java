@@ -307,22 +307,20 @@ public class YourNovelAddActivity extends AppCompatActivity {
 
         //NovelGenresModel novelGenresModel = new NovelGenresModel();
         //novelGenresModel.setNovelID(6);
-        Log.d("Value size", values.length+"");
         for(String value : values)
         {
-
             //getGenreIdByName(value);
 
             for(GenreModel iGenre : genreData)
             {
-
-                if(value.equalsIgnoreCase(iGenre.getName()))
+                if(value.equals(iGenre.getName()))
                 {
                     NovelGenresModel novelGenresModel = new NovelGenresModel();
-                    novelGenresModel.setNovelID(novel.getId());
+                    novelGenresModel.setNovelID(10);
                     novelGenresModel.setGenreID(iGenre.getId());
 
-                    novelGenresController.insertNovelGenre(novelGenresModel, new IVolleyCallback() {
+                    NovelGenresController controller = new NovelGenresController(LoadActivity.url, this);
+                    controller.insertNovelGenre(novelGenresModel, new IVolleyCallback() {
                         @Override
                         public void onSuccess(String result) {
                             Log.d("insert Novel Genre", "1");
