@@ -86,8 +86,7 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
                 else if(MainActivity.loggedUser.getIdRole()==2)
                 {
                     Intent intent = new Intent(context, YourNovelAddActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("idNovel", novel.getId());
+                    intent.putExtra("idNovel", novel.getId());
                     context.startActivity(intent);
                 }
 

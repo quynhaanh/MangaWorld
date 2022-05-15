@@ -74,10 +74,9 @@
                 android:id="@+id/txtYourNovelDesc"
                 style="@style/ed_normal"
                 android:inputType="textMultiLine"
-                android:lines="3"
                 android:maxLines="3"
-                android:minLines="3"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:maxLength="256"/>
 
             <ListView
                 android:id="@+id/lvYourNovelChapter"
