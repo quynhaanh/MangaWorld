@@ -39,7 +39,10 @@ public class HomeFragmentNew extends Fragment {
     public HomeFragmentNew() {
         // Required empty public constructor
     }
+
     MainActivity mainAcdsctivity;
+    ArrayList<NovelModel> newestNovelData = new ArrayList<>();
+
 
     //slider
     private Handler mhandler = new Handler();
@@ -47,7 +50,7 @@ public class HomeFragmentNew extends Fragment {
     private ViewPager2 viewPager2;
     private CircleIndicator3 indicator3;
     private ShimmerFrameLayout shimmerFrameLayout;
-    private ArrayList<NovelModel> slideArrayList ;
+    private ArrayList<NovelModel> slideArrayList;
 
     //popular
     private RecyclerView recycleViewPopulation;
@@ -81,10 +84,9 @@ public class HomeFragmentNew extends Fragment {
         @Override
         public void run() {
             //nếu slide di chuyển đến cuối thì set lại về đầu
-            if(viewPager2.getCurrentItem() == slideArrayList.size() - 1){
+            if (viewPager2.getCurrentItem() == slideArrayList.size() - 1) {
                 viewPager2.setCurrentItem(0);
-            }
-            else {
+            } else {
                 viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);
             }
         }
@@ -120,9 +122,14 @@ public class HomeFragmentNew extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_new, container, false);
         LoadSlide(view);
         LoadPopular(view);
+
+        initNewestData();
+        initPopularData();
 //        LoadManhua(view);
 //        LoadManhwa(view);
 //        LoadTopManga(view);
+
+
         return view;
     }
 
@@ -148,23 +155,13 @@ public class HomeFragmentNew extends Fragment {
         mhandler.removeCallbacks(runnable);
     }
 
-    public void LoadSlide(View view){
+    public void LoadSlide(View view) {
         viewPager2 = view.findViewById(R.id.viewPagerTitle);
         indicator3 = view.findViewById(R.id.indicator3);
         shimmerFrameLayout = view.findViewById(R.id.contentShimmerRecommended);
         shimmerFrameLayout.startShimmer();
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         slideArrayList = new ArrayList<>();
-
-        NovelController controller = new NovelController(LoadActivity.url, getActivity());
-        controller.getMostViewNovel(new IVolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                slideArrayList.clear();
-                slideArrayList.addAll(controller.convertJSONData(result));
-                viewPagerSlideAdapter.notifyDataSetChanged();
-            }
-        });
 
         viewPagerSlideAdapter = new ViewPagerSlideAdapter(slideArrayList);
         //click vào từng slider
@@ -173,7 +170,8 @@ public class HomeFragmentNew extends Fragment {
             public void onClick(View view, int position) {
                 Intent intent = new Intent(getContext(), DetailMangaActivity.class);
                 intent.putExtra("idManga", slideArrayList.get(position).getId());
-                startActivity(intent);            }
+                startActivity(intent);
+            }
         });
         viewPager2.setAdapter(viewPagerSlideAdapter);
         indicator3.setViewPager(viewPager2);
@@ -192,7 +190,7 @@ public class HomeFragmentNew extends Fragment {
         shimmerFrameLayout.setVisibility(View.GONE);
     }
 
-    public void LoadPopular(View view){
+    public void LoadPopular(View view) {
         recycleViewPopulation = view.findViewById(R.id.recycleViewPopulation);
         tvSeeAllPopular = view.findViewById(R.id.btnPopular);
         shimmerPopular = view.findViewById(R.id.contentShimmerPopular);
@@ -200,15 +198,6 @@ public class HomeFragmentNew extends Fragment {
         shimmerPopular.setVisibility(View.VISIBLE);
         popularMangaArrayList = new ArrayList<>();
 
-        NovelController controller = new NovelController(LoadActivity.url, getActivity());
-        controller.getMostViewNovel(new IVolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                popularMangaArrayList.clear();
-                popularMangaArrayList.addAll(controller.convertJSONData(result));
-                mangaRecyclerviewAdapter.notifyDataSetChanged();
-            }
-        });
 
         mangaRecyclerviewAdapter = new MangaRecyclerviewAdapter(popularMangaArrayList);
         //click vào từng nút +
@@ -217,7 +206,8 @@ public class HomeFragmentNew extends Fragment {
             public void onClick(View view, int position) {
                 Intent intent = new Intent(getContext(), DetailMangaActivity.class);
                 intent.putExtra("idManga", popularMangaArrayList.get(position).getId());
-                startActivity(intent);            }
+                startActivity(intent);
+            }
         });
         recycleViewPopulation.setAdapter(mangaRecyclerviewAdapter);
         LinearLayoutManager layoutManager
@@ -399,4 +389,37 @@ public class HomeFragmentNew extends Fragment {
 //        shimmerTopNovel.stopShimmer();
 //        shimmerTopNovel.setVisibility(View.GONE);
 //    }
+
+    private void initNewestData() {
+        NovelController controller = new NovelController(LoadActivity.url, getActivity());
+        controller.getNewestNovel(new IVolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                newestNovelData.clear();
+                newestNovelData.addAll(controller.convertJSONData(result));
+
+                slideArrayList.clear();
+                for (int i = 0; i < 4; i++) {
+                    if (i > newestNovelData.size() - 1)
+                        break;
+
+                    slideArrayList.add(newestNovelData.get(i));
+                }
+
+                viewPagerSlideAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void initPopularData() {
+        NovelController controller = new NovelController(LoadActivity.url, getActivity());
+        controller.getMostViewNovel(new IVolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                popularMangaArrayList.clear();
+                popularMangaArrayList.addAll(controller.convertJSONData(result));
+                mangaRecyclerviewAdapter.notifyDataSetChanged();
+            }
+        });
+    }
 }

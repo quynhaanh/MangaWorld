@@ -54,11 +54,11 @@ public class GenreController {
         APICallPost("insert", genre, callback);
     }
 
-    public void updateGenre(GenreModel genre,IVolleyCallback callback) {
+    public void updateGenre(GenreModel genre, IVolleyCallback callback) {
         APICallPost("update", genre, callback);
     }
 
-    public void deleteGenre(GenreModel genre,IVolleyCallback callback) {
+    public void deleteGenre(GenreModel genre, IVolleyCallback callback) {
         APICallPost("delete", genre, callback);
     }
 
@@ -127,6 +127,34 @@ public class GenreController {
         RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
         queue.add(request);
     }
+
+    public void getGenreByNovelID(int novelID, IVolleyCallback callback) {
+        String urlAPI = url + "/api/truyenchu/get_genre_by_idnovel.php";
+
+        StringRequest request = new StringRequest(Request.Method.POST, urlAPI, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("IDNovel", novelID + "");
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
 
     public ArrayList<GenreModel> convertJSONData(String json) {
         ArrayList<GenreModel> data = new ArrayList<>();

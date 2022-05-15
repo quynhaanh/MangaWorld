@@ -164,6 +164,26 @@ public class NovelController {
         queue.add(request);
     }
 
+    public void getNewestNovel(IVolleyCallback callback)
+    {
+        String urlGet = url + "/api/truyenchu/get_newest_novel.php";
+        StringRequest request = new StringRequest(Request.Method.GET, urlGet, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(),
+                        error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
     public void getNovelByIDUser(String idUser, IVolleyCallback callback)
     {
         String urlPost = url + "/api/truyenchu/get_novel_by_iduser.php";

@@ -1,8 +1,9 @@
 <?php
 require "connect.php";
 
-$query = "SELECT n.ID, n.Title, ID_Author, Description, Cover, n.Date_Post, View, ID_User 
-FROM novel n, (SELECT ID_Novel FROM chapter ORDER BY Date_Post DESC LIMIT 4) c WHERE n.ID = c.ID_Novel";
+$query = "SELECT DISTINCT n.ID, n.Title, ID_Author, Description, Cover, n.Date_Post, View, ID_User 
+FROM novel n, (SELECT ID_Novel, Date_Post FROM chapter ORDER BY Date_Post DESC) c WHERE n.ID = c.ID_Novel
+ORDER BY c.Date_Post DESC";
 $result = mysqli_query($connect, $query);
 $temp_array = array();
 $total_records = mysqli_num_rows($result);
