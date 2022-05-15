@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 
 public class CRUDUserActivity extends AppCompatActivity {
     EditText edID, edName, edEmail, edPass;
-    Button btnCommit;
+    ImageButton btnCommit;
     ListView listView;
     SearchView searchView;
     Spinner spinnerRole;

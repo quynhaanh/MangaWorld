@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -50,8 +51,8 @@ public class AuthorItemAdapter extends ArrayAdapter {
         TextView tvID = convertView.findViewById(R.id.tvItemIDAuthor);
         TextView tvName = convertView.findViewById(R.id.tvItemNameAuthor);
 
-        Button btnSua = convertView.findViewById(R.id.btnItemSuaAuthor);
-        Button btnXoa = convertView.findViewById(R.id.btnItemXoaAuthor);
+        ImageButton btnSua = convertView.findViewById(R.id.btnItemSuaAuthor);
+        ImageButton btnXoa = convertView.findViewById(R.id.btnItemXoaAuthor);
 
         AuthorModel author = data.get(position);
         tvID.setText(String.valueOf(author.getId()));

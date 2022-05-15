@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/list_border"
@@ -51,15 +52,22 @@
         android:gravity="right"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnItemSuaAuthor"
-            style="@style/btn_list_item"
-            android:text="Sửa" />
 
-        <Button
+        <ImageButton
+            android:id="@+id/btnItemSuaAuthor"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/ic_baseline_edit_24"
+            android:background="@drawable/buttonshape2"
+            />
+
+        <ImageButton
             android:id="@+id/btnItemXoaAuthor"
-            style="@style/btn_list_item"
-            android:text="Xóa" />
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/ic_baseline_delete_forever_24"
+            android:background="@drawable/buttonshape2"
+            />
     </LinearLayout>
 
 </LinearLayout>
