@@ -79,7 +79,7 @@ public class YourNovelActivity extends AppCompatActivity {
 
     public void refreshListYourNovel()
     {
-        novelController.getNovel(new IVolleyCallback() {
+        novelController.getNovelByIDUser(MainActivity.loggedUser.getId(), new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 novelData.clear();

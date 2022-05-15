@@ -50,11 +50,17 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_collections_24"/>
 
-            <EditText
-                android:id="@+id/txtYourNovelCoverName"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tên hinh ảnh"/>
+                android:hint="Chọn thể loại"
+                android:id="@+id/tvMultiSelectGenre"
+                android:padding="12dp"
+                android:drawablePadding="16dp"
+                android:drawableEnd="@android:drawable/arrow_down_float"
+                android:background="@android:drawable/editbox_background"
+                />
+
         </LinearLayout>
 
         <TextView

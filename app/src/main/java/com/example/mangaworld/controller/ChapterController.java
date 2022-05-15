@@ -64,6 +64,35 @@ public class ChapterController {
         APICallGet(callback);
     }
 
+    public void getChaptersByNovelId(int idNovel, IVolleyCallback callback)
+    {
+        String urlPost = url + "/api/truyenchu/get_chapter_by_idnovel.php";
+        StringRequest request = new StringRequest(Request.Method.POST, urlPost, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity.getApplicationContext(),
+                        error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("IDNovel", String.valueOf(idNovel));
+
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(activity.getApplicationContext());
+        queue.add(request);
+    }
+
     private void APICallPost(String type, ChapterModel chapter, IVolleyCallback callback) {
         String urlAPI = url + "/api/truyenchu/api_chapter.php";
 
