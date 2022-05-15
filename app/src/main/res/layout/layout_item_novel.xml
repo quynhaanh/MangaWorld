@@ -52,25 +52,20 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:gravity="right"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/btnNovelUpdate"
             style="@style/btn_list_item"
-            android:text="Update" />
+            android:text="Sửa" />
 
         <Button
             android:id="@+id/btnNovelDel"
             style="@style/btn_list_item"
-            android:text="Delete" />
-<!--        <Button-->
-<!--            android:id="@+id/btnNovelDetail"-->
-<!--            style="@style/btn_list_item"-->
-<!--            android:text="Details" />-->
+            android:text="Xóa" />
     </LinearLayout>
 
 </LinearLayout>

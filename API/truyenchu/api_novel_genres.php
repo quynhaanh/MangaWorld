@@ -12,6 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($type == "delete") {
         $query = "DELETE FROM novel_genres WHERE ID_Novel = '$id_novel' AND ID_Genre='$id_genre'";
     }
+    if ($type == "delete_by_id_novel") {
+        $query = "DELETE FROM novel_genres WHERE ID_Novel = '$id_novel'";
+    }
     if ($type == "delete_all") {
         $query = "DELETE FROM novel_genres";
     }

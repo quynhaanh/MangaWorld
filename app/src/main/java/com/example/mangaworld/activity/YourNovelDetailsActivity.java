@@ -34,8 +34,6 @@ public class YourNovelDetailsActivity extends AppCompatActivity {
     int chapterID;
     boolean updateFlag = false;
 
-    Bundle bundle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +97,7 @@ public class YourNovelDetailsActivity extends AppCompatActivity {
                     chapterController.insertChapter(chapter, new IVolleyCallback() {
                         @Override
                         public void onSuccess(String result) {
-                            getChapters();
+                            finish();
                         }
                     });
                 }

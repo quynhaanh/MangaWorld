@@ -25,7 +25,10 @@ import com.example.mangaworld.controller.NovelController;
 import com.example.mangaworld.model.ChapterModel;
 import com.example.mangaworld.model.NovelModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ChapterItemAdapter  extends ArrayAdapter {
     ArrayList<ChapterModel> data;
@@ -53,9 +56,7 @@ public class ChapterItemAdapter  extends ArrayAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(resource, null);
 
-        TextView tvID = convertView.findViewById(R.id.tvItemIDChapter);
         TextView tvName = convertView.findViewById(R.id.tvItemNameChapter);
-        TextView tvNovel = convertView.findViewById(R.id.tvItemChapterNovel);
         TextView tvDate = convertView.findViewById(R.id.tvItemDateChapter);
 
         Button btnSua = convertView.findViewById(R.id.btnItemSuaChapter);
@@ -64,43 +65,23 @@ public class ChapterItemAdapter  extends ArrayAdapter {
 
 
         ChapterModel chapter = data.get(position);
-        tvID.setText(String.valueOf(chapter.getId()));
+
         tvName.setText(chapter.getTitle());
-        //tvNovel.setText(String.valueOf(chapter.getNovelID()));
-        tvDate.setText(chapter.getDatePost());
 
-        ArrayList<NovelModel> listBook = new ArrayList<>();
-        NovelController novelController = new NovelController(url, (YourNovelAddActivity) context);
-        novelController.getNovel(new IVolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                listBook.addAll(novelController.convertJSONData(result));
-                for (NovelModel novel : listBook) {
-                    if(novel.getId()==chapter.getNovelID())
-                    {
-                        tvNovel.setText(novel.getTitle());
-                    }
-                }
-            }
-        });
-
-
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(chapter.getDatePost());
+            tvDate.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date));
+        } catch (ParseException e) {
+            tvDate.setText(chapter.getDatePost());
+        }
 
         btnSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                ((CRUDChapterActivity) context).loadData(chapter);
-                if(MainActivity.loggedUser.getIdRole()==1)
-                {
-                    ((CRUDChapterActivity)context).loadData(chapter);
-                }
-                else if(MainActivity.loggedUser.getIdRole()==2)
-                {
-                    Intent intent = new Intent(context, YourNovelDetailsActivity.class);
-                    intent.putExtra("idChapter", chapter.getId());
-                    intent.putExtra("idNovelAdapter", chapter.getNovelID());
-                    context.startActivity(intent);
-                }
+              Intent intent = new Intent(context, YourNovelDetailsActivity.class);
+                intent.putExtra("idChapter", chapter.getId());
+                intent.putExtra("idNovelAdapter", chapter.getNovelID());
+                context.startActivity(intent);
             }
         });
 

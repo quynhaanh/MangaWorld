@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -70,7 +71,6 @@ public class YourNovelAddActivity extends AppCompatActivity {
     String[] arrAuthName;
     ArrayList<ChapterModel> chapterData = new ArrayList<>();
     ArrayList<GenreModel> genreData = new ArrayList<>();
-    ArrayList<NovelGenresModel> novelGenresData = new ArrayList<>();
 
     NovelController novelController;
     AuthorController authorController;
@@ -78,19 +78,15 @@ public class YourNovelAddActivity extends AppCompatActivity {
     GenreController genreController;
     NovelGenresController novelGenresController;
 
-    //NovelItemAdapter novelItemAdapter;
     ChapterItemAdapter chapterItemAdapter;
-    GenreItemAdapter genreItemAdapter;
 
     NovelModel loadNovel;
-    AuthorModel author;
 
     int novelID;
 
     String url = LoadActivity.url;
 
     int authorID;
-    int genreID;
     String authorName;
     boolean updateFlag = false;
     boolean updateFlagAuth = false;
@@ -216,6 +212,14 @@ public class YourNovelAddActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        lvYourNovelChapter.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
     }
 
     private void setControl() {
@@ -261,10 +265,6 @@ public class YourNovelAddActivity extends AppCompatActivity {
             updateFlagAuth = false;
         }
 
-//        author = new AuthorModel();
-//        author.setId(authorID);
-//        author.setName(authorName);
-
         if (updateFlagAuth) {
             AuthorModel authorModel = new AuthorModel();
             authorModel.setId(authorID);
@@ -292,13 +292,11 @@ public class YourNovelAddActivity extends AppCompatActivity {
         novel.setIdUser(MainActivity.loggedUser.getId());
         novel.setViewCount(0);
 
-        bitmap =((BitmapDrawable)ivCover.getDrawable()).getBitmap();
+        bitmap = ((BitmapDrawable) ivCover.getDrawable()).getBitmap();
         if (bitmap == null) {
             Toast.makeText(YourNovelAddActivity.this, "Vui lòng chọn ảnh bìa!", Toast.LENGTH_SHORT).show();
             return;
-        }
-        else
-        {
+        } else {
             novel.setCoverImageData(imageToString(bitmap));
         }
 
@@ -307,7 +305,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
                 novelController.updateNovel(novel, new IVolleyCallback() {
                     @Override
                     public void onSuccess(String result) {
-                        NovelGenresController controller = new NovelGenresController(LoadActivity.url, YourNovelAddActivity.this);
+                        NovelGenresController controller = new NovelGenresController(url, YourNovelAddActivity.this);
                         controller.deleteGenresByIDNovel(novelID, new IVolleyCallback() {
                             @Override
                             public void onSuccess(String result) {
@@ -332,16 +330,18 @@ public class YourNovelAddActivity extends AppCompatActivity {
     private void insertNovelGenres(int idNovel) {
         String temp = tvMultiSelectGenre.getText().toString();
         String[] values = temp.split(",");
-
-        for (String value : values) {
+        for (int i=0; i < values.length; i++) {
             NovelGenresModel novelGenresModel = new NovelGenresModel();
             novelGenresModel.setNovelID(idNovel);
-            novelGenresModel.setGenreID(genreMap.get(value.trim()));
+            novelGenresModel.setGenreID(genreMap.get(values[i].trim()));
 
-            NovelGenresController controller = new NovelGenresController(LoadActivity.url, this);
+            int finalI = i;
+            NovelGenresController controller = new NovelGenresController(url, this);
             controller.insertNovelGenre(novelGenresModel, new IVolleyCallback() {
                 @Override
                 public void onSuccess(String result) {
+                    if (finalI == values.length - 1)
+                        finish();
                 }
             });
         }
@@ -382,7 +382,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
         novelController.getNovelByID(novelID, new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
-                String imageUrl = LoadActivity.url + "/api/truyenchu/images/";
+                String imageUrl = url + "/api/truyenchu/images/";
 
                 loadNovel = novelController.convertJSONNovel(result);
 
@@ -481,7 +481,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
             public void onSuccess(String result) {
                 genreData.clear();
                 genreData.addAll(genreController.convertJSONData(result));
-                //genreItemAdapter.notifyDataSetChanged();
+
                 for (GenreModel iGenre : genreData) {
                     genreMap.put(iGenre.getName(), iGenre.getId());
                 }

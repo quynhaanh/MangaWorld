@@ -42,7 +42,8 @@
             style="@style/Widget.AppCompat.EditText"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:gravity="top"/>
 
         <Button
             android:id="@+id/btnYourNovelAddChapter"

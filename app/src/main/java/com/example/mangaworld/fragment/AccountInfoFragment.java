@@ -121,6 +121,7 @@ public class AccountInfoFragment extends Fragment {
                 } else if (user.getIdRole() == 2) {
                     // user here - Chuyển hướng sang ACtivity của Long ở đây
                     Intent intent = new Intent(getActivity(), YourNovelActivity.class);
+                    intent.putExtra("adminMode",false);
                     startActivity(intent);
                     //=======================
                 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.mangaworld.R;
 import com.example.mangaworld.adapter.NovelItemAdapter;
@@ -18,7 +19,7 @@ import com.example.mangaworld.model.NovelModel;
 import java.util.ArrayList;
 
 public class YourNovelActivity extends AppCompatActivity {
-
+    TextView tvTitle;
     Button btnYourNovelToAdding;
     ListView lvYourNovel;
 
@@ -27,6 +28,8 @@ public class YourNovelActivity extends AppCompatActivity {
     NovelController novelController;
     ArrayList<NovelModel> novelData = new ArrayList<>();
     NovelItemAdapter novelItemAdapter;
+
+    boolean adminMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +41,12 @@ public class YourNovelActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
+        tvTitle.setText(adminMode ? "Quản lý truyện" : "Truyện đã đăng");
+
         lvYourNovel.setAdapter(novelItemAdapter);
         btnYourNovelToAdding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity, YourNovelAddActivity.class);
-//                startActivity(intent);
                 startActivity(new Intent(YourNovelActivity.this, YourNovelAddActivity.class));
             }
         });
@@ -62,23 +65,36 @@ public class YourNovelActivity extends AppCompatActivity {
     }
 
     private void setControl() {
+        adminMode = getIntent().getBooleanExtra("adminMode", false);
+
         btnYourNovelToAdding = findViewById(R.id.btnYourNovelToAdding);
         lvYourNovel = findViewById(R.id.lvYourNovel);
+        tvTitle = findViewById(R.id.tvYourNovelTitle);
 
         novelController = new NovelController(url, this);
         novelItemAdapter = new NovelItemAdapter(YourNovelActivity.this,
                 R.layout.layout_item_novel, novelData, url);
     }
 
-    public void refreshListYourNovel()
-    {
-        novelController.getNovelByIDUser(MainActivity.loggedUser.getId(), new IVolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                novelData.clear();
-                novelData.addAll(novelController.convertJSONData(result));
-                novelItemAdapter.notifyDataSetChanged();
-            }
-        });
+    public void refreshListYourNovel() {
+        if (adminMode) {
+            novelController.getNovel(new IVolleyCallback() {
+                @Override
+                public void onSuccess(String result) {
+                    novelData.clear();
+                    novelData.addAll(novelController.convertJSONData(result));
+                    novelItemAdapter.notifyDataSetChanged();
+                }
+            });
+        } else {
+            novelController.getNovelByIDUser(MainActivity.loggedUser.getId(), new IVolleyCallback() {
+                @Override
+                public void onSuccess(String result) {
+                    novelData.clear();
+                    novelData.addAll(novelController.convertJSONData(result));
+                    novelItemAdapter.notifyDataSetChanged();
+                }
+            });
+        }
     }
 }

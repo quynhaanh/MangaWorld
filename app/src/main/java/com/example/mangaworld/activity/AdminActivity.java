@@ -21,7 +21,9 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void gotoNovel(View view){
-        startActivity(new Intent(this, CRUDNovelActivity.class));
+        Intent intent = new Intent(this, YourNovelActivity.class);
+        intent.putExtra("adminMode",true);
+        startActivity(intent);
     }
 
     public void gotoAuthor(View view) {
@@ -31,11 +33,6 @@ public class AdminActivity extends AppCompatActivity {
     public void gotoGenre(View view) {
 
         startActivity(new Intent(this, CRUDGenreActivity.class));
-    }
-
-    public void gotoChapter(View view) {
-
-        startActivity(new Intent(this, CRUDChapterActivity.class));
     }
 
     public void gotoChart(View view) {

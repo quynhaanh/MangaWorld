@@ -8,7 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         FROM novel_genres, genre WHERE ID_Genre = ID GROUP BY Genre_Name";
     }
     if ($type == "sum") {
-        $query = "SELECT COUNT(ID_Novel) AS Count, Genre_Name FROM novel_genres, genre WHERE ID_Genre = ID";
+        $query = "SELECT SUM(View) AS Count, Genre_Name FROM novel n, novel_genres ng, genre g
+        WHERE ng.ID_Genre = g.ID AND ng.ID_Novel = n.ID GROUP BY Genre_Name";
     }
 
     $result = mysqli_query($connect, $query);

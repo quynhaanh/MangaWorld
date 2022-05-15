@@ -65,7 +65,6 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
 
         Button btnNovelUpdate = convertView.findViewById(R.id.btnNovelUpdate);
         Button btnNovelDel = convertView.findViewById(R.id.btnNovelDel);
-        //Button btnNovelDetail = convertView.findViewById(R.id.btnNovelDetail);
 
         NovelModel novel = objects.get(position);
 
@@ -78,17 +77,9 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
         btnNovelUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //((YourNovelAddActivity)context).loadBookData(novel);
-                if(MainActivity.loggedUser.getIdRole()==1)
-                {
-                    ((CRUDNovelActivity)context).loadNovelData(novel);
-                }
-                else if(MainActivity.loggedUser.getIdRole()==2)
-                {
-                    Intent intent = new Intent(context, YourNovelAddActivity.class);
-                    intent.putExtra("idNovel", novel.getId());
-                    context.startActivity(intent);
-                }
+                Intent intent = new Intent(context, YourNovelAddActivity.class);
+                intent.putExtra("idNovel", novel.getId());
+                context.startActivity(intent);
 
             }
         });
@@ -110,18 +101,9 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
                         novelController.deleteNovel(novel, new IVolleyCallback() {
                             @Override
                             public void onSuccess(String result) {
-                                if(MainActivity.loggedUser.getIdRole() == 1)
-                                {
-                                    ((CRUDNovelActivity)context).refreshListNovel();
-                                    Toast.makeText(context, "Xóa thành công " + novel.getTitle(),
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                                else if(MainActivity.loggedUser.getIdRole() == 2)
-                                {
-                                    ((YourNovelActivity)context).refreshListYourNovel();
-                                    Toast.makeText(context, "Xóa thành công " + novel.getTitle(),
-                                            Toast.LENGTH_SHORT).show();
-                                }
+                                ((YourNovelActivity)context).refreshListYourNovel();
+                                Toast.makeText(context, "Xóa thành công " + novel.getTitle(),
+                                        Toast.LENGTH_SHORT).show();
                             }
                         });
 
