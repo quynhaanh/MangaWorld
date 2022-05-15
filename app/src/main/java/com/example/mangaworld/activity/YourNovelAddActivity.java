@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.mangaworld.R;
 import com.example.mangaworld.adapter.ChapterItemAdapter;
+import com.example.mangaworld.adapter.GenreItemAdapter;
 import com.example.mangaworld.controller.AuthorController;
 import com.example.mangaworld.controller.ChapterController;
 import com.example.mangaworld.controller.GenreController;
@@ -34,6 +35,7 @@ import com.example.mangaworld.model.AuthorModel;
 import com.example.mangaworld.model.ChapterModel;
 import com.example.mangaworld.model.Genre;
 import com.example.mangaworld.model.GenreModel;
+import com.example.mangaworld.model.NovelGenresModel;
 import com.example.mangaworld.model.NovelModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -47,7 +49,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
 
     EditText txtYourNovelTitle, txtYourNovelDesc;
     TextView tvMultiSelectGenre;
-    AutoCompleteTextView txtYourNovelAuthor; // Editable ComboBox(perhaps)
+    AutoCompleteTextView txtYourNovelAuthor;
     Button btnYourNovelConfirm;
     FloatingActionButton fbtnYourNovelToDetails;
     ImageButton ibtnYourNovelImgPicker;
@@ -61,8 +63,11 @@ public class YourNovelAddActivity extends AppCompatActivity {
 
     ArrayList<NovelModel> novelData = new ArrayList<>();
     ArrayList<AuthorModel> authorData = new ArrayList<>();
+    ArrayList<String> authorNameData = new ArrayList<>();
+    String[] arrAuthName;
     ArrayList<ChapterModel> chapterData = new ArrayList<>();
     ArrayList<GenreModel> genreData = new ArrayList<>();
+    ArrayList<NovelGenresModel> novelGenresData = new ArrayList<>();
 
     NovelController novelController;
     AuthorController authorController;
@@ -72,6 +77,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
 
     //NovelItemAdapter novelItemAdapter;
     ChapterItemAdapter chapterItemAdapter;
+    GenreItemAdapter genreItemAdapter;
 
     NovelModel loadNovel;
     AuthorModel author;
@@ -80,6 +86,9 @@ public class YourNovelAddActivity extends AppCompatActivity {
 
     String url = LoadActivity.url;
     int novelID = -1;
+    int authorID;
+    int genreID;
+    String authorName;
     boolean updateFlag = false;
     boolean updateFlagAuth = false;
     Bitmap bitmap;
@@ -94,10 +103,6 @@ public class YourNovelAddActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
-        if(bundle!=null)
-        {
-            loadNovelData();
-        }
 
         lvYourNovelChapter.setAdapter(chapterItemAdapter);
 
@@ -202,21 +207,16 @@ public class YourNovelAddActivity extends AppCompatActivity {
         getNovelList();
 
         chapterController = new ChapterController(url, this);
+        if(bundle!=null)
+        {
+            loadNovelData();
+        }
 
         genreController = new GenreController(url, this);
         getGenreList();
 
-//        GenreModel g1 = new GenreModel(1, "Comedy");
-//        GenreModel g2 = new GenreModel(1, "Action");
-//        GenreModel g3 = new GenreModel(1, "Fantasy");
-//        GenreModel g4 = new GenreModel(1, "Horror");
-//
-//        genreData.add(g1);
-//        genreData.add(g2);
-//        genreData.add(g3);
-//        genreData.add(g4);
-
-        //novelGenresController = new NovelGenresController(url, this);
+        novelGenresController = new NovelGenresController(url, this);
+        getNovelGenreList();
 
         txtYourNovelTitle = findViewById(R.id.txtYourNovelTitle);
         txtYourNovelDesc = findViewById(R.id.txtYourNovelDesc);
@@ -224,10 +224,10 @@ public class YourNovelAddActivity extends AppCompatActivity {
 
         tvMultiSelectGenre = findViewById(R.id.tvMultiSelectGenre);
 
-        ArrayAdapter adapterNovelAuthor = new ArrayAdapter(this,
-                android.R.layout.simple_dropdown_item_1line,
-                authorData);
-        txtYourNovelAuthor.setAdapter(adapterNovelAuthor);
+//        ArrayAdapter adapterNovelAuthor = new ArrayAdapter(this,
+//                android.R.layout.simple_dropdown_item_1line,
+//                arrAuthName);
+//        txtYourNovelAuthor.setAdapter(adapterNovelAuthor);
 
         btnYourNovelConfirm = findViewById(R.id.btnYourNovelConfirm);
 
@@ -239,86 +239,104 @@ public class YourNovelAddActivity extends AppCompatActivity {
         chapterController = new ChapterController(url, this);
         chapterItemAdapter = new ChapterItemAdapter(YourNovelAddActivity.this,
                 R.layout.layout_item_chapter, chapterData, url);
-
-        // Phan multiselect
-        for(GenreModel iGenre : genreData)
-        {
-            genreArray.add(iGenre.getName());
-            Log.d("GenreArray #0",genreArray.get(0));
-        }
-
-        array = new String[genreArray.size()];
-        genreArray.toArray(array);
-        genreSelected = new boolean[array.length];
     }
+
 
     private void writeNovelData()
     {
-        String authorName = txtYourNovelAuthor.toString().trim();
-        int authorID = authorData.get(authorData.size()-1).getId();
-        updateFlagAuth = true;
+//        authorName = txtYourNovelAuthor.getText().toString().trim();
+//        authorID = authorData.get(authorData.size()-1).getId()+1;
+//
+//        author = new AuthorModel();
+//        author.setId(authorID);
+//        author.setName(authorName);
+//
+//        for (AuthorModel authorModel : authorData) {
+//            if (authorModel.getName().equalsIgnoreCase(author.getName())) {
+//                authorID = authorModel.getId();
+//                updateFlagAuth = true;
+//                break;
+//            }
+//        }
+//
+//        if(!updateFlagAuth)
+//        {
+//            authorController.insertAuthor(author, new IVolleyCallback() {
+//                @Override
+//                public void onSuccess(String result) {
+//                    Log.d("insertAuthor", "1");
+//                }
+//            });
+//        }
+//        updateFlagAuth = false;
+//
+//        NovelModel novel = new NovelModel();
+//        novel.setId(novelData.get(novelData.size()-1).getId() + 1);
+//        novel.setTitle(txtYourNovelTitle.getText().toString());
+//        novel.setIdAuthor(authorID);
+//        novel.setCover(novel.getId() + "-Cover");
+//        novel.setDescription(txtYourNovelDesc.getText().toString());
+//        //novel.setDatePost();
+//        novel.setIdUser(MainActivity.loggedUser.getId());
+//        novel.setCoverImageData(imageToString(bitmap));
+//
+//        try {
+//            if (updateFlag == true) {
+//                novelController.updateNovel(novel, new IVolleyCallback() {
+//                    @Override
+//                    public void onSuccess(String result) {
+//                        Toast.makeText(YourNovelAddActivity.this,
+//                                "Sửa thành công" + novel.getTitle(),
+//                                Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            } else {
+//                novelController.insertNovel(novel, new IVolleyCallback() {
+//                    @Override
+//                    public void onSuccess(String result) {
+//                        Toast.makeText(YourNovelAddActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//
+//        updateFlag = false;
 
-        for (AuthorModel iAuthor : authorData) {
-            if(iAuthor.getName().equals( authorName))
+        String temp = tvMultiSelectGenre.getText().toString();
+        String[] values = temp.split(",");
+        temp = "";
+
+        //NovelGenresModel novelGenresModel = new NovelGenresModel();
+        //novelGenresModel.setNovelID(6);
+        Log.d("Value size", values.length+"");
+        for(String value : values)
+        {
+
+            //getGenreIdByName(value);
+
+            for(GenreModel iGenre : genreData)
             {
-                authorID = iAuthor.getId();
-                updateFlagAuth = false;
-                Log.d("for" , authorID+"");
-                break;
+
+                if(value.equalsIgnoreCase(iGenre.getName()))
+                {
+                    NovelGenresModel novelGenresModel = new NovelGenresModel();
+                    novelGenresModel.setNovelID(6);
+                    novelGenresModel.setGenreID(iGenre.getId());
+
+                    novelGenresController.insertNovelGenre(novelGenresModel, new IVolleyCallback() {
+                        @Override
+                        public void onSuccess(String result) {
+                            Log.d("insert Novel Genre", "1");
+                        }
+                    });
+                    break;
+                }
             }
         }
 
-        author = new AuthorModel();
-        author.setId(authorID+1);
-        author.setName(authorName);
-        if(updateFlagAuth)
-        {
-            authorController.updateAuthor(author, new IVolleyCallback() {
-                @Override
-                public void onSuccess(String result) {
-                    Log.d("updateAuthor", "1");
-                }
-            });
-        }else{
-            authorController.insertAuthor(author, new IVolleyCallback() {
-                @Override
-                public void onSuccess(String result) {
-                    Log.d("insertAuthor", "1");
-                }
-            });
-        }
-
-        NovelModel novel = new NovelModel();
-        novel.setId(novelData.get(novelData.size()-1).getId() + 1);
-        novel.setTitle(txtYourNovelTitle.getText().toString());
-        novel.setIdAuthor(authorID);
-        novel.setCover(novel.getId() + "-Cover");
-        novel.setDescription(txtYourNovelDesc.getText().toString());
-        //novel.setDatePost();
-        novel.setIdUser(MainActivity.loggedUser.getId());
-        novel.setCoverImageData(imageToString(bitmap));
-
-        if (updateFlag == true) {
-            novelController.updateNovel(novel, new IVolleyCallback() {
-                @Override
-                public void onSuccess(String result) {
-                    Toast.makeText(YourNovelAddActivity.this,
-                            "Update success" + novel.getTitle(),
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } else {
-            novelController.insertNovel(novel, new IVolleyCallback() {
-                @Override
-                public void onSuccess(String result) {
-                    Toast.makeText(YourNovelAddActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
-        updateFlag = false;
-        refreshListNovel();
+        //refreshListNovel();
     }
 
     private String imageToString(Bitmap bitmap) {
@@ -392,6 +410,45 @@ public class YourNovelAddActivity extends AppCompatActivity {
             public void onSuccess(String result) {
                 authorData.clear();
                 authorData.addAll(authorController.convertJSONData(result));
+                for (AuthorModel iAuthor : authorData)
+                {
+                    authorNameData.add(iAuthor.getName());
+                }
+
+                arrAuthName = new String[authorNameData.size()];
+                authorNameData.toArray(arrAuthName);
+            }
+        });
+    }
+
+    private void getAuthorIdByName(String name)
+    {
+        authorController.getAuthors(new IVolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                authorData.clear();
+                authorData.addAll(authorController.convertJSONData(result));
+
+                for (AuthorModel iAuthor : authorData) {
+                    if(iAuthor.getName().equals(name))
+                    {
+                        authorID = iAuthor.getId();
+                        updateFlagAuth = false;
+                        Log.d("forAuthorID" , authorID+"");
+                        break;
+                    }
+                }
+            }
+        });
+    }
+
+    private void getNovelGenreList()
+    {
+        novelGenresController.getNovelGenres(new IVolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                novelGenresData.clear();
+                novelGenresData.addAll(novelGenresController.convertJSONData(result));
             }
         });
     }
@@ -409,11 +466,42 @@ public class YourNovelAddActivity extends AppCompatActivity {
 
     private void getGenreList()
     {
+        // Chạy bất đồng bộ
+        // Không thể xử lý array ở ngoài onSuccess
         genreController.getGenres(new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 genreData.clear();
                 genreData.addAll(genreController.convertJSONData(result));
+                //genreItemAdapter.notifyDataSetChanged();
+                for(GenreModel iGenre : genreData)
+                {
+                    genreArray.add(iGenre.getName());
+                    Log.d("GenreArray #0",genreArray.get(0));
+                }
+
+                array = new String[genreArray.size()];
+                genreArray.toArray(array);
+                genreSelected = new boolean[array.length];
+            }
+        });
+    }
+
+    private void getGenreIdByName(String name)
+    {
+        genreController.getGenres(new IVolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                genreData.clear();
+                genreData.addAll(genreController.convertJSONData(result));
+
+                for(GenreModel iGenre : genreData)
+                {
+                    if(iGenre.getName().equalsIgnoreCase(name))
+                    {
+                        genreID = iGenre.getId();
+                    }
+                }
             }
         });
     }

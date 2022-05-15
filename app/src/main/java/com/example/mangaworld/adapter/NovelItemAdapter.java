@@ -78,6 +78,7 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
             @Override
             public void onClick(View view) {
                 //((YourNovelAddActivity)context).loadBookData(novel);
+
             }
         });
 
