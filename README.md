@@ -1,4 +1,4 @@
-# MangaWorld
+# TruyenChu (tên cũ là MangaWorld)
 
 Project này được thực hiện bởi các thành viên lớp D18CQCP01-N trường PTIT HCM:
  - Nguyễn Hải Đăng
