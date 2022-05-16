@@ -62,15 +62,16 @@
         <ImageButton
             android:id="@+id/btnNovelUpdate"
             android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             app:srcCompat="@drawable/ic_baseline_edit_24"
             android:background="@drawable/buttonshape2" />
 
         <ImageButton
             android:id="@+id/btnNovelDel"
             android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:background="@drawable/buttonshape2"
+            android:layout_marginTop="5dp"
             app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
     </LinearLayout>
 

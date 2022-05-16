@@ -98,6 +98,7 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
+                        novel.setCoverImageData("");
                         // Del Novel on confirmation
                         novelController.deleteNovel(novel, new IVolleyCallback() {
                             @Override

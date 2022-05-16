@@ -106,6 +106,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
             loadNovelData();
         } else {
             getGenreList();
+            getAuthorList();
         }
 
         getNovelList();
@@ -277,6 +278,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
                 }
             });
         } else {
+
             writeData();
         }
     }
@@ -362,6 +364,12 @@ public class YourNovelAddActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        getChapterListByNovelId();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -426,8 +434,12 @@ public class YourNovelAddActivity extends AppCompatActivity {
                     authorMap.put(iAuthor.getName(), iAuthor.getId());
                 }
 
-                authorName = getAuthorNameById(loadNovel.getIdAuthor());
-                txtYourNovelAuthor.setText(authorName);
+                if(loadNovel!=null)
+                {
+                    authorName = getAuthorNameById(loadNovel.getIdAuthor());
+                    txtYourNovelAuthor.setText(authorName);
+                }
+
             }
         });
     }
@@ -469,6 +481,7 @@ public class YourNovelAddActivity extends AppCompatActivity {
                 if (!updateFlag) {
                     novelID = novelData.get(novelData.size() - 1).getId() + 1;
                 }
+
             }
         });
     }
