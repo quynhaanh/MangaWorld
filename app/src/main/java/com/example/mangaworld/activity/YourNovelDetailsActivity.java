@@ -53,9 +53,10 @@ public class YourNovelDetailsActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
-        novelID = getIntent().getIntExtra("idNovel", -1);
-        novelIDAdapter = getIntent().getIntExtra("idNovelAdapter",-1);
-        chapterID = getIntent().getIntExtra("idChapter", -1);
+        novelID = getIntent().getIntExtra("idNovel", -1);// Gửi từ float button thêm mới
+
+        novelIDAdapter = getIntent().getIntExtra("idNovelAdapter",-1); // Gửi từ adapter
+        chapterID = getIntent().getIntExtra("idChapter", -1); // Gửi từ adapter
 
         if(chapterID != -1)
         {
@@ -90,7 +91,7 @@ public class YourNovelDetailsActivity extends AppCompatActivity {
                     chapterController.updateChapter(chapter, new IVolleyCallback() {
                         @Override
                         public void onSuccess(String result) {
-                            getChapters();
+                            finish();
                         }
                     });
                 } else {
@@ -121,7 +122,7 @@ public class YourNovelDetailsActivity extends AppCompatActivity {
     private void loadChapterData()
     {
         updateFlag = true;
-        chapterController.getChapterById(novelIDAdapter, new IVolleyCallback() {
+        chapterController.getChapterById(chapterID, new IVolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 loadChapter = chapterController.convertJSONChapter(result);
