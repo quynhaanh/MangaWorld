@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/cardview_dark_background"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,23 +14,37 @@
         android:orientation="vertical"
         android:padding="50dp">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAccountSignIn"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Đăng nhập"
-            android:textSize="15sp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/background_btn_account"/>
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
 
-        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="Đăng nhập"
+
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAccountSignUp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:layout_marginTop="20dp"
             android:text="Tạo tài khoản"
-            android:textSize="15sp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/background_btn_account"
+
             />
     </LinearLayout>
 

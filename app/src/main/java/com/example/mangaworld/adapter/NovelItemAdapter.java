@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,8 +64,8 @@ public class NovelItemAdapter extends ArrayAdapter<NovelModel> {
         TextView tvNovelID = convertView.findViewById(R.id.tvNovelID);
         TextView tvNovelTitle = convertView.findViewById(R.id.tvNovelTitle);
 
-        Button btnNovelUpdate = convertView.findViewById(R.id.btnNovelUpdate);
-        Button btnNovelDel = convertView.findViewById(R.id.btnNovelDel);
+        ImageButton btnNovelUpdate = convertView.findViewById(R.id.btnNovelUpdate);
+        ImageButton btnNovelDel = convertView.findViewById(R.id.btnNovelDel);
 
         NovelModel novel = objects.get(position);
 

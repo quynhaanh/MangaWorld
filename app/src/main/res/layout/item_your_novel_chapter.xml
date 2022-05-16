@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -30,16 +31,20 @@
         android:orientation="horizontal"
         android:gravity="right">
 
+
         <ImageButton
             android:id="@+id/btnYourNovelChapterEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_edit_24"/>
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/ic_baseline_edit_24"
+            android:background="@drawable/buttonshape2" />
+
         <ImageButton
             android:id="@+id/btnYourNovelChapterDel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_delete_forever_24"/>
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="@drawable/buttonshape2"
+            app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
     </LinearLayout>
 
 </LinearLayout>

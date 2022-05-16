@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,8 +60,8 @@ public class ChapterItemAdapter  extends ArrayAdapter {
         TextView tvName = convertView.findViewById(R.id.tvItemNameChapter);
         TextView tvDate = convertView.findViewById(R.id.tvItemDateChapter);
 
-        Button btnSua = convertView.findViewById(R.id.btnItemSuaChapter);
-        Button btnXoa = convertView.findViewById(R.id.btnItemXoaChapter);
+        ImageButton btnSua = convertView.findViewById(R.id.btnItemSuaChapter);
+        ImageButton btnXoa = convertView.findViewById(R.id.btnItemXoaChapter);
 
 
 

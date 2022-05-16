@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/list_border"
     android:orientation="horizontal"
     android:padding="5dp">
@@ -52,15 +53,22 @@
         android:gravity="right"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnItemSuaChapter"
-            style="@style/btn_list_item"
-            android:text="Sửa" />
 
-        <Button
+        <ImageButton
+            android:id="@+id/btnItemSuaChapter"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/ic_baseline_edit_24"
+            android:background="@drawable/buttonshape2"
+            />
+
+        <ImageButton
             android:id="@+id/btnItemXoaChapter"
-            style="@style/btn_list_item"
-            android:text="Xóa" />
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/ic_baseline_delete_forever_24"
+            android:background="@drawable/buttonshape2"
+            />
     </LinearLayout>
 
 </LinearLayout>
